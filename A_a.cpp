@@ -162,13 +162,16 @@ void solve()
         else
         {
             cnt_b++;
+            // nothing;
         }
     }
 
-    if(cnt_a<=cnt_b){
+    if (cnt_a <= cnt_b)
+    {
         out("Alice");
     }
-    else{
+    else
+    {
         out("Bob");
     }
 }
