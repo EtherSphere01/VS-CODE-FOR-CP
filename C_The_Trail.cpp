@@ -209,6 +209,8 @@ void solve()
             colsum[move.second] += arr[move.first][move.second];
             move.second++;
         }
+
+        //! changes test for github;
     }
 
     arr[n][m] = 0 - rowsum[n];
