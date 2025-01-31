@@ -121,7 +121,8 @@
     "thread": "cpp",
     "typeindex": "cpp",
     "typeinfo": "cpp",
-    "valarray": "cpp"
+    "valarray": "cpp",
+    "string_view": "cpp"
   },
   "cph.general.saveLocation": "",
   "C_Cpp.errorSquiggles": "enabled"
