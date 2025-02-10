@@ -147,48 +147,44 @@ void solve()
 
     ll n, m;
     cin >> n >> m;
-    vl a(n), b(m);
-    rep(i, 0, n) cin >> a[i];
-    rep(i, 0, m) cin >> b[i];
-    sort(all(b));
-
-    if (is_sorted(all(a)))
-    {
-        yes;
-        return;
-    }
-
-    ll prev = -LONG_MAX;
+    vl a[n];
+    vpair p;
     for (ll i = 0; i < n; i++)
     {
-        ll curr_value = a[i];
-        ll need = prev + curr_value;
-        auto index = lower_bound(all(b), need);
-        if (index != b.end())
+        ll sum = 0;
+        for (ll j = 0; j < m; j++)
         {
-            ll value = b[index - b.begin()];
-            if(a[i] < prev){
-                a[i] = value - a[i];
-            }
-            else{
-                a[i] = min(value - a[i], a[i]);
-            }
+            ll x;
+            cin >> x;
+            sum += x;
+            a[i].pb(x);
         }
-        if(a[i] < prev){
-            no;
-            return;
-        }
-        prev = a[i];
+        p.pb(mp(sum, i));
     }
 
-    if (is_sorted(all(a)))
+    sort(allr(p));
+
+    vl ans;
+
+    for (ll i = 0; i < n; i++)
     {
-        yes;
+        for (ll j = 0; j < m; j++)
+        {
+            ans.pb(a[p[i].ss][j]);
+        }
     }
-    else
+
+    vl presum(n * m + 1, 0);
+    for (ll i = 1; i <= n * m; i++)
     {
-        no;
+        presum[i] = presum[i - 1] + ans[i - 1];
     }
+    ll sum2 = 0;
+    for (ll i = 1; i <= n * m; i++)
+    {
+        sum2 += presum[i];
+    }
+    out(sum2);
 }
 
 int main()

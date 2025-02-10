@@ -145,50 +145,43 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll n, m;
-    cin >> n >> m;
-    vl a(n), b(m);
-    rep(i, 0, n) cin >> a[i];
-    rep(i, 0, m) cin >> b[i];
-    sort(all(b));
-
-    if (is_sorted(all(a)))
+    ll n;
+    cin >> n;
+    ll m;
+    cin >> m;
+    ll k;
+    cin >> k;
+    vector<char> c = {'0', '1'};
+    if (n > m)
     {
-        yes;
+        swap(n, m);
+        swap(c[0], c[1]);
+    }
+    if (m - n > k || m < k)
+    {
+        cout << -1 << endl;
         return;
     }
-
-    ll prev = -LONG_MAX;
-    for (ll i = 0; i < n; i++)
+    while (m > 0 || n > 0)
     {
-        ll curr_value = a[i];
-        ll need = prev + curr_value;
-        auto index = lower_bound(all(b), need);
-        if (index != b.end())
+        for (ll i = 0; i < k; i++)
         {
-            ll value = b[index - b.begin()];
-            if(a[i] < prev){
-                a[i] = value - a[i];
-            }
-            else{
-                a[i] = min(value - a[i], a[i]);
+            if (m > 0)
+            {
+                cout << c[1];
+                m--;
             }
         }
-        if(a[i] < prev){
-            no;
-            return;
+        for (ll i = 0; i < k; i++)
+        {
+            if (n > 0)
+            {
+                cout << c[0];
+                n--;
+            }
         }
-        prev = a[i];
     }
-
-    if (is_sorted(all(a)))
-    {
-        yes;
-    }
-    else
-    {
-        no;
-    }
+    cout << nline;
 }
 
 int main()

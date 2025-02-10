@@ -145,50 +145,39 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll n, m;
-    cin >> n >> m;
-    vl a(n), b(m);
-    rep(i, 0, n) cin >> a[i];
-    rep(i, 0, m) cin >> b[i];
-    sort(all(b));
-
-    if (is_sorted(all(a)))
+    ll n;
+    cin >> n;
+    vl v(n + 1);
+    for (ll i = 1; i <= n; i++)
     {
-        yes;
-        return;
+        cin >> v[i];
     }
-
-    ll prev = -LONG_MAX;
-    for (ll i = 0; i < n; i++)
+    vl adj[n+1];
+    string s(n, '0');
+    for (ll i = 0; i < n - 1; i++)
     {
-        ll curr_value = a[i];
-        ll need = prev + curr_value;
-        auto index = lower_bound(all(b), need);
-        if (index != b.end())
+        ll u, v1;
+        cin >> u >> v1;
+        if (v[u] == v[v1])
         {
-            ll value = b[index - b.begin()];
-            if(a[i] < prev){
-                a[i] = value - a[i];
-            }
-            else{
-                a[i] = min(value - a[i], a[i]);
+            s[v[u] - 1] = '1';
+        }
+        adj[u].pb(v1);
+        adj[v1].pb(u);
+    }
+    for (ll i = 1; i <= n; i++)
+    {
+        map<ll, ll> f;
+        for (auto &&j : adj[i])
+        {
+            f[v[j]]++;
+            if (f[v[j]] == 2)
+            {
+                s[v[j] - 1] = '1';
             }
         }
-        if(a[i] < prev){
-            no;
-            return;
-        }
-        prev = a[i];
     }
-
-    if (is_sorted(all(a)))
-    {
-        yes;
-    }
-    else
-    {
-        no;
-    }
+    cout << s << nline;
 }
 
 int main()
