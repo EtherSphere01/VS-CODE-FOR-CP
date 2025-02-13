@@ -145,74 +145,52 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll n;
-    cin >> n;
-    vl a(n);
+    ll n, k;
+    cin >> n >> k;
+    multiset<ll> ms;
     map<ll, ll> m;
-    for (auto &i : a)
+    vl a(n);
+    rep(i, 0, n)
     {
-        cin >> i;
-        m[i]++;
+        ll x;
+        cin >> x;
+        ms.insert(x);
+        a[i] = x;
+        m[x]++;
     }
-
-    vl duo;
-    for (auto i : m)
-    {
-        if (i.ss >= 2)
-        {
-            duo.pb(i.ff);
-        }
-    }
-
-    if (duo.size() == 0)
-    {
-        cout << -1 << nline;
-        return;
-    }
-
     sort(all(a));
-    bool f = false;
-    for (ll i = 0; i < duo.size(); i++)
+
+    ll count = 0;
+    for (ll i = 0; i < n; i++)
     {
-        ll x = duo[i];
-        for (ll j = 0; j < n - 1; j++)
+        ll x = a[i];
+        ll y = k - x;
+        if (ms.find(x) != ms.end())
         {
-            if (a[j] != x and a[j + 1] != x)
-            {
-                if (2 * x > abs(a[j] - a[j + 1]))
-                {
-                    cout << x << sp << x << sp;
-                    cout << a[j] << sp << a[j + 1] << nline;
-                    return;
-                }
-            }
-            else if (a[j] == x and a[j + 1] != x andd m[x] >= 3)
-            {
-                if (2 * x > abs(a[j] - a[j + 1]))
-                {
-                    cout << x << sp << x << sp;
-                    cout << x << sp << a[j + 1] << nline;
-                    return;
-                }
-            }
-            else if (a[j] != x and a[j + 1] == x andd m[x] >= 3)
-            {
-                if (2 * x > abs(a[j] - a[j + 1]))
-                {
-                    cout << x << sp << x << sp;
-                    cout << a[j] << sp << x << nline;
-                    return;
-                }
-            }
-            else if (a[j] == x and a[j + 1] == x andd m[x] >= 4)
-            {
-                cout << x << sp << x << sp;
-                cout << x << sp << x << nline;
-                return;
-            }
+            ms.erase(ms.find(x));
+            m[x]--;
+        }
+        else
+        {
+            continue;
+        }
+        if (ms.find(y) != ms.end())
+        {
+            count++;
+            ms.erase(ms.find(y));
+            m[x]--;
+            m[y]--;
         }
     }
-    out(-1);
+
+    if (sz(ms) % 2 == 0)
+    {
+        out(count);
+    }
+    else
+    {
+        out(count - 1);
+    }
 }
 
 int main()

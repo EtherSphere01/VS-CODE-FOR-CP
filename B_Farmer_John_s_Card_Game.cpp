@@ -145,74 +145,52 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll n;
-    cin >> n;
-    vl a(n);
-    map<ll, ll> m;
-    for (auto &i : a)
+    ll n, m;
+    cin >> n >> m;
+    ll total = n * m;
+    vpair v(total);
+    ll k = 0;
+    for (ll i = 0; i < n; i++)
     {
-        cin >> i;
-        m[i]++;
-    }
-
-    vl duo;
-    for (auto i : m)
-    {
-        if (i.ss >= 2)
+        for (ll j = 0; j < m; j++)
         {
-            duo.pb(i.ff);
+            ll x;
+            cin >> x;
+            v[k++] = {x, i + 1};
         }
     }
 
-    if (duo.size() == 0)
+    sort(all(v));
+    debug(v);
+    bool f = true;
+    ll temp = m;
+    ll j = 0;
+    while (temp--)
     {
-        cout << -1 << nline;
-        return;
-    }
-
-    sort(all(a));
-    bool f = false;
-    for (ll i = 0; i < duo.size(); i++)
-    {
-        ll x = duo[i];
-        for (ll j = 0; j < n - 1; j++)
+        ll x = v[j].second;
+        for (ll i = j; i < total; i += n)
         {
-            if (a[j] != x and a[j + 1] != x)
+            if (v[i].second != x)
             {
-                if (2 * x > abs(a[j] - a[j + 1]))
-                {
-                    cout << x << sp << x << sp;
-                    cout << a[j] << sp << a[j + 1] << nline;
-                    return;
-                }
-            }
-            else if (a[j] == x and a[j + 1] != x andd m[x] >= 3)
-            {
-                if (2 * x > abs(a[j] - a[j + 1]))
-                {
-                    cout << x << sp << x << sp;
-                    cout << x << sp << a[j + 1] << nline;
-                    return;
-                }
-            }
-            else if (a[j] != x and a[j + 1] == x andd m[x] >= 3)
-            {
-                if (2 * x > abs(a[j] - a[j + 1]))
-                {
-                    cout << x << sp << x << sp;
-                    cout << a[j] << sp << x << nline;
-                    return;
-                }
-            }
-            else if (a[j] == x and a[j + 1] == x andd m[x] >= 4)
-            {
-                cout << x << sp << x << sp;
-                cout << x << sp << x << nline;
-                return;
+                f = false;
+                break;
             }
         }
+        j++;
     }
-    out(-1);
+
+    if (f)
+    {
+        for (ll i = 0; i < n; i++)
+        {
+            cout << v[i].ss << " ";
+        }
+        cout << nline;
+    }
+    else
+    {
+        out(-1);
+    }
 }
 
 int main()

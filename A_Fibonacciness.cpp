@@ -145,74 +145,24 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll n;
-    cin >> n;
-    vl a(n);
-    map<ll, ll> m;
-    for (auto &i : a)
-    {
-        cin >> i;
-        m[i]++;
-    }
+    ll a1, a2, a3, a4, a5;
+    cin >> a1 >> a2 >> a4 >> a5;
+    ll first = a1 + a2;
+    ll second = a4 - a2;
+    ll third = a5 - a4;
 
-    vl duo;
-    for (auto i : m)
+    if (first == second and second == third)
     {
-        if (i.ss >= 2)
-        {
-            duo.pb(i.ff);
-        }
+        out(3);
     }
-
-    if (duo.size() == 0)
+    else if (first == second or first == third or second == third)
     {
-        cout << -1 << nline;
-        return;
+        out(2);
     }
-
-    sort(all(a));
-    bool f = false;
-    for (ll i = 0; i < duo.size(); i++)
+    else if (first != second and second != third and first != third)
     {
-        ll x = duo[i];
-        for (ll j = 0; j < n - 1; j++)
-        {
-            if (a[j] != x and a[j + 1] != x)
-            {
-                if (2 * x > abs(a[j] - a[j + 1]))
-                {
-                    cout << x << sp << x << sp;
-                    cout << a[j] << sp << a[j + 1] << nline;
-                    return;
-                }
-            }
-            else if (a[j] == x and a[j + 1] != x andd m[x] >= 3)
-            {
-                if (2 * x > abs(a[j] - a[j + 1]))
-                {
-                    cout << x << sp << x << sp;
-                    cout << x << sp << a[j + 1] << nline;
-                    return;
-                }
-            }
-            else if (a[j] != x and a[j + 1] == x andd m[x] >= 3)
-            {
-                if (2 * x > abs(a[j] - a[j + 1]))
-                {
-                    cout << x << sp << x << sp;
-                    cout << a[j] << sp << x << nline;
-                    return;
-                }
-            }
-            else if (a[j] == x and a[j + 1] == x andd m[x] >= 4)
-            {
-                cout << x << sp << x << sp;
-                cout << x << sp << x << nline;
-                return;
-            }
-        }
+        out(1);
     }
-    out(-1);
 }
 
 int main()
