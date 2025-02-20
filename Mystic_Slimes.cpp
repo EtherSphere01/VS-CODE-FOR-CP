@@ -148,64 +148,25 @@ void solve()
     ll n;
     cin >> n;
     vl a(n);
-    ll maxele = -1;
-    for (ll i = 0; i < n; i++)
-    {
-        cin >> a[i];
-        maxele = max(maxele, a[i]);
-    }
-
+    for (auto &i : a)
+        cin >> i;
+    ll maxele = 0;
+    ll temp1 = a[1];
+    ll temp2 = a[n - 2];
     if (n == 2)
     {
         out(abs(a[0] - a[1]));
         return;
     }
-    else if (n == 3)
-    {
-        if (a[0] == maxele or a[2] == maxele)
-        {
-            out(maxele);
-        }
-        else
-        {
-            ll x = a[0] + a[2];
-            ll ans1 = maxele - x;
-            ll ans2 = max(0LL, a[0]);
-            ll ans3 = max(0LL, a[2]);
-            out(max(ans1, max(ans2, ans3)));
-        }
-        return;
-    }
+
+    a[1] = abs(a[0] - a[1]);
+    a[n - 2] = abs(a[n - 1] - a[n - 2]);
 
     for (ll i = 0; i < n; i++)
     {
-        if (a[i] == maxele)
-        {
-            if (i != 1 and i != n - 2)
-            {
-                out(maxele);
-                return;
-            }
-        }
+        maxele = max(maxele, a[i]);
     }
-
-    ll count = 0;
-    ll left = -1, right = -1;
-    for (ll i = 0; i < n; i++)
-    {
-        if (a[i] == maxele)
-        {
-            count++;
-            left = i;
-        }
-    }
-    for (ll i = n - 1; i >= 0; i--)
-    {
-        if (a[i] == maxele)
-        {
-            right = i;
-        }
-    }
+    out(maxele);
 }
 
 int main()
