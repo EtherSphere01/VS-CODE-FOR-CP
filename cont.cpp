@@ -145,17 +145,31 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll n;
-    cin >> n;
-    multiset<ll> s;
-    ll ans = n / 5;
-    ll rem = ans;
-    while (rem >= 3)
+    string s;
+    cin >> s;
+    ll vowels = 0, consonants = 0, digits = 0;
+    for (ll i = 0; i < sz(s); i++)
     {
-        ll temp = rem;
-        temp /= 3;
-        ans += temp;
-        rem = (rem % 3) + temp;
+        if (s[i] == 'a' or s[i] == 'e' or s[i] == 'i' or s[i] == 'o' or s[i] == 'u')
+            vowels++;
+        else if (s[i] >= '0' and s[i] <= '9')
+            digits++;
+        else
+            consonants++;
+    }
+
+    ll ans = 0;
+    while (1)
+    {
+        if (vowels > 0 orr digits > 0 orr consonants > 0)
+        {
+            ans++;
+            vowels -= 2;
+            digits--;
+            consonants -= 3;
+        }
+        else
+            break;
     }
     out(ans);
 }

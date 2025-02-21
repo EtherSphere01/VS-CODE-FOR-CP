@@ -1,0 +1,1 @@
+{"name":"Local: cont","url":"e:\\GitHub\\VS-CODE-FOR-CP\\cont.cpp","tests":[{"id":1740150820579,"input":"3\naeiouaeiou\nhello\nae12io","output":"5\n1\n2"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"e:\\GitHub\\VS-CODE-FOR-CP\\cont.cpp","group":"local","local":true}
