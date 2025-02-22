@@ -160,6 +160,7 @@ void solve()
     out(ans);
 }
 
+
 int main()
 {
     fastio();
