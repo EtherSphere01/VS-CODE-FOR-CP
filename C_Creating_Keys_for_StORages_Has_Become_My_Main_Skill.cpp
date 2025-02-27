@@ -145,157 +145,36 @@ void _print(map<T, V> v)
     cerr << "]";
 }
 
-ll power(ll a, ll b)
-{
-    ll ans = 1;
-    while (b > 0)
-    {
-        if ((b & 1) == 1)
-            ans *= a;
-        a *= a;
-        b = b >> 1;
-    }
-    return ans;
-}
-
 void solve()
 {
 
     ll n, x;
     cin >> n >> x;
-    if (n == 1)
-    {
-        out(x);
-        return;
-    }
-
-    bitset<32> b(x);
-    map<ll, ll> m;
-    rep(i, 0, 32)
-    {
-        if (b[i] == 1)
-        {
-            ll temp = power(2, i);
-            m[temp] = 1;
-        }
-    }
-
-    ll size = m.size();
-
-    if (size >= n)
-    {
-        ll t = n;
-        cout << x << sp;
-        t--;
-        m[x] = 1;
-        if (t != 0)
-        {
-            cout << 0 << sp;
-            t--;
-            m[0] = 1;
-        }
-        if (t != 0)
-        {
-            ll i = 0;
-            for (i = 0; i < 32; i++)
-            {
-                if (b[i] == 0)
-                {
-                    break;
-                }
-            }
-            i--;
-            ll temp = 0;
-            if (i == -1)
-            {
-                temp = 0;
-            }
-            else
-            {
-                for (ll k = 0; k <= i; k++)
-                {
-                    temp += power(2, k);
-                }
-            }
-
-            size = m.size();
-            ll remaining = n - 2;
-            if (remaining <= 0)
-            {
-                cout << nline;
-                return;
-            }
-
-            ll j = 0;
-            while (remaining > 0 andd j <= temp)
-            {
-                if (m[j] == 0)
-                {
-                    cout << j << sp;
-                    m[j] = 1;
-                    remaining--;
-                }
-                j++;
-            }
-
-            while (remaining--)
-            {
-                cout << x << sp;
-            }
-            cout << nline;
-        }
-        else
-        {
-            cout << nline;
-        }
-
-        return;
-    }
-    size = m.size();
-    for (auto i : m)
-    {
-        cout << i.first << sp;
-    }
-
-    ll remaining = n - size;
-    ll last1 = 0;
-
+    vl a(n, x);
     ll i = 0;
-    for (i = 0; i < 32; i++)
+    for (ll i = 0; i < n; i++)
     {
-        if (b[i] == 0)
+        if ((i | a[i]) == a[i])
         {
-            break;
+            a[i] = i;
         }
     }
-    i--;
-    ll temp = 0;
-    if (i == -1)
+
+    ll o = 0;
+    for (ll i = 0; i < n; i++)
     {
-        temp = 0;
+        o = o | a[i];
+    }
+
+    if (o == x)
+    {
+
+        show(a);
     }
     else
     {
-        for (ll k = 0; k <= i; k++)
-        {
-            temp += power(2, k);
-        }
-    }
-    ll j = 0;
-    while (remaining > 0 andd j <= temp)
-    {
-        if (m[j] == 0)
-        {
-            cout << j << sp;
-            m[j] = 1;
-            remaining--;
-        }
-        j++;
-    }
-
-    while (remaining--)
-    {
-        cout << x << sp;
+        a[n - 1] = x;
+        show(a);
     }
     cout << nline;
 }
