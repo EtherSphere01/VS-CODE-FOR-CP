@@ -197,10 +197,7 @@ void solve()
     show(parmu);
     cout << nline;
 
-    // checking github actions
-    // checking github actions
-    // checking github actions
-    // checking github actions
+
 }
 
 int main()
