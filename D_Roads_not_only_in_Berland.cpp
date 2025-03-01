@@ -197,7 +197,7 @@ void solve()
         }
     }
 
-    // ll check = par[1];
+    ll check = par[1];
     for (ll i = 2; i <= n; i++)
     {
         ll a = find(i);
