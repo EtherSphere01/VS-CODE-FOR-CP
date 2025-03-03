@@ -41,7 +41,10 @@ using namespace std;
 #define out(x) cout << x << nline
 #define rep(i, a, b) for (ll i = a; i < b; i++)
 #define rev(i, a, b) for (ll i = a; i >= b; i--)
-#define show(v, s, n)          \
+#define in(a)         \
+    for (auto &x : a) \
+        cin >> x;
+#define showr(v, s, n)         \
     for (ll i = s; i < n; i++) \
         cout << v[i] << sp;
 #define show(v)      \
@@ -145,6 +148,45 @@ void _print(map<T, V> v)
     cerr << "]";
 }
 
+bool check(ll mid, vl a, string s, ll k)
+{
+    ll n = a.size();
+    for (ll i = 0; i < n; i++)
+    {
+        if (a[i] <= mid)
+        {
+            s[i] = 'B';
+        }
+    }
+
+    ll segment = 0, blue = 0;
+    for (ll i = 0; i < n; i++)
+    {
+        if (s[i] == 'B')
+        {
+            blue++;
+        }
+        else
+        {
+            if (blue > 0)
+            {
+                segment++;
+                blue = 0;
+            }
+        }
+    }
+    if (blue > 0)
+    {
+        segment++;
+    }
+    if (k >= segment)
+    {
+        return true;
+    }
+    else
+        return false;
+}
+
 void solve()
 {
 
@@ -153,93 +195,27 @@ void solve()
     vl a(n);
     string s;
     cin >> s;
-    rep(i, 0, n) cin >> a[i];
+    in(a);
 
-    ll ans = 0;
-    ll count = 0;
-    for (ll i = 0; i < n; i++)
-    {
-        if (s[i] == 'R')
-            count++;
-        else
-        {
-            ans++;
-        }
-    }
+    ll left = 0, right = n;
 
-    if (count == n)
-    {
-        out(0);
-        return;
-    }
-
-    if (k >= ans)
-    {
-        out(0);
-        return;
-    }
-
-    ll blue_mini = INT_MAX;
-    ll blue_maxi = INT_MIN;
-    ll red_mini = INT_MAX;
-    ll red_maxi = INT_MIN;
-    vpair temp;
-
-    ll j = 0, i = 0;
-    // applyting sliding window
-    while (i < n andd j < n)
-    {
-        if (s[i] == 'R')
-        {
-            i++;
-            j = i;
-        }
-
-        if (s[j] == 'B')
-        {
-            blue_maxi = max(blue_maxi, a[j]);
-            j++;
-        }
-        else
-        {
-            if (a[j] <= blue_maxi)
-            {
-                if (blue_maxi != INT_MIN)
-                {
-                    red_maxi = max(red_maxi, a[j]);
-                }
-                j++;
-            }
-            else
-            {
-                temp.pb({blue_maxi, red_maxi});
-                i = j;
-                blue_maxi = INT_MIN;
-                red_maxi = INT_MIN;
-            }
-        }
-    }
-
-    if (blue_maxi != INT_MIN andd red_maxi != INT_MIN)
-    {
-        temp.pb({blue_maxi, red_maxi});
-    }
-
+    vl temp = a;
     sort(all(temp));
-    ll ansblue_maxi = INT_MIN;
-    ll ansred_maxi = INT_MIN;
-    i = 0;
-    for (i = 0; i < k; i++)
+    ll ans = 0;
+    while (left <= right)
     {
-        ansred_maxi = max(ansred_maxi, temp[i].ss);
+        ll mid = (left + right) / 2;
+        bool ok = check(temp[mid], a, s, k);
+        if (ok)
+        {
+            right = mid - 1;
+            ans = temp[mid];
+        }
+        else
+        {
+            left = mid + 1;
+        }
     }
-    ans = 0;
-
-    for (ll j = i; j < temp.size(); j++)
-    {
-        ans = max(ans, temp[j].ff);
-    }
-    ans = max(ans, ansred_maxi);
     out(ans);
 }
 
