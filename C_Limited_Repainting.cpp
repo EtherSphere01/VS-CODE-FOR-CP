@@ -155,7 +155,7 @@ bool check(ll mid, vl a, string s, ll k)
     {
         if (a[i] <= mid)
         {
-            s[i] = 'B';
+            s[i] = 'X';
         }
     }
 
@@ -166,7 +166,7 @@ bool check(ll mid, vl a, string s, ll k)
         {
             blue++;
         }
-        else
+        else if (s[i] == 'R')
         {
             if (blue > 0)
             {
@@ -197,7 +197,7 @@ void solve()
     cin >> s;
     in(a);
 
-    ll left = 0, right = n;
+    ll left = 0, right = 1e9+5;
 
     vl temp = a;
     sort(all(temp));
@@ -205,11 +205,11 @@ void solve()
     while (left <= right)
     {
         ll mid = (left + right) / 2;
-        bool ok = check(temp[mid], a, s, k);
+        bool ok = check(mid, a, s, k);
         if (ok)
         {
             right = mid - 1;
-            ans = temp[mid];
+            ans = mid;
         }
         else
         {
