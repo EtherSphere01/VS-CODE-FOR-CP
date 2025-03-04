@@ -41,6 +41,9 @@ using namespace std;
 #define out(x) cout << x << nline
 #define rep(i, a, b) for (ll i = a; i < b; i++)
 #define rev(i, a, b) for (ll i = a; i >= b; i--)
+#define in(a)         \
+    for (auto &x : a) \
+        cin >> x;
 #define showr(v, s, n)         \
     for (ll i = s; i < n; i++) \
         cout << v[i] << sp;
@@ -145,82 +148,60 @@ void _print(map<T, V> v)
     cerr << "]";
 }
 
-vector<vector<char>> grid;
-vector<vector<bool>> visited;
-vector<vector<ll>> dist;
-ll n, m;
-ll dx[4] = {1, -1, 0, 0};
-ll dy[4] = {0, 0, 1, -1};
-ll ans = 0;
-
-bool isvalid(ll x, ll y)
-{
-    if (x < 0 orr x >= n orr y < 0 orr y >= m)
-        return false;
-    if (visited[x][y] orr grid[x][y] == 'T')
-        return false;
-    return true;
-}
-
-void bfs(ll startx, ll starty, ll endx, ll endy)
-{
-    visited[startx][starty] = true;
-    queue<pair<ll, ll>> q;
-    q.push({startx, starty});
-    while (!q.empty())
-    {
-        auto p = q.front();
-        q.pop();
-        ll x = p.ff;
-        ll y = p.ss;
-        for (ll i = 0; i < 4; i++)
-        {
-            ll newx = x + dx[i];
-            ll newy = y + dy[i];
-            if (isvalid(newx, newy))
-            {
-                visited[newx][newy] = true;
-                q.push({newx, newy});
-                dist[newx][newy] = dist[x][y] + 1;
-            }
-        }
-    }
-}
-
 void solve()
 {
-    ll k;
-   
-    while (cin >> k)
+
+    ll n;
+    cin >> n;
+    vector<vector<char>> grid(n, vector<char>(n));
+    for (ll i = 0; i < n; i++)
     {
-        ans = 0;
-        cin >> n;
-        m = n;
-        grid.resize(n, vector<char>(m));
-        visited.resize(n, vector<bool>(m, false));
-        dist.resize(n, vector<ll>(m, 0));
-        ll startx, starty, endx, endy;
-        for (ll i = 0; i < n; i++)
+        string s;
+        cin >> s;
+        for (ll j = 0; j < n; j++)
         {
-            for (ll j = 0; j < n; j++)
+            grid[i][j] = s[j];
+        }
+    }
+    debug(grid);
+
+    vector<vector<ll>> dp(n, vector<ll>(n, 0));
+    if (grid[n - 1][n - 1] == '*')
+    {
+        dp[n - 1][n - 1] = 0;
+    }
+    else
+    {
+        dp[n - 1][n - 1] = 1;
+    }
+
+    for (ll i = n - 1; i >= 0; i--)
+    {
+        for (ll j = n - 1; j >= 0; j--)
+        {
+            if (i == n - 1 andd j == n - 1)
             {
-                cin >> grid[i][j];
-                if (grid[i][j] == 'S')
+                continue;
+            }
+            if (grid[i][j] == '*')
+            {
+                dp[i][j] = 0;
+                continue;
+            }
+            else
+            {
+                if (i < n - 1)
                 {
-                    startx = i;
-                    starty = j;
+                    dp[i][j] = (dp[i][j] + dp[i + 1][j]) % MOD;
                 }
-                if (grid[i][j] == 'E')
+                if (j < n - 1)
                 {
-                    endx = i;
-                    endy = j;
+                    dp[i][j] = (dp[i][j] + dp[i][j + 1]) % MOD;
                 }
             }
         }
-
-        bfs(startx, starty, endx, endy);
-        out(dist[endx][endy]);
     }
+    out(dp[0][0]);
 }
 
 int main()
