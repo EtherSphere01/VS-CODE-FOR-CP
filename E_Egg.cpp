@@ -148,37 +148,39 @@ void _print(map<T, V> v)
     cerr << "]";
 }
 
-ll gcd(ll a, ll b)
+ull gcd(ull a, ull b, ull d)
 {
-    return b == 0 ? a : gcd(b, a % b);
+    b = 0 ? a : gcd(b, a % b, d);
+    return b % d;
 }
 
-ll lcm(ll a, ll b)
+ull lcm(ull a, ull b, ull d)
 {
-    return (a / gcd(a, b)) * b;
+    return ((a / gcd(a, b, d)) * b) % d;
 }
 
-ll sum(ll n, ll r, ll d)
+ull sum(ull n, ull r, ull d)
 {
     if (n > r)
     {
         return 0;
     }
-    ll m = r / n;
-    ll mult = (m * (m + 1) / 2) % d;
+    ull m = r / n;
+    m %= d;
+    ull mult = (m * (m + 1) / 2) % d;
     return (n % d * mult) % d;
 }
 
 void solve()
 {
-    ll r, a, b, d;
+    ull r, a, b, d;
     cin >> r >> a >> b >> d;
 
-    ll sum1 = sum(a, r, d);
-    ll sum2 = sum(b, r, d);
-    ll sum3 = sum(lcm(a, b), r, d);
+    ull sum1 = sum(a, r, d);
+    ull sum2 = sum(b, r, d);
+    ull sum3 = sum(lcm(a, b, d), r, d);
 
-    ll total = (sum1 + sum2 - sum3) % d;
+    ull total = (sum1 % d + sum2 % d - sum3 % d) % d;
     if (total < 0)
     {
         total += d;

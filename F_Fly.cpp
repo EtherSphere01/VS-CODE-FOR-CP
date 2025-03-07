@@ -164,7 +164,7 @@ int main()
         cin >> n;
         ll total = (n * n);
         total -= 4;
-        ll temp = 4 * (((n - 2) * (n / 2)) / 2);
+        ll temp = n * (n - 2);
         total -= temp;
         cout << "Case " << i << ": " << total << nline;
     }
