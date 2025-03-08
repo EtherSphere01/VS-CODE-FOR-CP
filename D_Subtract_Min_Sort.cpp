@@ -169,7 +169,7 @@ void solve()
             return;
         }
 
-        else if (dq[0] == dq[1])
+        else if (dq[0] < dq[1])
         {
             dq[1]-=dq[0];
             dq.pop_front();
