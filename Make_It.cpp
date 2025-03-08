@@ -74,6 +74,11 @@ void solve()
 
     string s = dp[n] ? "YES" : "NO";
     out(s);
+    // if (dp[n])
+    // {
+    //     yes;
+    // }
+    
 }
 
 int main()
