@@ -151,50 +151,98 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll n;
+    ll n, limit;
     cin >> n;
-    ll lim = 2 * n;
 
-    vl b(lim);
-
+    limit = 2 * n;
+    vl b(limit);
     in(b);
 
-    sort(all(b));
-
-    ll sum = 0;
-    for (auto i : b)
+    unordered_set<ll> setb(all(b));
+    ll need = 1e9 + 1;
+    
+    ll tsum = 0;
+    for (ll i = 0; i < limit; i++)
     {
-        sum += i;
-    }
-
-    for (ll i = 0; i < lim; i++)
-    {
-        ll baki = sum - b[i];
-        if (baki % 2 == 0)
+        if (i % 2 == 0)
         {
-            ll first = baki / 2;
-            if (first > 0 andd first <= INF)
-            {
-                vl temp;
-                temp.pb(first);
-                for (ll j = 0; j < lim; j++)
-                {
-                    if (j != i)
-                    {
-                        temp.pb(b[j]);
-                    }
-                }
-                cout << temp[0];
-                for (ll j = 1; j < lim + 1; j++)
-                {
-                    cout << sp << temp[j];
-                }
-                cout << nline;
-                return;
-            }
+            tsum += b[i];
+        }
+        else
+        {
+            tsum -= b[i];
         }
     }
-    out(-1);
+
+    vl temp = b;
+
+    ll secondneed;
+    if (limit % 2 == 0)
+    {
+        secondneed = tsum;
+    }
+    else
+    {
+        secondneed = -tsum;
+    }
+
+    if (secondneed > 0 and setb.find(secondneed) == setb.end())
+    {
+        temp.pb(secondneed);
+    }
+    else
+    {
+        temp.clear();
+        for (ll i = 0; i < limit - 1; i++)
+        {
+            temp.pb(b[i]);
+        }
+
+        ll ele1 = need;
+        ll ele2 = need + 1;
+
+        tsum = 0;
+        for (ll i = 0; i < limit - 1; i++)
+        {
+            if (i % 2 == 0)
+            {
+                tsum += temp[i];
+            }
+            else
+            {
+                tsum -= temp[i];
+            }
+        }
+        if ((limit - 1) % 2 == 0)
+        {
+            ele2 = ele1 + tsum;
+        }
+        else
+        {
+            ele2 = ele1 - tsum;
+        }
+
+        if (ele2 <= 0 or setb.find(ele2) != setb.end())
+        {
+            ele1 = need + 2;
+            if ((limit - 1) % 2 == 0)
+            {
+                ele2 = ele1 + tsum;
+            }
+            else
+            {
+                ele2 = ele1 - tsum;
+            }
+        }
+        temp.pb(ele1);
+        temp.pb(ele2);
+    }
+
+    for (ll num : temp)
+    {
+        cout << num << sp;
+    }
+    cout << endl;
 }
 
 int main()
