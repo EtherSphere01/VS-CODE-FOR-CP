@@ -151,98 +151,24 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll n, limit;
+    ll n;
     cin >> n;
-
-    limit = 2 * n;
-    vl b(limit);
-    in(b);
-
-    unordered_set<ll> setb(all(b));
-    ll need = 1e9 + 1;
-    
-    ll tsum = 0;
-    for (ll i = 0; i < limit; i++)
-    {
-        if (i % 2 == 0)
-        {
-            tsum += b[i];
-        }
-        else
-        {
-            tsum -= b[i];
-        }
+    vl a(2 * n);
+    in(a);
+    sort(all(a));
+    ll sum = 0;
+    vl g;
+    for (ll i = 1; i < n; i++){
+        g.pb(a[i]);
+        g.pb(a[i + n - 1]);
+        sum += a[i + n - 1] - a[i];
     }
 
-    vl temp = b;
-
-    ll secondneed;
-    if (limit % 2 == 0)
-    {
-        secondneed = tsum;
-    }
-    else
-    {
-        secondneed = -tsum;
-    }
-
-    if (secondneed > 0 and setb.find(secondneed) == setb.end())
-    {
-        temp.pb(secondneed);
-    }
-    else
-    {
-        temp.clear();
-        for (ll i = 0; i < limit - 1; i++)
-        {
-            temp.pb(b[i]);
-        }
-
-        ll ele1 = need;
-        ll ele2 = need + 1;
-
-        tsum = 0;
-        for (ll i = 0; i < limit - 1; i++)
-        {
-            if (i % 2 == 0)
-            {
-                tsum += temp[i];
-            }
-            else
-            {
-                tsum -= temp[i];
-            }
-        }
-        if ((limit - 1) % 2 == 0)
-        {
-            ele2 = ele1 + tsum;
-        }
-        else
-        {
-            ele2 = ele1 - tsum;
-        }
-
-        if (ele2 <= 0 or setb.find(ele2) != setb.end())
-        {
-            ele1 = need + 2;
-            if ((limit - 1) % 2 == 0)
-            {
-                ele2 = ele1 + tsum;
-            }
-            else
-            {
-                ele2 = ele1 - tsum;
-            }
-        }
-        temp.pb(ele1);
-        temp.pb(ele2);
-    }
-
-    for (ll num : temp)
-    {
-        cout << num << sp;
-    }
-    cout << endl;
+    g.pb(sum + a[2 * n - 1] + a[0]);
+    g.pb(a[0]);
+    cout << a[2 * n - 1] << sp;
+    show(g);
+    cout << nline;
 }
 
 int main()
