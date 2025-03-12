@@ -68,12 +68,12 @@ void solve()
     {
         int p = price[i - 1];
         int pg = pages[i - 1];
-        for (int j = x; j >= 0; j--)
+        for (int j = sum; j >= 0; j--)
         {
             int pick = 0;
             if (j >= p)
             {
-                pick = dp[i - 1][j - p] + pg;
+                pick = dp[i - 1][j - p] + p;
             }
             int skip = dp[i - 1][j];
             dp[i][j] = max(pick, skip);
