@@ -54,31 +54,32 @@ void solve()
         cin >> coin[i];
         sum += coin[i];
     }
-    sum /= 2;
+    sum = (sum + 1) / 2;
     ll size = n / 2;
+    vl sizearray(n + 1, 1);
 
-    int n, x;
-    cin >> n >> x;
-    vl price(n), pages(n);
-    in(price);
-    in(pages);
-    vector<vector<int>> dp(n + 1, vector<int>(2e4, 0));
+    ll x = size;
+    vl price = sizearray, pages = coin;
+    vector<vector<int>> dp(n + 1, vector<int>(x+1, 0));
 
     for (int i = 1; i <= n; i++)
     {
         int p = price[i - 1];
         int pg = pages[i - 1];
-        for (int j = sum; j >= 0; j--)
+        for (int j = x; j >= 0; j--)
         {
             int pick = 0;
             if (j >= p)
             {
-                pick = dp[i - 1][j - p] + p;
+                pick = dp[i - 1][j - p] + pg;
             }
             int skip = dp[i - 1][j];
             dp[i][j] = max(pick, skip);
         }
     }
+    ll temp = dp[n][x];
+    ll ans = sum - temp;
+    out(abs(ans - temp));
 }
 
 int main()
