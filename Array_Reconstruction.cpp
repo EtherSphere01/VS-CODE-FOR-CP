@@ -44,7 +44,7 @@ typedef unsigned long long ull;
 typedef long double lld;
 
 const ll N = 2e5 + 5;
-vl dp(N, -1);
+vl dp;
 ll track = 0;
 ll getans(ll n)
 {
@@ -52,7 +52,7 @@ ll getans(ll n)
     {
         return 0;
     }
-    track++;
+    // track++;
     if (n == 0)
     {
         return 0;
@@ -90,17 +90,14 @@ void solve()
     cin >> presum;
     ll need = presum - sum;
 
-    for (ll i = 0; i <= need; i++)
-    {
-        dp[i] = -1;
-    }
+   dp.resize(need + 1, -1);
     dp[0] = 0;
-    for (ll i = 0; i <= n; i++)
-    {
-        cout << dp[i] << " ";
-    }
-    cout << nline;
     getans(need);
+    for (ll i = 1; i <= n; i++)
+    {
+        if (dp[i] != -1)
+            track++;
+    }
     out(track);
 }
 

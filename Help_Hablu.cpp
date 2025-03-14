@@ -72,14 +72,14 @@ void solve()
         }
     }
 
-    // for(auto i:dp)
-    // {
-    //     for(auto j:i)
-    //     {
-    //         cout<<j<<" ";
-    //     }
-    //     cout<<nline;
-    // }
+    for(auto i:dp)
+    {
+        for(auto j:i)
+        {
+            cout<<j<<" ";
+        }
+        cout<<nline;
+    }
 
     out(dp[sizes][sizet]);
 }
