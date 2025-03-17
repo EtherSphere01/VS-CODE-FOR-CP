@@ -161,26 +161,23 @@ void solve()
 
     ll n, k;
     cin >> n >> k;
-    vpair a(n);
+    vpair arr(n);
     for (ll i = 0; i < n; i++)
     {
-        cin >> a[i].ff;
-        a[i].ss = i;
+        cin >> arr[i].ff;
+        arr[i].ss = i;
     }
-
-    sort(allr(a));
-    debug(a);
 
     if (k == 1)
     {
-        ll left = a[0].ff;
-        ll right = a[n - 1].ff;
+        ll left = arr[0].ff;
+        ll right = arr[n - 1].ff;
 
         ll left_right = left + right;
         ll temp = 0;
         for (ll i = 1; i < n - 1; i++)
         {
-            temp = max(temp, a[i].ff);
+            temp = max(temp, arr[i].ff);
         }
 
         ll left_temp = left + temp;
@@ -191,49 +188,22 @@ void solve()
         return;
     }
 
-    oset<ll> s;
+    sort(allr(arr));
 
+    vector<bool> done(n, false);
+    vl pending;
     ll ans = 0;
+
     for (ll i = 0; i < k; i++)
     {
-        ans += a[i].ff;
-        s.insert(a[i].ss);
+        done[arr[i].ss] = true;
+        pending.pb(arr[i].ss);
+        ans += arr[i].ff;
     }
-    // cout << "ans : " << ans << nline;
 
-    ll setsize = s.size();
+    sort(all(pending));
 
-    for (ll i = k; k < n; i++)
-    {
-        ll value = a[i].ff;
-        ll index = a[i].ss;
-
-        ll left = s.order_of_key(index);
-        ll right = setsize - left;
-
-        if (left != 0 andd right != 0)
-        {
-            ans += value;
-            break;
-        }
-        if (left == 0)
-        {
-            if (index == 0)
-            {
-                ans += value;
-                break;
-            }
-        }
-
-        if (right == 0)
-        {
-            if (index == n - 1)
-            {
-                ans += value;
-                break;
-            }
-        }
-    }
+    ans += arr[k - 1].ff;
     out(ans);
 }
 
