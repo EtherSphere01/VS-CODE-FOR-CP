@@ -5,7 +5,8 @@ using namespace std;
 #define fastio()                      \
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);                    \
-    cout.tie(NULL)
+    cout.tie(NULL);                   \
+    cout.precision(numeric_limits<double>::max_digits10);
 #define MOD 1000000007
 #define MOD1 998244353
 #define INF 1e18
@@ -150,125 +151,31 @@ void _print(map<T, V> v)
 
 void solve()
 {
-    ll x, n, m;
-    cin >> x >> n >> m;
 
-    n = min(n, 32LL);
-    m = min(m, 32LL);
+    ll n, k;
+    cin >> n >> k;
 
-    if (n == 0)
+    if (n <= k)
     {
-        while (m--)
-        {
-            x = ceil(x / 2.0);
-        }
-        cout << x << " " << x << nline;
-        return;
-    }
-    if (m == 0)
-    {
-        while (n--)
-        {
-            x = x / 2;
-        }
-        cout << x << " " << x << nline;
+        out(1);
         return;
     }
 
-    ll smallest = x, largest = x;
-    ll temp = x;
-    ll tempn = n, tempm = m;
-    while (true)
+    if (n % 2 == 0)
     {
-        if (temp % 2 == 0)
-        {
-            if (tempm > 0)
-            {
-                temp /= 2;
-                tempm--;
-            }
-            else if (tempn > 0)
-            {
-                temp = (temp / 2);
-                tempn--;
-            }
-            else
-            {
-                break;
-            }
-        }
-        else
-        {
-            if (tempn > 0)
-            {
-                temp = (temp / 2);
-                tempn--;
-            }
-            else if (tempm > 0)
-            {
-                temp = ceil(temp / 2.0);
-                tempm--;
-            }
-            else
-            {
-                break;
-            }
-        }
-
-        if (tempn == 0 and tempm == 0)
-        {
-            break;
-        }
+        ll ans = n / (k - 1);
+        if (n % (k - 1) != 0)
+            ans++;
+        out(ans);
+        return;
     }
 
-    smallest = temp;
-
-    temp = x;
-    tempn = n, tempm = m;
-
-    while (true)
-    {
-        if (temp % 2 == 0)
-        {
-            if (tempn > 0)
-            {
-                temp /= 2;
-                tempn--;
-            }
-            else if (tempm > 0)
-            {
-                temp = (temp / 2);
-                tempm--;
-            }
-            else
-            {
-                break;
-            }
-        }
-        else
-        {
-            if (tempm > 0)
-            {
-                temp = ceil(temp / 2.0);
-                tempm--;
-            }
-            else if (tempn > 0)
-            {
-                temp /= 2;
-                tempn--;
-            }
-            else
-            {
-                break;
-            }
-        }
-        if (tempn == 0 and tempm == 0)
-        {
-            break;
-        }
-    }
-    largest = temp;
-    cout << smallest << " " << largest << nline;
+    ll ans = 1;
+    n -= k;
+    ans += n / (k - 1);
+    if (n % (k - 1) != 0)
+        ans++;
+    out(ans);
 }
 
 int main()
