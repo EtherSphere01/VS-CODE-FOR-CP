@@ -190,21 +190,12 @@ void solve()
 
     sort(allr(arr));
 
-    vector<bool> done(n, false);
-    vl pending;
-    ll ans = 0;
-
-    for (ll i = 0; i < k; i++)
+    ll temp = 0;
+    for (ll i = 0; i <= k; i++)
     {
-        done[arr[i].ss] = true;
-        pending.pb(arr[i].ss);
-        ans += arr[i].ff;
+        temp+=arr[i].ff;
     }
-
-    sort(all(pending));
-
-    ans += arr[k - 1].ff;
-    out(ans);
+    out(temp);
 }
 
 int main()
