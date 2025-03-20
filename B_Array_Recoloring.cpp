@@ -196,6 +196,7 @@ void solve()
         temp+=arr[i].ff;
     }
     out(temp);
+    // git push
 }
 
 int main()
