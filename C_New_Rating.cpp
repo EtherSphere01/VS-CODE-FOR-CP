@@ -5,7 +5,8 @@ using namespace std;
 #define fastio()                      \
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);                    \
-    cout.tie(NULL)
+    cout.tie(NULL);                   \
+    cout.precision(numeric_limits<double>::max_digits10);
 #define MOD 1000000007
 #define MOD1 998244353
 #define INF 1e18
@@ -150,126 +151,96 @@ void _print(map<T, V> v)
 
 void solve()
 {
-    ll x, n, m;
-    cin >> x >> n >> m;
 
-    n = min(n, 32LL);
-    m = min(m, 32LL);
-
-    if (n == 0)
+    ll n;
+    cin >> n;
+    vl a(n);
+    vl temp(n);
+    ll count = 0;
+    for (ll i = 0; i < n; i++)
     {
-
-        while (m--)
+        ll x;
+        cin >> x;
+        if (x >= count)
         {
-            x = ceil(x / 2.0);
-        }
-        cout << x << " " << x << nline;
-        return;
-    }
-    if (m == 0)
-    {
-        while (n--)
-        {
-            x = x / 2;
-        }
-        cout << x << " " << x << nline;
-        return;
-    }
-
-    ll smallest = x, largest = x;
-    ll temp = x;
-    ll tempn = n, tempm = m;
-    while (true)
-    {
-        if (temp % 2 == 0)
-        {
-            if (tempm > 0)
-            {
-                temp /= 2;
-                tempm--;
-            }
-            else if (tempn > 0)
-            {
-                temp = (temp / 2);
-                tempn--;
-            }
-            else
-            {
-                break;
-            }
+            a[i] = x;
+            count++;
         }
         else
         {
-            if (tempn > 0)
-            {
-                temp = (temp / 2);
-                tempn--;
-            }
-            else if (tempm > 0)
-            {
-                temp = ceil(temp / 2.0);
-                tempm--;
-            }
-            else
-            {
-                break;
-            }
+            a[i] = -1;
         }
-
-        if (tempn == 0 and tempm == 0)
-        {
-            break;
-        }
+        temp[i] = x;
     }
 
-    smallest = temp;
-
-    temp = x;
-    tempn = n, tempm = m;
-
-    while (true)
+    if (is_sorted(all(temp)))
     {
-        if (temp % 2 == 0)
+        out(n - 1);
+        return;
+    }
+    debug(a);
+
+    ll ans = 0;
+    ll left = -1, right = -1;
+    ll interval = 0;
+    ll mainleft = -1, mainright = -1;
+
+    ll j = 0;
+    while (j < n)
+    {
+        if (a[j] == -1)
         {
-            if (tempn > 0)
+            ll r = j;
+            for (ll k = j; k < n; k++)
             {
-                temp /= 2;
-                tempn--;
+                if (a[k] == -1)
+                {
+                    r = k;
+                }
+                else
+                {
+                    break;
+                }
             }
-            else if (tempm > 0)
+            if ((r - j) >= interval)
             {
-                temp = (temp / 2);
-                tempm--;
+                if (r - j == 0)
+                {
+                    interval = 1;
+                }
+                else
+                {
+                    interval = r - j - 1;
+                }
+
+                mainleft = j;
+                mainright = r;
             }
-            else
-            {
-                break;
-            }
+            j = r;
+        }
+        j++;
+    }
+    debug(mainleft);
+    debug(mainright);
+    for (ll i = 0; i < n; i++)
+    {
+        if (i >= mainleft and i <= mainright)
+        {
+            continue;
         }
         else
         {
-            if (tempm > 0)
+            if (a[i] != -1)
             {
-                temp = ceil(temp / 2.0);
-                tempm--;
-            }
-            else if (tempn > 0)
-            {
-                temp /= 2;
-                tempn--;
+                ans++;
             }
             else
             {
-                break;
+                ans--;
             }
         }
-        if (tempn == 0 and tempm == 0)
-        {
-            break;
-        }
     }
-    largest = temp;
-    cout << smallest << " " << largest << nline;
+    out(ans);
 }
 
 int main()
