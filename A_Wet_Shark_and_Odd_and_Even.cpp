@@ -153,17 +153,38 @@ void solve()
 {
     ll n;
     cin >> n;
-    stringstream ss;
-    ss << n;
-    string s;
-    ss >> s;
-    ll size = sz(s);
-    ll rem = 4 - size;
-    for (ll i = 0; i < rem; i++)
+    vl even, odd;
+    ll evensum = 0, oddsum = 0;
+    for (ll i = 0; i < n; i++)
     {
-        cout << 0;
+        ll x;
+        cin >> x;
+        if (x % 2 == 0)
+        {
+            evensum += x;
+        }
+        else
+        {
+            odd.pb(x);
+        }
     }
-    cout << s << nline;
+    sort(allr(odd));
+    ll size = sz(odd);
+    if (size % 2 == 0)
+    {
+        for (ll i = 0; i < size; i++)
+        {
+            evensum += odd[i];
+        }
+    }
+    else
+    {
+        for (ll i = 0; i < size - 1; i++)
+        {
+            evensum += odd[i];
+        }
+    }
+    out(evensum);
 }
 
 int main()

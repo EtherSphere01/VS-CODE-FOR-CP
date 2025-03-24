@@ -151,19 +151,24 @@ void _print(map<T, V> v)
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    stringstream ss;
-    ss << n;
-    string s;
-    ss >> s;
-    ll size = sz(s);
-    ll rem = 4 - size;
-    for (ll i = 0; i < rem; i++)
+
+    ll s, t;
+    cin >> s >> t;
+    ll count = 0;
+    for (ll i = 0; i <= s; i++)
     {
-        cout << 0;
+        for (ll j = 0; j <= s; j++)
+        {
+            for (ll k = 0; k <= s; k++)
+            {
+                if ((i + j + k <= s) and (i * j * k <= t))
+                {
+                    count++;
+                }
+            }
+        }
     }
-    cout << s << nline;
+    out(count);
 }
 
 int main()
