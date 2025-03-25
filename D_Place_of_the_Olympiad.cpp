@@ -152,72 +152,83 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    int n;
-    cin >> n;
-    int arr[n];
-    for (int i = 0; i < n; i++)
-    {
-        cin >> arr[i];
-    }
-    int z = 3, o = 1, t = 2, th = 1, fi = 1;
+    ll n, m, k;
+    cin >> n >> m >> k;
 
-    if (n < 8)
+    if ((n * m) == k)
     {
-        out(0);
+        out(m);
         return;
     }
 
-    map<int, int> mm;
-    bool f = false;
-    int ind = 0;
-    for (int i = 0; i < n; i++)
+    ll ans = 1;
+    ll temp = m - (m / 2);
+    temp *= n;
+    if (temp >= k)
     {
-        int x = arr[i];
-        mm[x]++;
-        if (x == 3)
-        {
-            th--;
-        }
-        else if (x == 5)
-        {
-            fi--;
-        }
-        else if (x == 0)
-        {
-            z--;
-        }
-        else if (x == 1)
-        {
-            o--;
-        }
-        else if (x == 2)
-        {
-            t--;
-        }
+        out(1);
+        return;
+    }
 
-        if (z <= 0 and o <= 0 and t <= 0 and th <= 0 and f <= 0)
+    if (n == 1)
+    {
+        ll ans = 0;
+        ll temp = 0;
+        ll left = 0, right = m - 1;
+        while (left < right)
         {
-            ind = i + 1;
-            f = true;
+            ans++;
+            temp += 2;
+            if (temp >= k)
+            {
+                break;
+            }
+            left++;
+            right--;
+        }
+        out(ans);
+        return;
+    }
+
+    ans = 0;
+    temp = 0;
+    for (ll i = 0; i < m - 1; i++)
+    {
+        ans++;
+        temp += n;
+        if ((temp) >= k)
+        {
             break;
         }
+        else
+        {
+            if ((temp + n) >= k)
+            {
+                if (i == m - 2)
+                {
+                    ans++;
+                }
+                break;
+            }
+        }
     }
-
-    if (f)
-    {
-        cout << ind << nline;
-    }
-    else
-    {
-        cout << 0 << nline;
-    }
+    out(ans);
 }
 
 int main()
 {
+    fastio();
+
+#ifndef ONLINE_JUDGE
+    freopen("Error.txt", "w", stderr);
+#endif
 
     int t;
     cin >> t;
     while (t--)
         solve();
+
+#ifndef ONLINE_JUDGE
+    cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
+#endif
 }
