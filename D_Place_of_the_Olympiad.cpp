@@ -161,55 +161,21 @@ void solve()
         return;
     }
 
-    ll ans = 1;
-    ll temp = m - (m / 2);
-    temp *= n;
-    if (temp >= k)
+    ll left = 1, right = m, ans = 0;
+    while (left <= right)
     {
-        out(1);
-        return;
-    }
-
-    if (n == 1)
-    {
-        ll ans = 0;
-        ll temp = 0;
-        ll left = 0, right = m - 1;
-        while (left < right)
+        ll mid = (left + right) / 2;
+        ll cells = mid * (m / (mid + 1));
+        cells += (m % (mid + 1));
+        cells *= n;
+        if (cells < k)
         {
-            ans++;
-            temp += 2;
-            if (temp >= k)
-            {
-                break;
-            }
-            left++;
-            right--;
-        }
-        out(ans);
-        return;
-    }
-
-    ans = 0;
-    temp = 0;
-    for (ll i = 0; i < m - 1; i++)
-    {
-        ans++;
-        temp += n;
-        if ((temp) >= k)
-        {
-            break;
+            left = mid + 1;
         }
         else
         {
-            if ((temp + n) >= k)
-            {
-                if (i == m - 2)
-                {
-                    ans++;
-                }
-                break;
-            }
+            ans = mid;
+            right = mid - 1;
         }
     }
     out(ans);
