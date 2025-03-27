@@ -152,10 +152,10 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll n, m, k;
-    cin >> n >> m >> k;
+    ll n, m, kk;
+    cin >> n >> m >> kk;
 
-    if ((n * m) == k)
+    if ((n * m) == kk)
     {
         out(m);
         return;
@@ -168,7 +168,7 @@ void solve()
         ll cells = mid * (m / (mid + 1));
         cells += (m % (mid + 1));
         cells *= n;
-        if (cells < k)
+        if (cells < kk)
         {
             left = mid + 1;
         }
@@ -179,6 +179,7 @@ void solve()
         }
     }
     out(ans);
+    
 }
 
 int main()
