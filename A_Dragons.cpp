@@ -176,23 +176,25 @@ void solve()
 {
 
     ll n, s;
-    cin >> n >> s;
-    vpair a(n);
+    cin >> s >> n;
+    vpair a;
     for (ll i = 0; i < n; i++)
     {
         ll x, y;
         cin >> x >> y;
-        a[i].ff = x;
-        a[i].ss = y;
+        a.push_back({x, y});
     }
+    debug(a);
     sort(all(a), comp);
 
     ll ans = s;
+    // debug(a);
+
     for (ll i = 0; i < n; i++)
     {
-        if (a[i].ff < s)
+        if (a[i].ff < ans)
         {
-            s += a[i].ss;
+            ans += a[i].ss;
         }
         else
         {
@@ -210,8 +212,6 @@ int main()
 #ifndef ONLINE_JUDGE
     freopen("Error.txt", "w", stderr);
 #endif
-
-    int t;
 
     solve();
 
