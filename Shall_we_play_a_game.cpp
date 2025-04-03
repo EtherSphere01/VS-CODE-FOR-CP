@@ -171,61 +171,19 @@ void solve()
 
     ll n;
     cin >> n;
-    ll ans = 0;
-    ll x = 0, y = 0;
-    for (ll i = 1; i <= n; i++)
+
+    if (n % 2 == 1)
     {
-        ll power = powermod(2, i - 1);
-        ll temp_x = x;
-        ll temp_y = y;
-
-        ll temp_ans = ans;
-        temp_ans += power;
-        temp_x = max(temp_x, temp_ans);
-        temp_y = min(temp_y, temp_ans);
-
-        ll temp_diff = abs(temp_x - temp_y) % MOD1;
-
-        temp_ans = ans;
-        temp_ans -= power;
-        temp_x = max(temp_x, temp_ans);
-        temp_y = min(temp_y, temp_ans);
-
-        ll temp_diff2 = abs(temp_x - temp_y) % MOD1;
-
-        if (i % 2 == 1)
-        {
-            if (temp_diff < temp_diff2)
-            {
-                x = max(x, temp_diff);
-                y = min(y, temp_diff);
-                ans += power;
-            }
-            else
-            {
-                x = max(x, temp_diff2);
-                y = min(y, temp_diff2);
-                ans -= power;
-            }
-        }
-        else
-        {
-            if (temp_diff < temp_diff2)
-            {
-                x = max(x, temp_diff2);
-                y = min(y, temp_diff2);
-                ans -= power;
-            }
-            else
-            {
-                x = max(x, temp_diff);
-                y = min(y, temp_diff);
-                ans += power;
-            }
-        }
+        ll power = powermod(2, n - 1);
+        out(power);
     }
-
-    out(abs(x - y) % MOD1);
+    else
+    {
+        ll power1 = powermod(2, n - 1);
+        ll power2 = powermod(2, n - 2);
+        ll ans = (power1 + power2) % MOD1;
+        out(ans);
+    }
 }
 
 int main()
