@@ -1,2 +1,8 @@
-a [ {78,10} {130,0} ]
+suffix_sum [ 0 15 12 8 6 5 ]
+suffix_sum [ 0 1604 1499 1404 1296 1185 1067 966 871 753 656 548 437 323 226 116 ]
+suffix_sum [ 0 1 ]
+suffix_sum [ 0 1 ]
+suffix_sum [ 0 2 ]
+suffix_sum [ 0 2 1 ]
+suffix_sum [ 0 3 1 ]
 Time : 0.001s
