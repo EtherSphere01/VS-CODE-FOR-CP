@@ -154,77 +154,96 @@ void solve()
 
     ll n;
     cin >> n;
-    string a, b;
-    cin >> a >> b;
-    ll counta = count(a.begin(), a.end(), '0');
-    if (counta == n)
-    {
-        yes;
-        return;
-    }
+    string s;
+    cin >> s;
 
-    ll even = 0, odd = 0;
-    for (ll i = 0; i < n; i++)
+    vl original(n + 1);
+
+    for (ll i = 1; i <= n; i++)
     {
-        if (b[i] == '0')
+        char c = s[i - 1];
+        if (c == 'L')
         {
-            if (i % 2 == 0)
-            {
-                even++;
-            }
-            else
-            {
-                odd++;
-            }
+            original[i] = i - 1;
+        }
+        else if (c == 'R')
+        {
+            original[i] = n - i;
         }
     }
 
-    for (ll i = 0; i < n; i++)
+    ll need_change = 0;
+    vpair ans(n + 1);
+    if (n % 2 == 0)
     {
-        if (a[i] == '1')
+        ll value = n - 1;
+        for (ll i = 1; i <= n / 2; i++)
         {
-            if (i == 0)
+            if (s[i - 1] == 'L')
             {
-                if (odd > 0)
-                {
-                    odd--;
-                }
-                else
-                {
-                    no;
-                    return;
-                }
+                need_change++;
             }
-            else
+            ans[i] = {value, i};
+            value--;
+        }
+        value++;
+        for (ll i = (n / 2) + 1; i <= n; i++)
+        {
+            if (s[i - 1] == 'R')
             {
-                if ((i - 1) % 2 == 0)
-                {
-                    if (even > 0)
-                    {
-                        even--;
-                    }
-                    else
-                    {
-                        no;
-                        return;
-                    }
-                }
-                else
-                {
-                    if (odd > 0)
-                    {
-                        odd--;
-                    }
-                    else
-                    {
-                        no;
-                        return;
-                    }
-                }
+                need_change++;
             }
+            ans[i] = {value, i};
+            value++;
         }
     }
-    yes;
+    else
+    {
+        ll value = n - 1;
+        for (ll i = 1; i <= n / 2; i++)
+        {
+            if (s[i - 1] == 'L')
+            {
+                need_change++;
+            }
+            ans[i] = {value, i};
+            value--;
+        }
+        ans[(n / 2) + 1] = {value++, (n / 2) + 1};
+        for (ll i = (n / 2) + 2; i <= n; i++)
+        {
+            if (s[i - 1] == 'R')
+            {
+                need_change++;
+            }
+            ans[i] = {value, i};
+            value++;
+        }
+    }
+
+    sort(allr(ans));
+
+    ll main_ans = 0;
+    for (auto i : original)
+    {
+        main_ans += i;
+    }
+    // debug(original);
+    debug(main_ans);
+    debug(ans)
+    debug(original)
+
+    for (ll i = 1; i <= n; i++)
+    {
+        if (need_change > 0)
+        {
+            main_ans += ans[i].ff;
+            main_ans -= original[ans[i].ss];
+            need_change--;
+        }
+        cout << main_ans << sp;
+    }
+    cout << nline;
 }
 
 int main()

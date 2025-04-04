@@ -158,7 +158,7 @@ void solve()
 
     map<ll, ll> m;
     vl a1, a2;
-    for (ll i = 0; i < n - 1; i++)
+    for (ll i = 0; i < n; i++)
     {
         for (ll j = 0; j < n - 1; j++)
         {
@@ -173,7 +173,7 @@ void solve()
 
     ll indx1 = 0;
     ll indx2 = 0;
-    for (ll i = 1; i < n - 1; i++)
+    for (ll i = 0; i < n; i++)
     {
         if (a[0][0] != a[i][0])
         {
@@ -182,6 +182,8 @@ void solve()
             break;
         }
     }
+
+    // debug(a)
 
     for (ll i = 0; i < n - 1; i++)
     {
