@@ -222,26 +222,45 @@ void solve()
     }
 
     sort(allr(ans));
-
+    ll total = 0;
+    for (ll i = 0; i < n; i++)
+    {
+        total += ans[i].ff;
+    }
     ll main_ans = 0;
     for (auto i : original)
     {
         main_ans += i;
     }
+    // sort(all(original));
     // debug(original);
+    debug(need_change);
     debug(main_ans);
-    debug(ans)
-    debug(original)
+    debug(ans);
+    debug(original);
 
-    for (ll i = 1; i <= n; i++)
+    ll i = 0;
+    ll count = 0;
+    while (need_change > 0 && i < n)
     {
-        if (need_change > 0)
+
+        if (ans[i].ff == original[ans[i].ss])
         {
-            main_ans += ans[i].ff;
-            main_ans -= original[ans[i].ss];
-            need_change--;
+            i++;
+            continue;
         }
+        main_ans += ans[i].ff;
+        main_ans -= original[ans[i].ss];
+        need_change--;
         cout << main_ans << sp;
+        count++;
+
+        i++;
+    }
+    while (count < n)
+    {
+        cout << total << sp;
+        count++;
     }
     cout << nline;
 }
