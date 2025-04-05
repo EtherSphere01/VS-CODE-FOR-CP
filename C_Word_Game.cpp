@@ -151,34 +151,49 @@ void _print(map<T, V> v)
 
 void solve()
 {
+
     ll n;
     cin >> n;
-    map<string, string> m;
-    for (ll i = 0; i < n; i++)
+    map<string, ll> m;
+    vector<vector<string>> v(3, vector<string>(n));
+    for (ll i = 0; i < 3; i++)
     {
-        string old, new_;
-        cin >> old >> new_;
-        bool f = false;
-        for (auto it : m)
+        for (ll j = 0; j < n; j++)
         {
-            if (it.second == old)
-            {
-                m[it.first] = new_;
-                f = true;
-                break;
-            }
-        }
-        if (f == false)
-        {
-            m[old] = new_;
+            cin >> v[i][j];
+            m[v[i][j]]++;
         }
     }
 
-    out(m.size());
-    for (auto it : m)
+    ll a = 0, b = 0, c = 0;
+    for (ll i = 0; i < 3; i++)
     {
-        cout << it.first << sp << it.second << nline;
+        for (ll j = 0; j < n; j++)
+        {
+            if (i == 0)
+            {
+                if (m[v[i][j]] == 1)
+                    a+= 3;
+                else if (m[v[i][j]] == 2)
+                    a++;
+            }
+            else if (i == 1)
+            {
+                if (m[v[i][j]] == 1)
+                    b+= 3;
+                else if (m[v[i][j]] == 2)
+                    b++;
+            }
+            else if (i == 2)
+            {
+                if (m[v[i][j]] == 1)
+                    c+= 3;
+                else if (m[v[i][j]] == 2)
+                    c++;
+            }
+        }
     }
+    out(a << sp << b << sp << c);
 }
 
 int main()
@@ -189,7 +204,10 @@ int main()
     freopen("Error.txt", "w", stderr);
 #endif
 
-    solve();
+    int t;
+    cin >> t;
+    while (t--)
+        solve();
 
 #ifndef ONLINE_JUDGE
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
