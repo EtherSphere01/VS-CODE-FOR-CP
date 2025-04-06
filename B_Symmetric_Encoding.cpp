@@ -74,8 +74,32 @@ template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i
 
 void solve() {
 
+    ll n;
+    cin >> n;
+    string s;
+    cin >> s;
+    set<char> st;
+    for (auto i : s) {
+        st.insert(i);
+    }
+    vc v;
+    for (auto i : st) {
+        v.pb(i);
+    }
+    sort(all(v));
+    map<char, char> m;
+    ll left = 0, right = v.size() - 1;
+    while(left<=right){
+        m[v[left]] = v[right];
+        m[v[right]] = v[left];
+        left++;
+        right--;
+    }
 
-
+    for(ll i=0; i<n; i++){
+        s[i] = m[s[i]];
+    }
+    cout << s << nline;
 }
 
 int main() {

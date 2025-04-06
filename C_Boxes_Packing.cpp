@@ -151,19 +151,18 @@ void _print(map<T, V> v)
 
 void solve()
 {
+
     ll n;
     cin >> n;
-    if (n % 2 == 1)
+    set<ll> s;
+    for (ll i = 0; i < n; i++)
     {
-        cout << n << nline;
-        for (int i = 1; i < n; i++)
-        {
-            cout << i << sp;
-        }
-        cout << nline;
-        return;
+        ll x;
+        cin >> x;
+        s.insert(x);
     }
-    cout << -1 << nline;
+    ll rem = n - s.size();
+    out(rem + 1);
 }
 
 int main()
@@ -174,10 +173,7 @@ int main()
     freopen("Error.txt", "w", stderr);
 #endif
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+    solve();
 
 #ifndef ONLINE_JUDGE
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";

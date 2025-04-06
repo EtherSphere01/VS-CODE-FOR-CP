@@ -151,19 +151,35 @@ void _print(map<T, V> v)
 
 void solve()
 {
+
     ll n;
     cin >> n;
-    if (n % 2 == 1)
+    deque<ll> a(n);
+    in(a);
+    map<ll, ll> m;
+    ll count = 0;
+    for (auto i : a)
     {
-        cout << n << nline;
-        for (int i = 1; i < n; i++)
+        m[i]++;
+        if (m[i] > 1)
         {
-            cout << i << sp;
+            count++;
         }
-        cout << nline;
-        return;
     }
-    cout << -1 << nline;
+
+    ll ans = 0;
+    while (count > 0)
+    {
+        ll x = a.front();
+        a.pop_front();
+        ans++;
+        if (m[x] > 1)
+        {
+            count--;
+            m[x]--;
+        }
+    }
+    cout << ans << nline;
 }
 
 int main()
