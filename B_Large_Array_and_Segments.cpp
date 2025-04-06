@@ -1,12 +1,8 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 
 using namespace std;
 
-#define fastio()                      \
-    ios_base::sync_with_stdio(false); \
-    cin.tie(NULL);                    \
-    cout.tie(NULL);                   \
-    cout.precision(numeric_limits<double>::max_digits10);
+#define fastio() ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);cout.precision(numeric_limits<double>::max_digits10);
 #define MOD 1000000007
 #define MOD1 998244353
 #define INF 1e18
@@ -25,43 +21,25 @@ using namespace std;
 #define sz(x) ((int)(x).size())
 #define all(x) (x).begin(), (x).end()
 #define allr(x) (x).rbegin(), (x).rend()
-#define mem1(a) memset(a, -1, sizeof(a))
-#define mem0(a) memset(a, 0, sizeof(a))
+#define mem1(a) memset(a,-1,sizeof(a))
+#define mem0(a) memset(a,0,sizeof(a))
 #define yes cout << "YES" << nline
 #define no cout << "NO" << nline
-#define yesno(f) \
-    if (f)       \
-        yes;     \
-    else         \
-        no
-#define noyes(f) \
-    if (!f)      \
-        yes;     \
-    else         \
-        no
+#define yesno(f) if(f) yes; else no
+#define noyes(f) if(!f) yes; else no
 #define out(x) cout << x << nline
-#define rep(i, a, b) for (ll i = a; i < b; i++)
-#define rev(i, a, b) for (ll i = a; i >= b; i--)
-#define in(a)         \
-    for (auto &x : a) \
-        cin >> x;
-#define showr(v, s, n)         \
-    for (ll i = s; i < n; i++) \
-        cout << v[i] << sp;
-#define show(v)      \
-    for (auto i : v) \
-        cout << i << sp;
-#define show_rev(v, s, n)       \
-    for (ll i = s; i >= n; i--) \
-        cout << v[i] << sp;
-#define show_pair(v, s, n)     \
-    for (ll i = s; i < n; i++) \
-        cout << v[i].ff << sp << v[i].ss << nline;
-#define vl vector<ll>
-#define vi vector<int>
-#define vc vector<char>
-#define vs vector<string>
-#define vpair vector<pair<ll, ll>>
+#define rep(i, a, b) for(ll i=a; i<b; i++)
+#define rev(i, a, b) for(ll i=a; i>=b; i--)
+#define in(a) for (auto &x : a) cin >> x;
+#define showr(v,s,n) for(ll i=s; i<n; i++) cout<<v[i]<<sp;
+#define show(v) for(auto i:v) cout<<i<<sp;
+#define show_rev(v,s,n) for(ll i=s; i>=n; i--) cout<<v[i]<<sp;
+#define show_pair(v,s,n) for(ll i=s; i<n; i++) cout<<v[i].ff<<sp<<v[i].ss<<nline;
+#define vl vector<ll> 
+#define vi vector<int> 
+#define vc vector<char> 
+#define vs vector<string> 
+#define vpair vector<pair<ll,ll>>
 
 typedef long long ll;
 typedef unsigned long long ull;
@@ -69,192 +47,87 @@ typedef long double lld;
 // typedef tree<pair<int, int>, null_type, less<pair<int, int>>, rb_tree_tag, tree_order_statistics_node_update > pbds; // find_by_order, order_of_key
 
 #ifndef ONLINE_JUDGE
-#define debug(x)       \
-    cerr << #x << " "; \
-    _print(x);         \
-    cerr << endl;
+#define debug(x) cerr << #x <<" "; _print(x); cerr << endl;
 #else
 #define debug(x)
 #endif
 
-void _print(ll t) { cerr << t; }
-void _print(int t) { cerr << t; }
-void _print(string t) { cerr << t; }
-void _print(char t) { cerr << t; }
-void _print(lld t) { cerr << t; }
-void _print(double t) { cerr << t; }
-void _print(ull t) { cerr << t; }
+void _print(ll t) {cerr << t;}
+void _print(int t) {cerr << t;}
+void _print(string t) {cerr << t;}
+void _print(char t) {cerr << t;}
+void _print(lld t) {cerr << t;}
+void _print(double t) {cerr << t;}
+void _print(ull t) {cerr << t;}
 
-template <class T, class V>
-void _print(pair<T, V> p);
-template <class T>
-void _print(vector<T> v);
-template <class T>
-void _print(set<T> v);
-template <class T, class V>
-void _print(map<T, V> v);
-template <class T>
-void _print(multiset<T> v);
-template <class T, class V>
-void _print(pair<T, V> p)
-{
-    cerr << "{";
-    _print(p.ff);
-    cerr << ",";
-    _print(p.ss);
-    cerr << "}";
-}
-template <class T>
-void _print(vector<T> v)
-{
-    cerr << "[ ";
-    for (T i : v)
-    {
-        _print(i);
-        cerr << " ";
-    }
-    cerr << "]";
-}
-template <class T>
-void _print(set<T> v)
-{
-    cerr << "[ ";
-    for (T i : v)
-    {
-        _print(i);
-        cerr << " ";
-    }
-    cerr << "]";
-}
-template <class T>
-void _print(multiset<T> v)
-{
-    cerr << "[ ";
-    for (T i : v)
-    {
-        _print(i);
-        cerr << " ";
-    }
-    cerr << "]";
-}
-template <class T, class V>
-void _print(map<T, V> v)
-{
-    cerr << "[ ";
-    for (auto i : v)
-    {
-        _print(i);
-        cerr << " ";
-    }
-    cerr << "]";
-}
+template <class T, class V> void _print(pair <T, V> p);
+template <class T> void _print(vector <T> v);
+template <class T> void _print(set <T> v);
+template <class T, class V> void _print(map <T, V> v);
+template <class T> void _print(multiset <T> v);
+template <class T, class V> void _print(pair <T, V> p) {cerr << "{"; _print(p.ff); cerr << ","; _print(p.ss); cerr << "}";}
+template <class T> void _print(vector <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T> void _print(set <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T> void _print(multiset <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
 
-void solve()
-{
+
+void solve() {
 
     ll n, k, x;
     cin >> n >> k >> x;
-    vl a(n + 1);
-    vl suffix_sum(n + 1, 0);
-    for (ll i = 1; i <= n; i++)
+    vector<ll> a(n);
+    for (ll i = 0; i < n; i++)
     {
         cin >> a[i];
     }
-    suffix_sum[n] = a[n];
-    for (ll i = n - 1; i >= 1; i--)
-    {
-        suffix_sum[i] = a[i] + suffix_sum[i + 1];
-    }
-    debug(suffix_sum);
 
-    ll total = suffix_sum[1];
-    total *= k;
+    ll s = accumulate(a.begin(), a.end(), 0LL); // n
 
-    if (total < x)
+    if (x > k * s)
     {
-        out(0);
+        cout << "0\n";
         return;
     }
 
-    ll index = 0;
-    ll count = 0;
-
-    if (suffix_sum[1] < x)
+    ll xm = x % s;
+    ll q = x / s;
+    if (xm == 0)
     {
-        ll temp = k - 1;
-        ll temp_ans = suffix_sum[1];
-        count = 1;
-        while (temp--)
-        {
-            temp_ans += suffix_sum[1];
-            count++;
-            if (temp_ans >= x)
-            {
-                break;
-            }
-        }
-
-        count *= n;
-
-        for (ll i = 1; i <= n; i++)
-        {
-            if (temp_ans - a[i] >= x)
-            {
-                count--;
-                temp_ans -= a[i];
-            }
-        }
-    }
-    else
-    {
-        for (ll i = n; i >= 1; i--)
-        {
-            count++;
-
-            if (suffix_sum[i] >= x)
-            {
-                index = i;
-                break;
-            }
-        }
+        q--;
+        xm = s;
     }
 
-    ll ans = (n * k);
-    ans -= count;
-    ans += 1;
-
-    vl idx;
-    for (ll i = 1; i <= n; i++)
+    ll ans = n * k - q * n;
+    ll suf = 0;
+    for (ll i = n - 1; i >= 0; i--)
     {
-        if (a[i] >= x)
-        {
-            idx.pb(i);
-        }
+        suf += a[i];
+        if (suf >= xm)
+            break;
+        ans--;
     }
 
-    for (auto i : idx)
-    {
-        ll rem = (n * k) - i;
-        ans += rem;
-        // ans+=
-    }
-    out(ans);
+    cout << ans << nline;
 }
 
-int main()
-{
+int main() {
     fastio();
 
 #ifndef ONLINE_JUDGE
     freopen("Error.txt", "w", stderr);
 #endif
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+
+    int t; cin >> t;
+    while (t--) solve();
+
 
 #ifndef ONLINE_JUDGE
-    cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
+    cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC)*0.001 << "s\n";
 #endif
+
 }
+
+
+

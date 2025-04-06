@@ -155,13 +155,27 @@ void solve()
     ll n;
     cin >> n;
     set<ll> s;
+    map<ll, ll> m;
     for (ll i = 0; i < n; i++)
     {
         ll x;
         cin >> x;
+        m[x]++;
         s.insert(x);
     }
-    ll rem = n - s.size();
+
+    for (auto i : m)
+    {
+        i.ss--;
+    }
+    ll rem = 0, count = 0;
+    for(auto i:m){
+        if(i.ss > 0){
+            count++;
+        }
+    }
+    rem = n - s.size();
+    rem = ceil((double)rem / count);
     out(rem + 1);
 }
 
