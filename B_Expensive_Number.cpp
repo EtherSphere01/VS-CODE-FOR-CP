@@ -176,16 +176,16 @@ void solve()
     }
 
     ll n = s.size();
-    ll left = n - indx-1;
+    ll right = n - indx - 1;
 
     for (ll i = 0; i < indx; i++)
     {
         if (s[i] != '0')
         {
-            left++;
+            right++;
         }
     }
-    out(left);
+    out(right);
 }
 
 int main()
