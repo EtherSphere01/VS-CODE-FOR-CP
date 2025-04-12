@@ -152,16 +152,23 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll value;
-    cin >> value;
+    vl a(3);
+    cin >> a[0] >> a[1] >> a[2];
+    sort(all(a));
 
-    ll count = 1;
-    while (value > 3)
+    ll n = 5;
+    while (n--)
     {
-        value /= 4;
-        count *= 2;
+        a[0]++;
+        sort(all(a));
     }
-    out(count);
+    ll ans = 1;
+    for (auto i : a)
+    {
+        ans *= i;
+    }
+
+    out(ans);
 }
 
 int main()

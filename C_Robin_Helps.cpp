@@ -152,16 +152,29 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll value;
-    cin >> value;
-
-    ll count = 1;
-    while (value > 3)
+    ll n, k;
+    cin >> n >> k;
+    ll ans = 0;
+    ll total = 0;
+    for (ll i = 0; i < n; i++)
     {
-        value /= 4;
-        count *= 2;
+        ll x;
+        cin >> x;
+
+        if (x >= k)
+        {
+            total += x;
+        }
+        else if (x == 0)
+        {
+            if (total > 0)
+            {
+                total--;
+                ans++;
+            }
+        }
     }
-    out(count);
+    out(ans);
 }
 
 int main()
