@@ -154,23 +154,37 @@ void solve()
 
     ll n;
     cin >> n;
-    vl s(n);
+    vl a(n);
+    map<ll, ll> m;
     for (ll i = 0; i < n; i++)
     {
-        cin >> s[i];
+        cin >> a[i];
+        m[a[i]]++;
     }
-    sort(all(s));
-    ll count = 0;
-    ll i = 1;
-    for (auto j : s)
+
+    set<pair<ll, ll>> s;
+
+    for (auto i : m)
     {
-        if (j >= i)
-        {
-            count++;
-            i++;
-        }
+        s.insert({-i.ss, i.ff});
     }
-    out(count);
+    ll siz = n;
+    while (s.size() >= 2)
+    {
+        siz -= 2;
+        auto first = *s.begin();
+        s.erase(s.begin());
+        auto second = *s.begin();
+        s.erase(s.begin());
+        first.ff = ((first.ff * -1) - 1);
+        second.ff = ((second.ff * -1) - 1);
+        if (first.ff > 0)
+            s.insert({-first.ff, first.ss});
+        if (second.ff > 0)
+            s.insert({-second.ff, second.ss});
+    }
+
+    out(siz);
 }
 
 int main()
@@ -181,7 +195,10 @@ int main()
     freopen("Error.txt", "w", stderr);
 #endif
 
-    solve();
+    int t;
+    cin >> t;
+    while (t--)
+        solve();
 
 #ifndef ONLINE_JUDGE
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
