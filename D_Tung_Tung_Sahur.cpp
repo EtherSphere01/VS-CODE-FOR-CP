@@ -152,55 +152,56 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    string p, s;
-    cin >> p >> s;
+    string s, t;
+    cin >> s >> t;
+    vl v1, v2;
 
-    ll i = 0, j = 0;
-    bool match = true;
-
-    ll s_siz = sz(s);
-    ll p_siz = sz(p);
-
-    while (i < p_siz and j < s_siz)
-    {
-        if (s[j] != p[i])
-        {
-            match = false;
-            break;
-        }
-
-        char c = s[j];
-        int count = 0;
-        // if (p[i + 1] == s[i + 1])
-        // {
-        //     i++;
-        //     j++;
-        //     continue;
-        // }
-        while (j < s_siz && s[j] == c)
-        {
-            count++;
-            if (count > 2)
-                break;
-            j++;
-        }
-
-        i++;
-    }
-
-    if (i != p_siz or j != s_siz)
-    {
-        match = false;
-    }
-
-    if (match)
-    {
-        yes;
-    }
-    else
+    if (s[0] != t[0])
     {
         no;
+        return;
     }
+    s = '.' + s;
+    t = '.' + t;
+
+    for (ll i = 1; i < s.size(); i++)
+    {
+        if (s[i] == s[i - 1])
+        {
+            v1.back()++;
+        }
+        else
+        {
+            v1.push_back(1);
+        }
+    }
+    for (ll i = 1; i < t.size(); i++)
+    {
+        if (t[i] == t[i - 1])
+        {
+            v2.back()++;
+        }
+        else
+        {
+            v2.push_back(1);
+        }
+    }
+
+    if (v1.size() != v2.size())
+    {
+        no;
+        return;
+    }
+
+    rep(i,0,v1.size())
+    {
+        if (v2[i] < v1[i] || v2[i] > 2 * v1[i])
+        {
+            no;
+            return;
+        }
+    }
+    yes;
 }
 
 int main()
