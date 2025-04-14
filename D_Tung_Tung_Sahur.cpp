@@ -161,18 +161,30 @@ void solve()
     ll s_siz = sz(s);
     ll p_siz = sz(p);
 
-    while (j < s_siz and i < p_siz)
+    while (i < p_siz and j < s_siz)
     {
         if (s[j] != p[i])
         {
             match = false;
             break;
         }
-        j++;
-        if (j < s_siz and s[j] == s[j - 1])
+
+        char c = s[j];
+        int count = 0;
+        // if (p[i + 1] == s[i + 1])
+        // {
+        //     i++;
+        //     j++;
+        //     continue;
+        // }
+        while (j < s_siz && s[j] == c)
         {
+            count++;
+            if (count > 2)
+                break;
             j++;
         }
+
         i++;
     }
 
