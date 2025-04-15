@@ -149,84 +149,67 @@ void _print(map<T, V> v)
     cerr << "]";
 }
 
-bool comp(pair<ll, ll> &a, pair<ll, ll> &b)
-{
-    if (a.ss < b.ss)
-    {
-        return true;
-    }
-    else if (a.ss == b.ss)
-    {
-        if (a.ff > b.ff)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    return false;
-}
-
 void solve()
 {
 
     ll n;
     cin >> n;
-    priority_queue<pair<ll, ll>> money;
-    queue<pair<ll, ll>> index;
-    ll indx = 1;
-    map<ll, ll> m;
-    for (ll i = 0; i < n; i++)
+    vl v(n);
+    in(v);
+
+    if (n == 1 or n == 2 or n == 3)
     {
-        ll x;
-        cin >> x;
-        if (x == 1)
+        out(-1);
+        return;
+    }
+
+    ll min = 1, max = n;
+
+    ll hi = n - 1;
+    ll lo = 0;
+
+    ll left_ele = 0, right_ele = 0;
+    while (lo < hi)
+    {
+
+        if (v[lo] == min)
         {
-            ll m;
-            cin >> m;
-            index.push({indx, m});
-            money.push({m, -indx});
-            indx++;
+            lo++;
+            min++;
         }
-        else if (x == 2)
+        else if (v[lo] == max)
         {
-            while (!index.empty())
-            {
-                auto it = index.front();
-                if (m[it.ff] >= 1)
-                {
-                    index.pop();
-                }
-                else
-                {
-                    cout << it.ff << sp;
-                    m[it.ff]++;
-                    break;
-                }
-            }
+            lo++;
+            max--;
         }
-        else if (x == 3)
+
+        else if (v[hi] == min)
         {
-            while (!money.empty())
-            {
-                auto it = money.top();
-                it.ss = -it.ss;
-                if (m[it.ss] >= 1)
-                {
-                    money.pop();
-                }
-                else
-                {
-                    cout << it.ss << sp;
-                    m[it.ss]++;
-                    break;
-                }
-            }
+            hi--;
+            min++;
+        }
+        else if (v[hi] == max)
+        {
+            hi--;
+            max--;
+        }
+        else
+        {
+
+            left_ele = lo + 1;
+            right_ele = hi + 1;
+            break;
         }
     }
-    cout << nline;
+
+    if (left_ele != 0 and right_ele != 0)
+    {
+        out(left_ele << sp << right_ele);
+    }
+    else
+    {
+        out(-1);
+    }
 }
 
 int main()
@@ -237,7 +220,10 @@ int main()
     freopen("Error.txt", "w", stderr);
 #endif
 
-    solve();
+    int t;
+    cin >> t;
+    while (t--)
+        solve();
 
 #ifndef ONLINE_JUDGE
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
