@@ -187,6 +187,7 @@ void solve()
 
     reverse(all(ans));
     show(ans);
+    cout << nline;
 }
 
 int main()

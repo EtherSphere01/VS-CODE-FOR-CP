@@ -152,41 +152,27 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll n;
-    cin >> n;
-    string s;
-    cin >> s;
-
-    vl ans;
-    ll lowest = 1, greatest = n;
-    map<ll, ll> m;
-    for (ll i = n - 1; i >= 0; i--)
+    ll a, b;
+    cin >> a >> b;
+    if (a % 3 == 0 and b % 3 == 0)
     {
-        if (s[i] == '>')
-        {
-            m[greatest]++;
-            ans.pb(greatest);
-            greatest--;
-        }
-        else if (s[i] == '<')
-        {
-            m[lowest]++;
-            ans.pb(lowest);
-            lowest++;
-        }
+        out(0);
+        return;
     }
-
-    for (ll i = 1; i <= n; i++)
+    if (a % 3 == 0)
     {
-        if (m[i] == 0)
-        {
-            ans.pb(i);
-            break;
-        }
+        a = 0;
     }
-
-    reverse(all(ans));
-    show(ans);
+    if (b % 3 == 0)
+    {
+        b = 0;
+    }
+    ll ans = 0;
+    a = a % 3;
+    b = b % 3;
+    a = a + b;
+    ans += a / 2;
+    out(ans);
 }
 
 int main()

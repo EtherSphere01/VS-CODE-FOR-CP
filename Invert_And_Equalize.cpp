@@ -156,37 +156,40 @@ void solve()
     cin >> n;
     string s;
     cin >> s;
-
-    vl ans;
-    ll lowest = 1, greatest = n;
-    map<ll, ll> m;
-    for (ll i = n - 1; i >= 0; i--)
+    ll zero = 0, one = 0;
+    ll z = 0, o = 0;
+    for (ll i = 0; i < n; i++)
     {
-        if (s[i] == '>')
+        if (s[i] == '1')
         {
-            m[greatest]++;
-            ans.pb(greatest);
-            greatest--;
+            if (z > 0)
+            {
+                zero++;
+                z = 0;
+            }
+            o++;
         }
-        else if (s[i] == '<')
+        if (s[i] == '0')
         {
-            m[lowest]++;
-            ans.pb(lowest);
-            lowest++;
+            if (o > 0)
+            {
+                one++;
+                o = 0;
+            }
+            z++;
         }
     }
 
-    for (ll i = 1; i <= n; i++)
+    if (z > 0)
     {
-        if (m[i] == 0)
-        {
-            ans.pb(i);
-            break;
-        }
+        zero++;
+    }
+    if (o > 0)
+    {
+        one++;
     }
 
-    reverse(all(ans));
-    show(ans);
+    out(min(zero, one));
 }
 
 int main()
