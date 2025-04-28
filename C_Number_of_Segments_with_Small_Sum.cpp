@@ -152,75 +152,38 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll n;
-    cin >> n;
+    ll n, k;
+    cin >> n >> k;
     vl a(n);
+    in(a);
+
+    ll count = 0;
+    ll ans = 0;
+    ll l = 0, r = 0;
     ll sum = 0;
-    priority_queue<pair<ll, ll>> pq;
-    for (ll i = 0; i < n; i++)
+    while (r < n)
     {
-        cin >> a[i];
-        sum += a[i];
-        pq.push({a[i], i});
-    }
-    vl ans;
-    vl suffix(n);
-    suffix[n - 1] = a[n - 1];
-    for (ll i = n - 2; i >= 0; i--)
-    {
-        suffix[i] = a[i] + suffix[i + 1];
-    }
-
-    ll store = 0;
-    for (ll i = n - 1; i >= 0; i--)
-    {
-        ll suffix_sum = suffix[i];
-        ll lastvalue = a[i];
-
-        auto pq_value = pq.top();
-        ll index = pq_value.ss;
-        ll last = pq_value.ff;
-
-        if (last < lastvalue)
+        sum += a[r];
+        if (sum <= k)
         {
-            ans.pb(suffix_sum);
-            continue;
+            ll indx = r - l + 1;
+            ll temp = (indx * (indx + 1)) / 2;
+            ans += indx;
         }
-
-        bool f = false;
-        while (!pq.empty())
+        else
         {
-            auto pq_value = pq.top();
-            ll index = pq_value.ss;
-            ll last = pq_value.ff;
-
-            if (index < i)
+            while (sum > k)
             {
-                if (last > lastvalue)
-                {
-                    suffix_sum -= lastvalue;
-                    suffix_sum += last;
-                    ans.pb(suffix_sum);
-                    pq.pop();
-                }
-                else
-                {
-
-                    ans.pb(suffix_sum);
-                }
-                f = true;
+                sum -= a[l];
+                l++;
             }
-            if (f)
-                break;
-            pq.pop();
+            ll indx = r - l + 1;
+            ll temp = indx * (indx + 1) / 2;
+            ans += indx;
         }
+        r++;
     }
-
-    for (auto i : ans)
-    {
-        cout << i << sp;
-    }
-    cout << nline;
+    out(ans);
 }
 
 int main()
@@ -231,10 +194,7 @@ int main()
     freopen("Error.txt", "w", stderr);
 #endif
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+    solve();
 
 #ifndef ONLINE_JUDGE
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
