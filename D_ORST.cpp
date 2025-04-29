@@ -171,11 +171,16 @@ void solve()
         right--;
     }
 
+    vl c;
     for (ll i = 0; i <= right; i++){
-        cout << a[i] << sp;
+        c.pb(a[i]);
     }
     for (auto i : st){
-        cout << i << sp;
+        c.pb(i);
+    }
+    cout << c[0];
+    for (ll i = 1; i<n; i++){
+        cout << sp << c[i];
     }
     cout << nline;
 }
