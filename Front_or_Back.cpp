@@ -7,8 +7,8 @@ using namespace std;
     cin.tie(NULL);                    \
     cout.tie(NULL);                   \
     cout.precision(numeric_limits<double>::max_digits10);
-#define MOD 1000000007
-#define MOD1 998244353
+#define MOD1 1000000007
+#define MOD 998244353
 #define INF 1e18
 #define nline "\n"
 #define sp " "
@@ -149,6 +149,23 @@ void _print(map<T, V> v)
     cerr << "]";
 }
 
+ll powermod(ll a, ll b)
+{
+    ll ans = 1;
+    while (b > 0)
+    {
+        if ((b & 1) == 1)
+        {
+            ans *= a;
+            ans %= MOD;
+        }
+        a *= a;
+        a %= MOD;
+        b = b >> 1;
+    }
+    return ans;
+}
+
 void solve()
 {
 
@@ -157,47 +174,29 @@ void solve()
     vl a(n);
     in(a);
 
-    map<ll, ll> m;
+    vl ans(n, -1);
+
     for (ll i = 0; i < n; i++)
     {
-        for (ll j = i + 1; j < n; j++)
+        ll x = a[i];
+        if (ans[x] == -1)
         {
-            ll temp = a[i] + a[j];
-            m[temp]++;
+            ans[x] = x;
+        }
+        else if (ans[n - 1 - x] == -1)
+        {
+            ans[n - 1 - x] = x;
+        }
+        else
+        {
+            out(0);
+            return;
         }
     }
 
-    ll sum = 0, count = 0, ans = 0;
-
-    vl temp = a;
-    for (auto i : m)
-    {
-        sum = i.ff;
-        count = 0;
-        a = temp;
-
-        for (ll i = 0; i < n; i++)
-        {
-            bool f = false;
-            for (ll j = i + 1; j < n; j++)
-            {
-                if (a[i] != 0 andd a[j] != 0)
-                {
-                    if (a[i] + a[j] == sum)
-                    {
-                        count++;
-                        a[i] = 0;
-                        a[j] = 0;
-                        f = true;
-                    }
-                }
-                if (f)
-                    break;
-            }
-        }
-        ans = max(ans, count);
-    }
-    out(ans);
+    ll count = sz(ans) / 2;
+    count = powermod(2, count);
+    out(count);
 }
 
 int main()

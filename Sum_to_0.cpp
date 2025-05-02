@@ -154,50 +154,46 @@ void solve()
 
     ll n;
     cin >> n;
-    vl a(n);
-    in(a);
-
-    map<ll, ll> m;
-    for (ll i = 0; i < n; i++)
+    if (n == 1)
     {
-        for (ll j = i + 1; j < n; j++)
-        {
-            ll temp = a[i] + a[j];
-            m[temp]++;
-        }
+        out(-1);
+        return;
     }
 
-    ll sum = 0, count = 0, ans = 0;
-
-    vl temp = a;
-    for (auto i : m)
+    if (n % 2 == 0)
     {
-        sum = i.ff;
-        count = 0;
-        a = temp;
-
+        ll value = 1;
         for (ll i = 0; i < n; i++)
         {
-            bool f = false;
-            for (ll j = i + 1; j < n; j++)
+            if (i % 2 == 0)
             {
-                if (a[i] != 0 andd a[j] != 0)
-                {
-                    if (a[i] + a[j] == sum)
-                    {
-                        count++;
-                        a[i] = 0;
-                        a[j] = 0;
-                        f = true;
-                    }
-                }
-                if (f)
-                    break;
+                cout << value << sp;
+            }
+            else
+            {
+                cout << -value << sp;
             }
         }
-        ans = max(ans, count);
+        cout << nline;
+
+        return;
     }
-    out(ans);
+
+    cout << 1 << sp << 2 << sp << -3 << sp;
+    n -= 3;
+    ll value = 1;
+    for (ll i = 0; i < n; i++)
+    {
+        if (i % 2 == 0)
+        {
+            cout << value << sp;
+        }
+        else
+        {
+            cout << -value << sp;
+        }
+    }
+    cout << nline;
 }
 
 int main()

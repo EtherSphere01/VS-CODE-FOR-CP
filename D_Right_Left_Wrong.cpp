@@ -157,46 +157,40 @@ void solve()
     vl a(n);
     in(a);
 
-    map<ll, ll> m;
-    for (ll i = 0; i < n; i++)
+    string s;
+    cin >> s;
+
+    vl presum(n + 1, 0);
+
+    presum[1] = a[0];
+
+    for (ll i = 2; i <= n; i++)
     {
-        for (ll j = i + 1; j < n; j++)
+        presum[i] = presum[i - 1] + a[i - 1];
+    }
+
+    ll l = 0, r = n - 1, ans = 0;
+
+    while (l < r)
+    {
+
+        if (s[l] != 'L')
         {
-            ll temp = a[i] + a[j];
-            m[temp]++;
+            l++;
+        }
+        if (s[r] != 'R')
+        {
+            r--;
+        }
+
+        if (s[l] == 'L' and s[r] == 'R')
+        {
+            ans += presum[r + 1] - presum[l];
+            l++;
+            r--;
         }
     }
 
-    ll sum = 0, count = 0, ans = 0;
-
-    vl temp = a;
-    for (auto i : m)
-    {
-        sum = i.ff;
-        count = 0;
-        a = temp;
-
-        for (ll i = 0; i < n; i++)
-        {
-            bool f = false;
-            for (ll j = i + 1; j < n; j++)
-            {
-                if (a[i] != 0 andd a[j] != 0)
-                {
-                    if (a[i] + a[j] == sum)
-                    {
-                        count++;
-                        a[i] = 0;
-                        a[j] = 0;
-                        f = true;
-                    }
-                }
-                if (f)
-                    break;
-            }
-        }
-        ans = max(ans, count);
-    }
     out(ans);
 }
 

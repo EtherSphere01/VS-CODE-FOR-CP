@@ -152,50 +152,41 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll n;
-    cin >> n;
-    vl a(n);
-    in(a);
+    ll n, k;
+    cin >> n >> k;
 
-    map<ll, ll> m;
-    for (ll i = 0; i < n; i++)
+    vl f(n), h(n);
+
+    in(f);
+    in(h);
+
+    ll ans = 0, count = f[0];
+
+    ll l = 0, r = 1;
+
+    if (count <= k)
+        ans = 1;
+
+    while (r < n)
     {
-        for (ll j = i + 1; j < n; j++)
+        if (h[r - 1] % h[r] == 0)
         {
-            ll temp = a[i] + a[j];
-            m[temp]++;
+            count += f[r];
         }
-    }
-
-    ll sum = 0, count = 0, ans = 0;
-
-    vl temp = a;
-    for (auto i : m)
-    {
-        sum = i.ff;
-        count = 0;
-        a = temp;
-
-        for (ll i = 0; i < n; i++)
+        else
         {
-            bool f = false;
-            for (ll j = i + 1; j < n; j++)
-            {
-                if (a[i] != 0 andd a[j] != 0)
-                {
-                    if (a[i] + a[j] == sum)
-                    {
-                        count++;
-                        a[i] = 0;
-                        a[j] = 0;
-                        f = true;
-                    }
-                }
-                if (f)
-                    break;
-            }
+            count = f[r];
+            l = r;
         }
-        ans = max(ans, count);
+
+        while (count > k)
+        {
+            count -= f[l];
+            l++;
+        }
+
+        ans = max(ans, r - l + 1);
+        r++;
     }
     out(ans);
 }

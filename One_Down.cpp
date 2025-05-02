@@ -154,50 +154,39 @@ void solve()
 
     ll n;
     cin >> n;
-    vl a(n);
-    in(a);
-
-    map<ll, ll> m;
+    string s, t;
+    cin >> s >> t;
+    if (s == t)
+    {
+        yes;
+        return;
+    }
     for (ll i = 0; i < n; i++)
     {
-        for (ll j = i + 1; j < n; j++)
+        if (s[i] == '0' and t[i] == '1')
         {
-            ll temp = a[i] + a[j];
-            m[temp]++;
+            no;
+            return;
         }
     }
 
-    ll sum = 0, count = 0, ans = 0;
-
-    vl temp = a;
-    for (auto i : m)
+    ll count = 0;
+    for (ll i = 0; i < n; i++)
     {
-        sum = i.ff;
-        count = 0;
-        a = temp;
-
-        for (ll i = 0; i < n; i++)
+        if (s[i] == '1' and t[i] == '0')
         {
-            bool f = false;
-            for (ll j = i + 1; j < n; j++)
-            {
-                if (a[i] != 0 andd a[j] != 0)
-                {
-                    if (a[i] + a[j] == sum)
-                    {
-                        count++;
-                        a[i] = 0;
-                        a[j] = 0;
-                        f = true;
-                    }
-                }
-                if (f)
-                    break;
-            }
+            count++;
         }
-        ans = max(ans, count);
     }
-    out(ans);
+
+    if (count % 2 == 0)
+    {
+        yes;
+    }
+    else
+    {
+        no;
+    }
 }
 
 int main()
