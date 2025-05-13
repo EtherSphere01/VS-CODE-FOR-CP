@@ -73,24 +73,15 @@ template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i
 
 
 void solve() {
-
     ll n;
     cin >> n;
     vl a(n);
     in(a);
-ll ans = 0;
-    for (ll i = 0; i < n; i++){
-        ans = ans^a[i];
+    ll ans = a[0];
+    for (ll i = 1; i < n;i++){
+        ans = ans&a[i];
     }
-
-    ll min = ans;
-    for (ll i = 0; i < n; i++){
-        ll temp = ans^a[i];
-        if (temp < min){
-            min = temp;
-        }
-    }
-    out(min);
+    cout << ans << nline;
 }
 
 int main() {
