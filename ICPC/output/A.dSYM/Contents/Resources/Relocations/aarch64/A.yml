@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/naimur/Documents/GitHub/VS-CODE-FOR-CP/ICPC/output/A'
+relocations:     []
+...
