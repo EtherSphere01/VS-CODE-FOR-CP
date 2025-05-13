@@ -149,29 +149,45 @@ void _print(map<T, V> v)
     cerr << "]";
 }
 
+ll maxVal = (1LL << 15);
+vl palindrome;
+
+bool isPalindrome(string s)
+{
+    ll n = s.length();
+    for (ll i = 0; i < n / 2; i++)
+    {
+        if (s[i] != s[n - i - 1])
+            return false;
+    }
+    return true;
+}
+
 void solve()
 {
 
     ll n;
     cin >> n;
-    string s;
-    cin >> s;
-    map<char, ll> m;
-    for (ll i = 0; i < sz(s); i++)
+    vl a(n);
+    vl count(maxVal + 1, 0);
+    for (ll i = 0; i < n; i++)
     {
-        m[s[i]]++;
+        cin >> a[i];
+        count[a[i]]++;
     }
-    ll ans = 0;
-    for (auto i : m)
-    {
-        if (i.ff == '?')
-        {
-            continue;
-        }
 
-        ans += min(n, i.ss);
+    ll ans = n;
+
+    for (ll i = 0; i < n; i++)
+    {
+        for (ll j = 0; j < palindrome.size(); j++)
+        {
+            ll val = a[i] ^ palindrome[j];
+            ans += count[val];
+        }
     }
-    out(ans);
+
+    out(ans / 2);
 }
 
 int main()
@@ -182,6 +198,15 @@ int main()
     freopen("Error.txt", "w", stderr);
 #endif
 
+    for (ll i = 0; i < maxVal; i++)
+    {
+        string s = to_string(i);
+        if (isPalindrome(s))
+        {
+            palindrome.pb(i);
+        }
+    }
+
     int t;
     cin >> t;
     while (t--)
@@ -191,6 +216,3 @@ int main()
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
 #endif
 }
-
-
-// git push

@@ -151,27 +151,34 @@ void _print(map<T, V> v)
 
 void solve()
 {
-
     ll n;
     cin >> n;
-    string s;
-    cin >> s;
-    map<char, ll> m;
-    for (ll i = 0; i < sz(s); i++)
-    {
-        m[s[i]]++;
-    }
-    ll ans = 0;
-    for (auto i : m)
-    {
-        if (i.ff == '?')
-        {
-            continue;
-        }
+    string a, b, c;
+    cin >> a >> b >> c;
 
-        ans += min(n, i.ss);
+    bool check = false;
+
+    for (ll i = 0; i < n; i++)
+    {
+        if (a[i] == b[i])
+        {
+            if (a[i] != c[i] and b[i] != c[i])
+            {
+                check = true;
+                break;
+            }
+        }
+        else if (a[i] != b[i])
+        {
+            if (a[i] != c[i] and b[i] != c[i])
+            {
+                check = true;
+                break;
+            }
+        }
     }
-    out(ans);
+
+    yesno(check);
 }
 
 int main()
@@ -191,6 +198,3 @@ int main()
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
 #endif
 }
-
-
-// git push

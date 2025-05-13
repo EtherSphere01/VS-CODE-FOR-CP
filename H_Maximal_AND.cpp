@@ -152,24 +152,33 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll n;
-    cin >> n;
-    string s;
-    cin >> s;
-    map<char, ll> m;
-    for (ll i = 0; i < sz(s); i++)
-    {
-        m[s[i]]++;
-    }
-    ll ans = 0;
-    for (auto i : m)
-    {
-        if (i.ff == '?')
-        {
-            continue;
-        }
+    ll n, k;
+    cin >> n >> k;
 
-        ans += min(n, i.ss);
+    vl a(n);
+    in(a);
+    vector<bitset<31>> b(n);
+    for (ll i = 0; i < n; i++)
+    {
+        b[i] = bitset<31>(a[i]);
+    }
+
+    ll ans = 0;
+    for (ll i = 30; i >= 0; i--)
+    {
+        ll count = 0;
+        for (ll j = 0; j < n; j++)
+        {
+            if (b[j][i] == 0)
+            {
+                count++;
+            }
+        }
+        if (count <= k)
+        {
+            ans += (1 << i);
+            k -= count;
+        }
     }
     out(ans);
 }
@@ -191,6 +200,3 @@ int main()
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
 #endif
 }
-
-
-// git push

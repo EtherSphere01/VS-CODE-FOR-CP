@@ -152,26 +152,39 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll n;
-    cin >> n;
+    ll n, x;
+    cin >> n >> x;
+
     string s;
     cin >> s;
-    map<char, ll> m;
-    for (ll i = 0; i < sz(s); i++)
-    {
-        m[s[i]]++;
-    }
-    ll ans = 0;
-    for (auto i : m)
-    {
-        if (i.ff == '?')
-        {
-            continue;
-        }
 
-        ans += min(n, i.ss);
+    ll sum = 0;
+    if (s[0] == '0')
+    {
+        no;
+        return;
     }
-    out(ans);
+
+    for (ll i = 0; i < n; i++)
+    {
+        if (s[i] == '0')
+        {
+            if (sum > 0)
+            {
+                sum--;
+            }
+            else
+            {
+                no;
+                return;
+            }
+        }
+        else
+        {
+            sum = x;
+        }
+    }
+    yes;
 }
 
 int main()
@@ -191,6 +204,3 @@ int main()
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
 #endif
 }
-
-
-// git push

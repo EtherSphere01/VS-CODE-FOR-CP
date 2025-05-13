@@ -154,24 +154,35 @@ void solve()
 
     ll n;
     cin >> n;
-    string s;
-    cin >> s;
-    map<char, ll> m;
-    for (ll i = 0; i < sz(s); i++)
+    string s, ss;
+    cin >> s >> ss;
+    if (s == ss)
     {
-        m[s[i]]++;
+        yes;
+        return;
     }
-    ll ans = 0;
-    for (auto i : m)
-    {
-        if (i.ff == '?')
-        {
-            continue;
-        }
 
-        ans += min(n, i.ss);
+    bool f = false;
+    for (ll i = 0; i < n; i++)
+    {
+        if (s[i] != ss[i])
+        {
+            if (s[i] == '1' or f == true)
+            {
+                yes;
+                return;
+            }
+            else
+            {
+                no;
+                return;
+            }
+        }
+        if (s[i] == '1')
+        {
+            f = true;
+        }
     }
-    out(ans);
 }
 
 int main()
@@ -191,6 +202,3 @@ int main()
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
 #endif
 }
-
-
-// git push
