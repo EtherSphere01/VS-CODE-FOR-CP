@@ -152,52 +152,20 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll n;
-    cin >> n;
-    vl a(n);
-    in(a);
+    ll x, y;
+    cin >> x >> y;
+    ll mini_need = ceil(y / 2.0);
 
-    vl temp = a;
-    sort(all(temp));
-    if (temp[0] == temp[n - 1] or is_sorted(all(a)))
-    {
-        yes;
-        return;
+    ll total = mini_need * 15;
+    ll rem = total - y * 4;
+    if(rem >= x){
+        out(mini_need);
     }
-
-    ll indx = -1;
-    for (ll i = 0; i < n - 1; i++)
-    {
-        if (a[i] > a[i + 1])
-        {
-            indx = i;
-            break;
-        }
-    }
-
-    vl ans;
-    if (indx == -1)
-    {
-        yes;
-        return;
-    }
-
-    for (ll i = indx + 1; i < n; i++)
-    {
-        ans.pb(a[i]);
-    }
-    for (ll i = 0; i <= indx; i++)
-    {
-        ans.pb(a[i]);
-    }
-
-    if (is_sorted(all(ans)))
-    {
-        yes;
-    }
-    else
-    {
-        no;
+    else{
+        rem = x - rem;
+        rem = ceil(rem/15.0);
+        mini_need += rem;
+        out(mini_need);
     }
 }
 
