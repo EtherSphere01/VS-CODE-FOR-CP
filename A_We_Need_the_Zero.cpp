@@ -152,57 +152,32 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll n, m, a, b;
-    cin >> n >> m >> a >> b;
-    if (n > m)
+    ll n;
+    cin >> n;
+    vl a(n);
+    in(a);
+    ll xorr = a[0];
+
+    for (ll i = 1; i < n; i++)
     {
-        no;
-        return;
+        xorr = xorr ^ a[i];
     }
 
-    if (m % a == 0 and m / a == n)
+    if (n % 2 == 0)
     {
-        yes;
-        return;
+        if (xorr == 0)
+        {
+            out(0);
+        }
+        else
+        {
+            out(-1);
+        }
     }
-    if (m % b == 0 and m / b == n)
+    else
     {
-        yes;
-        return;
+        out(xorr);
     }
-    ll value = a + b;
-
-    if (m % value == 0 and (m / value) * 2 == n)
-    {
-        yes;
-        return;
-    }
-
-    if (m % a == b and (m / a) + 1 == n)
-    {
-        yes;
-        return;
-    }
-
-    if (m % b == a and (m / b) + 1 == n)
-    {
-        yes;
-        return;
-    }
-
-    if (m % value == a and ((m / value)*2) + 1 == n)
-    {
-        yes;
-        return;
-    }
-
-    if (m % value == b and ((m / value)*2) + 1 == n)
-    {
-        yes;
-        return;
-    }
-
-    no;
 }
 
 int main()
