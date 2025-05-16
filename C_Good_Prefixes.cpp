@@ -156,32 +156,21 @@ void solve()
     cin >> n;
     vl a(n);
     in(a);
-    ll ans = 0;
-    ll indx = -1;
+
+    ll count = 0;
+    ll mx = 0;
+    ll sum = 0;
     for (ll i = 0; i < n; i++)
     {
-        if (a[i] != 0)
+        mx = max(mx, a[i]);
+        sum += a[i];
+        // cout << sum << sp << mx << nline;
+        if ((sum - mx) == mx)
         {
-            indx = i;
-            break;
+            count++;
         }
     }
-
-    if (indx == n - 1 orr indx == -1)
-    {
-        out(0);
-        return;
-    }
-
-    for (ll i = indx; i < n - 1; i++)
-    {
-        ans += a[i];
-        if (a[i] == 0)
-        {
-            ans++;
-        }
-    }
-    out(ans);
+    out(count);
 }
 
 int main()
