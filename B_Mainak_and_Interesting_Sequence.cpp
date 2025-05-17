@@ -152,28 +152,38 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll n, s, k;
-    cin >> n >> s >> k;
+    ll n, m;
+    cin >> n >> m;
 
-    vl a;
-    a.pb(0);
-    for (ll i = 0; i < n; i++)
+    if ((n > m) or (n % 2 == 0 and m % 2 == 1))
     {
-        ll x, y;
-        cin >> x >> y;
-        a.pb(x);
-        a.pb(y);
+        no;
+        return;
     }
-    a.pb(k);
-    ll time_rem = 0;
-    for (ll i = 0; i < sz(a); i++)
-    {
-        time_rem = max(time_rem, abs(a[i + 1] - a[i]));
-        i++;
-    }
-    if (time_rem >= s)
+
+    if (m % 2 == 0 and n % 2 == 0)
     {
         yes;
+        ll sum = 0;
+        for (ll i = 1; i <= n - 2; i++)
+        {
+            cout << 1 << sp;
+            sum++;
+        }
+        ll rem = m - sum;
+        cout << rem / 2 << sp << rem / 2 << nline;
+    }
+    else if ((n % 2 == 1 and m % 2 == 1) or (n % 2 == 1 and m % 2 == 0))
+    {
+        yes;
+        ll sum = 0;
+        for (ll i = 1; i <= n - 1; i++)
+        {
+            cout << 1 << sp;
+            sum++;
+        }
+        ll rem = m - sum;
+        cout << rem << nline;
     }
     else
     {
