@@ -153,44 +153,27 @@ void solve()
 {
     ll n, m;
     cin >> n >> m;
-    vl price(n), value(m);
-    in(price);
-    in(value);
 
-    sort(all(price));
+    vl a(n);
+    in(a);
+    sort(all(a));
 
-    for (auto i : value)
-    {
-        ll left = 0, right = n;
-        ll ans = 0;
-        ll indx = -1;
-        while (left <= right)
-        {
-            ll mid = (left + right) / 2;
+    ll left = 0, right = n - 1;
+    ll ans = 0;
 
-            if (price[mid] <= i)
-            {
-                ans = price[mid];
-                left = mid + 1;
-                indx = mid;
-            }
-            else
-            {
-                right = mid - 1;
-            }
+    while(left<=right){
+        if(a[left] + a[right] <= m){
+            ans++;
+            left++;
+            right--;
         }
-
-        if (ans == 0)
-        {
-            out(-1);
-        }
-        else
-        {
-            out(ans);
-            price[indx] = 0;
-            sort(all(price));
+        else{
+            right--;
+            ans++;
         }
     }
+    out(ans);
+    
 }
 
 int main()
