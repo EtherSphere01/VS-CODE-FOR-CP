@@ -151,38 +151,45 @@ void _print(map<T, V> v)
 
 void solve()
 {
+    ll n, m;
+    cin >> n >> m;
+    vl price(n), value(m);
+    in(price);
+    in(value);
 
-    ll n;
-    cin >> n;
-    vl a(n+1);
-    vl b(n+1);
-    for (ll i = 1; i < n; i++){
-        cin >> b[i];
-    }
-        b[0] = 0, b[n] = 0;
+    sort(all(price));
 
-    for (int i = 1; i <= n; i++)
+    for (auto i : value)
     {
-        a[i] = b[i - 1] | b[i];
-    }
-    bool isTrue = true;
-    for (int i = 1; i < n; i++)
-
-        if ((a[i] & a[i + 1]) != b[i])
+        ll left = 0, right = n;
+        ll ans = 0;
+        ll indx = -1;
+        while (left <= right)
         {
-            isTrue = false;
-            break;
+            ll mid = (left + right) / 2;
+
+            if (price[mid] <= i)
+            {
+                ans = price[mid];
+                left = mid + 1;
+                indx = mid;
+            }
+            else
+            {
+                right = mid - 1;
+            }
         }
-    if (isTrue)
-    {
-        for (ll i = 1; i <= n;i++){
-            cout << a[i] << sp;
+
+        if (ans == 0)
+        {
+            out(-1);
         }
-            cout << nline;
-    }
-    else
-    {
-        out(-1);
+        else
+        {
+            out(ans);
+            price[indx] = 0;
+            sort(all(price));
+        }
     }
 }
 
@@ -194,10 +201,7 @@ int main()
     freopen("Error.txt", "w", stderr);
 #endif
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+    solve();
 
 #ifndef ONLINE_JUDGE
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
