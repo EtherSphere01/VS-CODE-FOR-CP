@@ -149,31 +149,31 @@ void _print(map<T, V> v)
     cerr << "]";
 }
 
+bool kth_bit_on(ll n, ll k)
+{
+    return ((n >> k) & 1);
+}
+
 void solve()
 {
-    ll n, m;
-    cin >> n >> m;
 
-    vl a(n);
-    in(a);
-    sort(all(a));
+    ll x;
+    cin >> x;
+    ll msb = __lg(x);
+    ll b = (1 << msb);
+    ll a = (x ^ b);
+    ll sum = b, cnt = 0;
 
-    ll left = 0, right = n - 1;
-    ll ans = 0;
-
-    while(left<=right){
-        if(a[left] + a[right] <= m){
-            ans++;
-            left++;
-            right--;
-        }
-        else{
-            right--;
-            ans++;
+    for (ll i = 0; i <= msb; i++)
+    {
+        if (!kth_bit_on(a, i) and !kth_bit_on(b, i) and (sum + (1 << i) <= x))
+        {
+            cnt++;
+            sum += (1 << i);
         }
     }
+    ll ans = (1 << cnt);
     out(ans);
-    
 }
 
 int main()
@@ -184,7 +184,10 @@ int main()
     freopen("Error.txt", "w", stderr);
 #endif
 
-    solve();
+    int t;
+    cin >> t;
+    while (t--)
+        solve();
 
 #ifndef ONLINE_JUDGE
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
