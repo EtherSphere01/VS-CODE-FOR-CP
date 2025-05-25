@@ -234,4 +234,4 @@ int main()
 #endif
 }
 
-// 
+//#pragma GCC optimize("Ofast")
