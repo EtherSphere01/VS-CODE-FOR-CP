@@ -137,17 +137,7 @@ void _print(multiset<T> v)
     }
     cerr << "]";
 }
-template <class T, class V>
-void _print(map<T, V> v)
-{
-    cerr << "[ ";
-    for (auto i : v)
-    {
-        _print(i);
-        cerr << " ";
-    }
-    cerr << "]";
-}
+
 
 void solve()
 {
@@ -228,9 +218,5 @@ int main()
     cin >> t;
     while (t--)
         solve();
-
-#ifndef ONLINE_JUDGE
-    cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
-#endif
 }
 
