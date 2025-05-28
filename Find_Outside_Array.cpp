@@ -210,9 +210,7 @@ int main()
 {
     fastio();
 
-#ifndef ONLINE_JUDGE
-    freopen("Error.txt", "w", stderr);
-#endif
+
 
     int t;
     cin >> t;
