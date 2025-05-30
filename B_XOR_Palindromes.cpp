@@ -152,25 +152,42 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll n, m;
-    cin >> n >> m;
+    ll n;
+    cin >> n;
+    string s;
+    cin >> s;
 
-    ll ans = 0;
+    string ans(n + 1, '0');
 
-    for (ll i = 0; i <= 30; i++)
+    ll ex = 0;
+    for (ll i = 0; i < n / 2; ++i)
     {
-        ll curr = n & ((1LL << (i + 1)) - 1);
-        ll mini = (1LL << i) - curr;
-
-        if (n >= (1LL << i))
+        if (s[i] != s[n - 1 - i])
         {
-            mini = min(mini, curr + 1);
-        }
-        if (curr >= (1LL << i) || mini <= m)
-        {
-            ans |= (1LL << i);
+            ex++;
         }
     }
+
+    ll sm = (n / 2) - ex;
+
+    for (ll k = 0; k <= sm; ++k)
+    {
+        ll curr = ex + 2 * k;
+
+        if (curr <= n)
+        {
+            ans[curr] = '1';
+        }
+
+        if (n % 2 == 1)
+        {
+            if (curr + 1 <= n)
+            {
+                ans[curr + 1] = '1';
+            }
+        }
+    }
+
     out(ans);
 }
 
