@@ -149,71 +149,23 @@ void _print(map<T, V> v)
     cerr << "]";
 }
 
-bool check(ll mid, ll n, vl a, ll total)
-{
-    for (ll indx = 0; indx < 20; indx++)
-    {
-        if (!((total >> indx) & 1))
-        {
-            continue;
-        }
-
-        ll current_zero = 0;
-        ll mx_zero = 0;
-        for (ll i = 0; i < n; ++i)
-        {
-            if (!((a[i] >> indx) & 1))
-            {
-                current_zero++;
-            }
-            else
-            {
-                mx_zero = max(mx_zero, current_zero);
-                current_zero = 0;
-            }
-        }
-        mx_zero = max(mx_zero, current_zero);
-
-        if (mx_zero >= mid)
-        {
-            return false;
-        }
-    }
-    return true;
-}
-
 void solve()
 {
 
-    ll n;
-    cin >> n;
-    vl a(n);
-    ll total = 0;
-
-    for (ll i = 0; i < n; ++i)
+    ll n, m;
+    cin >> n >> m;
+    ll ans = 0;
+    for (int i = 0; i <= 30; i++)
     {
-        cin >> a[i];
-        total |= a[i];
-    }
-
-    if (total == 0)
-    {
-        out(1);
-        return;
-    }
-
-    ll lo = 1, hi = n, ans = n;
-    while (lo <= hi)
-    {
-        ll mid = lo + (hi - lo) / 2;
-        if (check(mid, n, a, total))
+        ll x = n & ((1LL << (i + 1)) - 1);
+        ll t = (1LL << i) - x;
+        if (n >= (1LL << i))
         {
-            ans = mid;
-            hi = mid - 1;
+            t = min(t, x + 1);
         }
-        else
+        if (x >= (1LL << i) || t <= m)
         {
-            lo = mid + 1;
+            ans |= (1LL << i);
         }
     }
     out(ans);
