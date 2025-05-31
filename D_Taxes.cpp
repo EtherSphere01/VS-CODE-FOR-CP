@@ -149,23 +149,51 @@ void _print(map<T, V> v)
     cerr << "]";
 }
 
-ll lcm(ll a, ll b)
+bool is_prime(ll n)
 {
-    return (a * b) / __gcd(a, b);
+    if (n <= 1)
+        return false;
+    if (n <= 3)
+        return true;
+    if (n % 2 == 0 || n % 3 == 0)
+        return false;
+    for (ll i = 5; i * i <= n; i += 6)
+    {
+        if (n % i == 0 || n % (i + 2) == 0)
+            return false;
+    }
+    return true;
 }
-
 void solve()
 {
+    ll n;
+    cin >> n;
 
-    ll n, a, b, p, q;
-    cin >> n >> a >> b >> p >> q;
-
-    ll ans = 0;
-
-    ans += (n / a) * p;
-    ans += (n / b) * q;
-    ans -= (n / lcm(a, b)) * min(p, q);
-    out(ans);
+    bool f = is_prime(n);
+    if (f)
+    {
+        out(1);
+        return;
+    }
+    if (n % 2 == 0)
+    {
+        out(2);
+        return;
+    }
+    else
+    {
+        bool k = is_prime(n - 2);
+        if (k)
+        {
+            out(2);
+            return;
+        }
+        else
+        {
+            out(3);
+            return;
+        }
+    }
 }
 
 int main()
