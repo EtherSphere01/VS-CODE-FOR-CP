@@ -149,30 +149,16 @@ void _print(map<T, V> v)
     cerr << "]";
 }
 
-ll powermod(ll a, ll b)
-{
-    ll ans = 1;
-    while (b > 0)
-    {
-        if ((b & 1) == 1)
-        {
-            ans *= a;
-            ans %= MOD;
-        }
-        a *= a;
-        a %= MOD;
-        b = b >> 1;
-    }
-    return ans;
-}
-
 void solve()
 {
 
-    ll n, m;
-    cin >> n >> m;
-    ll ans = powermod(n, m);
-    out(ans);
+    ll l, r;
+    cin >> l >> r;
+    yes;
+    for (ll i = 0; i < ((r - l + 1) / 2); i++)
+    {
+        cout << l + i * 2 << sp << l + i * 2 + 1 << nline;
+    }
 }
 
 int main()
@@ -183,10 +169,7 @@ int main()
     freopen("Error.txt", "w", stderr);
 #endif
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+    solve();
 
 #ifndef ONLINE_JUDGE
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
