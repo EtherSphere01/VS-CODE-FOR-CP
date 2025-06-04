@@ -193,6 +193,3 @@ int main()
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
 #endif
 }
-
-// Time Complexity: O(log n) for each test case
-// Space Complexity: O(1) for each test case
