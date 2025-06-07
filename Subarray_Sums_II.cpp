@@ -151,32 +151,36 @@ void _print(map<T, V> v)
 
 void solve()
 {
+
     ll n;
-    cin >> n;
+    ll x;
+    cin >> n >> x;
+
     vl a(n);
     in(a);
 
-    stack<pair<ll, ll>> s;
+    map<ll, ll> curr;
+    curr[0] = 1;
 
-    for (ll i = 0; i < n; i++)
+    ll sum = 0;
+    ll count = 0;
+
+    for (auto val : a)
     {
-        while (!s.empty() && s.top().first >= a[i])
+        sum += val;
+        ll needed = sum - x;
+
+        if (curr.count(needed))
         {
-            s.pop();
+            count += curr[needed];
         }
 
-        if (s.empty())
-        {
-            cout << 0 << sp;
-        }
-        else
-        {
-            cout << s.top().second << sp;
-        }
-
-        s.push({a[i], i + 1});
+        curr[sum]++;
     }
+
+    out(count);
 }
+
 int main()
 {
     fastio();
@@ -185,7 +189,8 @@ int main()
     freopen("Error.txt", "w", stderr);
 #endif
 
-    solve();
+
+        solve();
 
 #ifndef ONLINE_JUDGE
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
