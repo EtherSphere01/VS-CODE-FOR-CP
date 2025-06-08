@@ -196,3 +196,7 @@ int main()
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
 #endif
 }
+
+// Time Complexity: O(n)
+// Space Complexity: O(n)
+// where n is the number of elements in the array.
