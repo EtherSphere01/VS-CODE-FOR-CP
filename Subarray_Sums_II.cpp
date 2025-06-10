@@ -196,7 +196,5 @@ int main()
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
 #endif
 }
-// git add -A
-
 
 
