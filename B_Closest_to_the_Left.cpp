@@ -163,23 +163,24 @@ void solve()
         int x;
         cin >> x;
 
-        int l = 0, r = n - 1;
-        int ans = -1;
+        int l = 0;
+        int r = n - 1;
+        int ans = n;
 
         while (l <= r)
         {
             int mid = l + (r - l) / 2;
-            if (a[mid] <= x)
+            if (a[mid] >= x)
             {
                 ans = mid;
-                l = mid + 1;
+                r = mid - 1;
             }
             else
             {
-                r = mid - 1;
+                l = mid + 1;
             }
         }
-       out(ans + 1); 
+        out(ans + 1);
     }
 }
 
