@@ -86,6 +86,7 @@ void solve() {
         bool found  = binary_search(all(a), x);
         yesno(found);
     }
+    
 }
 
 int main() {
