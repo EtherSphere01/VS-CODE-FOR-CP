@@ -212,5 +212,3 @@ int main()
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
 #endif
 }
-// https://codeforces.com/contest/1952/problem/C
-// https://codeforces.com/problemset/submission/1952/240870646
