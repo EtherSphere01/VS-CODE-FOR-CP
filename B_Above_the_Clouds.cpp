@@ -172,7 +172,7 @@ void solve()
             flag = true;
             break;
         }
-    }
+        }
 
     yesno(flag);
 }
