@@ -154,21 +154,17 @@ void solve()
 
     ll a, b, k;
     cin >> a >> b >> k;
-    if (a < b)
-    {
-        swap(a, b);
-    }
 
     ll value = __gcd(a, b);
-    if (a / value < k || (a / value == k && b == value * k))
+    ll dx = a / value;
+    ll dy = b / value;
+    if (dx <= k andd dy <= k)
     {
         out(1);
-        return;
     }
     else
     {
         out(2);
-        return;
     }
 }
 
