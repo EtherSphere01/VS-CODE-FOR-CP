@@ -68,6 +68,7 @@ typedef unsigned long long ull;
 typedef long double lld;
 // typedef tree<pair<int, int>, null_type, less<pair<int, int>>, rb_tree_tag, tree_order_statistics_node_update > pbds; // find_by_order, order_of_key
 
+
 #ifndef ONLINE_JUDGE
 #define debug(x)       \
     cerr << #x << " "; \
@@ -149,34 +150,24 @@ void _print(map<T, V> v)
     cerr << "]";
 }
 
+// Policy Based Data Structures
+#ifdef __GNUC__
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+
+typedef tree<pair<int, int>, null_type, less<pair<int, int>>, rb_tree_tag, tree_order_statistics_node_update> pbds; // find_by_order, order_of_key
+template <class T> using oset = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+#else
+// Fallback for non-GNU compilers
+template <class T> using oset = set<T>;
+#endif
+
+
 void solve()
 {
-    ll n;
-    cin >> n;
-    vl a(n);
-    in(a);
-
-    stack<pair<ll, ll>> s;
-
-    for (ll i = 0; i < n; i++)
-    {
-        while (!s.empty() && s.top().first >= a[i])
-        {
-            s.pop();
-        }
-
-        if (s.empty())
-        {
-            cout << 0 << sp;
-        }
-        else
-        {
-            cout << s.top().second << sp;
-        }
-
-        s.push({a[i], i + 1});
-    }
 }
+
 int main()
 {
     fastio();
@@ -185,7 +176,10 @@ int main()
     freopen("Error.txt", "w", stderr);
 #endif
 
-    solve();
+    int t;
+    cin >> t;
+    while (t--)
+        solve();
 
 #ifndef ONLINE_JUDGE
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
