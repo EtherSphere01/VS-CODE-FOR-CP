@@ -21,6 +21,27 @@ void selection_sort(vector<int> &arr)
     }
 }
 
+void recursion_selection_sort(vector<int> &arr, int start, int size)
+{
+    if (start >= size - 1)
+    {
+        return;
+    }
+
+    int min_index = start;
+    for (int i = start; i < size; i++)
+    {
+        if (arr[i] < arr[min_index])
+        {
+            min_index = i;
+        }
+    }
+    int temp = arr[start];
+    arr[start] = arr[min_index];
+    arr[min_index] = temp;
+    recursion_selection_sort(arr, start + 1, size);
+}
+
 int main()
 {
     int n;
@@ -31,7 +52,7 @@ int main()
         cin >> arr[i];
     }
 
-    selection_sort(arr);
+    recursion_selection_sort(arr, 0, n);
     for (auto i : arr)
     {
         cout << i << " ";

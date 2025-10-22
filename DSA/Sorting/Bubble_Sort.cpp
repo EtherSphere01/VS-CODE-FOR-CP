@@ -25,6 +25,24 @@ void bubble_sort(vector<int> &arr)
     }
 }
 
+void recursion_bubble_sort(vector<int> &arr, int size)
+{
+    if (size <= 0)
+    {
+        return;
+    }
+    for (int i = 0; i < size - 1; i++)
+    {
+        if (arr[i] > arr[i + 1])
+        {
+            int temp = arr[i];
+            arr[i] = arr[i + 1];
+            arr[i + 1] = temp;
+        }
+    }
+    recursion_bubble_sort(arr, size - 1);
+}
+
 int main()
 {
     int n;
@@ -35,7 +53,7 @@ int main()
         cin >> arr[i];
     }
 
-    bubble_sort(arr);
+    recursion_bubble_sort(arr, n);
     for (auto i : arr)
     {
         cout << i << " ";
