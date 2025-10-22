@@ -15,7 +15,9 @@ void selection_sort(vector<int> &arr)
                 min_index = j;
             }
         }
-        swap(arr[i], arr[min_index]);
+        int temp = arr[i];
+        arr[i] = arr[min_index];
+        arr[min_index] = temp;
     }
 }
 
