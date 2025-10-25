@@ -163,6 +163,42 @@ void merge(vector<int> &arr, int left, int right)
     merge_array(arr, mid, left, right);
 }
 
+int partition(vector<int> &arr, int left, int right)
+{
+    int pivot = arr[left];
+    int i = left;
+    int j = right;
+    while (i < j)
+    {
+        while (arr[i] <= pivot && i <= right)
+        {
+            i++;
+        }
+        while (arr[j] > pivot && j >= left)
+        {
+            j--;
+        }
+        if (i < j)
+        {
+            swap(arr[i], arr[j]);
+        }
+    }
+    swap(arr[j], arr[left]);
+    return j;
+}
+
+void quick_sort(vector<int> &arr, int left, int right)
+{
+
+    if (left < right)
+    {
+
+        int partition_index = partition(arr, left, right);
+        quick_sort(arr, left, partition_index - 1);
+        quick_sort(arr, partition_index + 1, right);
+    }
+}
+
 int main()
 {
     int n;
@@ -178,7 +214,8 @@ int main()
     // recursion_selection_sort(arr, 0, n);
     // insertion_sort(arr);
     // recursion_insertion_sort(arr, n);
-    merge(arr, 0, n - 1);
+    // merge(arr, 0, n - 1);
+    quick_sort(arr, 0, n - 1);
 
     for (auto i : arr)
     {
