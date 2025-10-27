@@ -5,8 +5,7 @@ using namespace std;
 #define fastio()                      \
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);                    \
-    cout.tie(NULL);                   \
-    cout.precision(numeric_limits<double>::max_digits10);
+    cout.tie(NULL)
 #define MOD 1000000007
 #define MOD1 998244353
 #define INF 1e18
@@ -151,28 +150,35 @@ void _print(map<T, V> v)
 
 void solve()
 {
-    string s;
-    cin >> s;
-    int n = s.size();
-
-    int maxi = 1;
-    char last = s[0];
-    int cnt = 0;
-    for (int i = 0; i < n; i++)
+    ll n = 5;
+    vector<vector<int>> arr(n, vector<int>(n, 0));
+    int top = 0, left = 0, bottom = n - 1, right = n - 1;
+    int val = 1;
+    while (top <= bottom && left <= right)
     {
-        if (s[i] == last)
+        for (int j = left; j <= right; ++j)
+            arr[top][j] = val++;
+        for (int i = top + 1; i <= bottom; ++i)
+            arr[i][right] = val++;
+        if (top < bottom && left < right)
         {
-            cnt++;
-            maxi = max(maxi, cnt);
+            for (int j = right - 1; j >= left; --j)
+                arr[bottom][j] = val++;
+            for (int i = bottom - 1; i > top; --i)
+                arr[i][left] = val++;
         }
-        else
-        {
-            cnt = 1;
-            last = s[i];
-        }
+        top++;
+        left++;
+        bottom--;
+        right--;
     }
-    maxi = max(maxi, cnt);
-    out(maxi);
+    int k;
+    cin >> k;
+    while(k--){
+        ll a, b;
+        cin >> a >> b;
+        cout << arr[--a][--b] << nline;
+    }
 }
 
 int main()

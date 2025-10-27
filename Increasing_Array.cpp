@@ -5,8 +5,7 @@ using namespace std;
 #define fastio()                      \
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);                    \
-    cout.tie(NULL);                   \
-    cout.precision(numeric_limits<double>::max_digits10);
+    cout.tie(NULL)
 #define MOD 1000000007
 #define MOD1 998244353
 #define INF 1e18
@@ -151,28 +150,23 @@ void _print(map<T, V> v)
 
 void solve()
 {
-    string s;
-    cin >> s;
-    int n = s.size();
 
-    int maxi = 1;
-    char last = s[0];
-    int cnt = 0;
-    for (int i = 0; i < n; i++)
+    ll n;
+    cin >> n;
+    vl a(n);
+    in(a);
+
+    ll sum = 0;
+    for (ll i = 0; i < n - 1; i++)
     {
-        if (s[i] == last)
+        if (a[i] > a[i + 1])
         {
-            cnt++;
-            maxi = max(maxi, cnt);
-        }
-        else
-        {
-            cnt = 1;
-            last = s[i];
+            sum += a[i] - a[i + 1];
+            a[i + 1] = a[i];
         }
     }
-    maxi = max(maxi, cnt);
-    out(maxi);
+
+    out(sum);
 }
 
 int main()
