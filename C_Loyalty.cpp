@@ -152,30 +152,97 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll r, t, d, c;
-    cin >> r >> t >> d >> c;
+    ll n, x;
+    cin >> n >> x;
+    vl even;
+    vl odd;
 
-    string s;
-    cin >> s;
-    ll count = 0;
-    for (ll i = 0; i < c; i++)
+    vl ans;
+
+    for (ll i = 0; i < n; i++)
     {
-        if (r >= t && s[i] == '2')
-            continue;
+        ll t;
+        cin >> t;
+        if (t % 2 == 0)
+            even.pb(t);
+        else
+            odd.pb(t);
+    }
+
+    ll i = 0, j = 0;
+    ll en = even.size();
+    ll on = sz(odd);
+    ll point = 0;
+    ll level = 0;
+    ll s = 0;
+    while (i < en && j < on)
+    {
+        if (s % 2 == 0)
+        {
+            ll temp = s;
+            ll prevLevel = level;
+            s += even[i];
+            level = s / x;
+            if (level > prevLevel)
+            {
+                point += s - temp;
+            }
+
+            ans.pb(even[i]);
+            i++;
+        }
         else
         {
-            if (r >= t)
+            ll temp = s;
+            ll prevLevel = level;
+            s += odd[j];
+            level = s / x;
+            if (level > prevLevel)
             {
-                r = max(0LL, r - d);
-                count++;
+                point += s - temp;
             }
-            else
-            {
-                count++;
-            }
+
+            ans.pb(odd[j]);
+            j++;
         }
     }
-    cout << count << nline;
+
+    while (i < en)
+    {
+        ll temp = s;
+        ll prevLevel = level;
+        s += even[i];
+        level = s / x;
+        if (level > prevLevel)
+        {
+            point += s - temp;
+        }
+
+        ans.pb(even[i]);
+        i++;
+    }
+
+    while (j < on)
+    {
+        ll temp = s;
+        ll prevLevel = level;
+        s += odd[j];
+        level = s / x;
+        if (level > prevLevel)
+        {
+            point += s - temp;
+        }
+
+        ans.pb(odd[j]);
+        j++;
+    }
+
+    cout << point << nline;
+    for (ll i = 0; i < ans.size(); i++)
+    {
+        cout << ans[i] << sp;
+    }
+    cout << nline;
 }
 
 int main()

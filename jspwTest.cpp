@@ -152,30 +152,97 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll r, t, d, c;
-    cin >> r >> t >> d >> c;
+    ll n;
+    cin >> n;
+    vector<vector<char>> arr(n, vector<char>(n));
 
-    string s;
-    cin >> s;
-    ll count = 0;
-    for (ll i = 0; i < c; i++)
+    for (ll i = 0; i < n; i++)
     {
-        if (r >= t && s[i] == '2')
-            continue;
-        else
+        string s;
+        cin >> s;
+        for (ll j = 0; j < n; j++)
         {
-            if (r >= t)
+            arr[i][j] = s[j];
+        }
+    }
+
+    debug(arr);
+
+    ll count = 0;
+    for (ll i = 0; i < n; i++)
+    {
+        ll check = 0;
+        for (ll j = 0; j < n; j++)
+        {
+            if (arr[i][j] == '#')
             {
-                r = max(0LL, r - d);
-                count++;
+                check++;
             }
             else
             {
-                count++;
+                count = max(check, count);
+                check = 0;
+            }
+        }
+        count = max(check, count);
+    }
+
+    if (count >= 3)
+    {
+        no;
+        return;
+    }
+
+    count = 0;
+    for (ll i = 0; i < n; i++)
+    {
+        ll check = 0;
+        for (ll j = 0; j < n; j++)
+        {
+            if (arr[j][i] == '#')
+            {
+                check++;
+            }
+            else
+            {
+                count = max(check, count);
+                check = 0;
+            }
+        }
+        count = max(check, count);
+    }
+
+    if (count >= 3)
+    {
+        no;
+        return;
+    }
+
+    for (ll i = 0; i < n; i++)
+    {
+        for (ll j = 0; j < n - 1; j++)
+        {
+            if (arr[i][j] == '#' && arr[i][j + 2] == '#')
+            {
+                no;
+                return;
             }
         }
     }
-    cout << count << nline;
+
+    for (ll i = 0; i < n - 1; i++)
+    {
+        for (ll j = 0; j < n; j++)
+        {
+            if (arr[j][i] == '#' && arr[j + 2][i] == '#')
+            {
+                no;
+                return;
+            }
+        }
+    }
+
+    yes;
 }
 
 int main()
