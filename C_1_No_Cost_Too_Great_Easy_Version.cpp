@@ -200,34 +200,37 @@ void solve()
     // }
 
     unordered_map<ll, ll> hash_map;
+    sort(all(a));
     ll ans = INT_MAX;
     for (ll i = 0; i < n; i++)
     {
         vector<ll> pf = primeFactor(a[i]);
-        for (ll p : pf)
-        {
-            if (hash_map.find(p) != hash_map.end())
-            {
-                ans = min(ans, 0LL);
-            }
-        }
-        vector<ll> pf2 = primeFactor(a[i] + 1);
-        for (ll p : pf2)
-        {
-            if (hash_map.find(p) != hash_map.end())
-            {
-                ans = min(ans, 1LL);
-            }
-        }
+
         for (ll p : pf)
         {
             hash_map[p]++;
         }
     }
-    if (ans != INT_MAX)
+    for (auto it : hash_map)
     {
-        out(ans);
-        return;
+        if (it.second >= 2)
+        {
+            out(0);
+            return;
+        }
+    }
+
+    for (ll i = 0; i < n; i++)
+    {
+        vl pf = primeFactor(a[i] + 1);
+        for (auto p : pf)
+        {
+            if (hash_map.find(p) != hash_map.end())
+            {
+                out(1);
+                return;
+            }
+        }
     }
     out(2);
 }
