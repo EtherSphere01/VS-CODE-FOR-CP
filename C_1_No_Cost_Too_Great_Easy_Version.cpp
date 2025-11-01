@@ -149,100 +149,87 @@ void _print(map<T, V> v)
     cerr << "]";
 }
 
+vector<ll> primeFactor(ll n)
+{
+    vector<ll> ans;
+    for (ll i = 2; i * i <= n; i++)
+    {
+        if (n % i == 0)
+        {
+            ans.push_back(i);
+
+            while (n % i == 0)
+            {
+                n /= i;
+            }
+        }
+    }
+    if (n > 1)
+    {
+        ans.push_back(n);
+    }
+    return ans;
+}
+
 void solve()
 {
 
     ll n;
     cin >> n;
-    vector<vector<char>> arr(n, vector<char>(n));
+    vl a(n), b(n);
+    in(a);
+    in(b);
+    // ll even = 0, odd = 0;
+    // rep(i, 0, n)
+    // {
+    //     if (a[i] % 2 == 0)
+    //         even++;
+    //     else
+    //         odd++;
+    // }
 
+    // if (even >= 2)
+    // {
+    //     out(0);
+    //     return;
+    // }
+    // if (even == 1)
+    // {
+    //     out(1);
+    //     return;
+    // }
+
+    unordered_map<ll, ll> hash_map;
+    ll ans = INT_MAX;
     for (ll i = 0; i < n; i++)
     {
-        string s;
-        cin >> s;
-        for (ll j = 0; j < n; j++)
+        vector<ll> pf = primeFactor(a[i]);
+        for (ll p : pf)
         {
-            arr[i][j] = s[j];
-        }
-    }
-
-    debug(arr);
-
-    ll count = 0;
-    for (ll i = 0; i < n; i++)
-    {
-        ll check = 0;
-        for (ll j = 0; j < n; j++)
-        {
-            if (arr[i][j] == '#')
+            if (hash_map.find(p) != hash_map.end())
             {
-                check++;
-            }
-            else
-            {
-                count = max(check, count);
-                check = 0;
+                ans = min(ans, 0LL);
             }
         }
-        count = max(check, count);
+        vector<ll> pf2 = primeFactor(a[i] + 1);
+        for (ll p : pf2)
+        {
+            if (hash_map.find(p) != hash_map.end())
+            {
+                ans = min(ans, 1LL);
+            }
+        }
+        for (ll p : pf)
+        {
+            hash_map[p]++;
+        }
     }
-
-    if (count >= 3)
+    if (ans != INT_MAX)
     {
-        no;
+        out(ans);
         return;
     }
-
-    count = 0;
-    for (ll i = 0; i < n; i++)
-    {
-        ll check = 0;
-        for (ll j = 0; j < n; j++)
-        {
-            if (arr[j][i] == '#')
-            {
-                check++;
-            }
-            else
-            {
-                count = max(check, count);
-                check = 0;
-            }
-        }
-        count = max(check, count);
-    }
-
-    if (count >= 3)
-    {
-        no;
-        return;
-    }
-
-    for (ll i = 0; i < n; i++)
-    {
-        for (ll j = 0; j < n - 1; j++)
-        {
-            if (arr[i][j] == '#' && arr[i][j + 2] == '#')
-            {
-                no;
-                return;
-            }
-        }
-    }
-
-    for (ll i = 0; i < n - 1; i++)
-    {
-        for (ll j = 0; j < n; j++)
-        {
-            if (arr[j][i] == '#' && arr[j + 2][i] == '#')
-            {
-                no;
-                return;
-            }
-        }
-    }
-
-    yes;
+    out(2);
 }
 
 int main()

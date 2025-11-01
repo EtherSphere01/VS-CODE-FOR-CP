@@ -152,42 +152,56 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll n, k;
-    cin >> n >> k;
+    ll n;
+    cin >> n;
+    vl a(n);
+    in(a);
 
-    string s;
-    cin >> s;
-
-    vl presum(n + 1, 0);
-
+    ll maxi = INT_MIN;
     for (ll i = 0; i < n; i++)
     {
-        presum[i + 1] = presum[i] + ((s[i] == '1') ? 1 : 0);
+        maxi = max(maxi, a[i]);
+        if (i % 2 == 1)
+        {
+            a[i] = maxi;
+        }
     }
-    debug(presum);
 
     ll ans = 0;
-    for (ll i = 0; i < n; i++)
-    {
-        if (s[i] == '1')
-        {
 
-            if (i == 0)
+    debug(a);
+
+    for (ll i = 0; i < n - 1; i++)
+    {
+        if (i % 2 == 0)
+        {
+            if (a[i] >= a[i + 1])
             {
-                ans++;
-            }
-            else
-            {
-                ll right = i + 1;
-                ll left = max(0LL, right - k);
-                ll total_ones = presum[right] - presum[left];
-                if (total_ones == 1)
+                if (i == 0)
                 {
+                    ans += a[i] - a[i + 1];
+                    ans++;
+                    a[i] = a[i + 1] - 1;
+                }
+                else
+                {
+                    ans += a[i] - a[i - 1];
+                    a[i] = a[i - 1] - 1;
                     ans++;
                 }
             }
         }
+        else
+        {
+            if (a[i] <= a[i + 1])
+            {
+                ans += a[i + 1] - a[i];
+                a[i + 1] = a[i] - 1;
+                ans++;
+            }
+        }
     }
+
     out(ans);
 }
 
