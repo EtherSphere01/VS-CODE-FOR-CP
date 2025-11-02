@@ -160,12 +160,6 @@ void solve()
         cout << 0 << nline;
         return;
     }
-    if (a > b)
-    {
-        cout << 2 << nline;
-        cout << a << sp << b << nline;
-        return;
-    }
 
     ll highest_bit = 0;
     for (ll i = 31; i >= 0; i--)
@@ -179,6 +173,7 @@ void solve()
 
     ll ans = pow(2, highest_bit);
     ans = ans + (ans - 1);
+    ll flipped_a = a ^ ans;
 
     if (b > ans)
     {
@@ -186,14 +181,11 @@ void solve()
         return;
     }
 
-    cout << a << sp;
-    for (ll i = highest_bit; i >= 0; i--)
-    {
-        if ((b & (1LL << i)) != 0)
-        {
-            temp.push_back(1LL << i);
-        }
-    }
+    temp.pb(flipped_a);
+
+    b = ans ^ b;
+    temp.pb(b);
+    cout << temp.size() << nline;
     show(temp);
     cout << nline;
 }
