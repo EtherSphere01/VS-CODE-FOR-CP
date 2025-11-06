@@ -152,67 +152,29 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll n, k;
-    cin >> n >> k;
-    ll res = n * n;
+    ll n;
+    cin >> n;
+    vl a(n);
+    in(a);
+    ll x;
+    cin >> x;
 
-    if (res == k)
+    bool check1 = false, check2 = false;
+    for (ll i = 0; i < n; i++)
+    {
+        if (a[i] <= x)
+            check1 = true;
+        if (a[i] >= x)
+            check2 = true;
+    }
+
+    if (check1 and check2)
     {
         yes;
-        for (ll i = 0; i < n; i++)
-        {
-            for (ll j = 0; j < n; j++)
-            {
-                cout << "U";
-            }
-            cout << nline;
-        }
-        return;
     }
-
-    if (res - 1 == k)
+    else
     {
         no;
-        return;
-    }
-    char arr[n][n];
-    int count = 0;
-    for (ll i = 0; i < n; i++)
-    {
-        for (ll j = 0; j < n; j++)
-        {
-            if (count < k)
-            {
-                arr[i][j] = 'U';
-                count++;
-            }
-            else
-            {
-                arr[i][j] = 'D';
-            }
-        }
-    }
-
-    char c = 'R';
-    for (ll i = 0; i < n; i++)
-    {
-        if (arr[n - 1][i] != 'U')
-        {
-            arr[n - 1][i] = c;
-            c = (c == 'R') ? 'L' : 'R';
-        }
-    }
-
-    arr[n - 1][n - 1] = 'L';
-
-    yes;
-    for (ll i = 0; i < n; i++)
-    {
-        for (ll j = 0; j < n; j++)
-        {
-            cout << arr[i][j];
-        }
-        cout << nline;
     }
 }
 
