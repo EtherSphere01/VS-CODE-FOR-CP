@@ -192,7 +192,7 @@ void solve()
             }
         }
     }
-
+//  
     char c = 'R';
     for (ll i = 0; i < n; i++)
     {
