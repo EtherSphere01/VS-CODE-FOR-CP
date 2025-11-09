@@ -149,26 +149,96 @@ void _print(map<T, V> v)
     cerr << "]";
 }
 
+bool comp(pair<ll, ll> &a, pair<ll, ll> &b)
+{
+    if (a.ff > b.ff)
+    {
+        return true;
+    }
+    else if (a.ff == b.ff)
+    {
+        if (a.ss > b.ss)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+    return false;
+}
+
 void solve()
 {
 
-    ll n;
-    cin >> n;
-    vl a(n);
-    in(a);
-    for (ll i = 0; i < n; i++)
+    ll n, m;
+    cin >> n >> m;
+    vl power(n);
+    in(power);
+
+    vpair mons_c(m);
+
+    for (ll i = 0; i < m; i++)
     {
-        for (ll j = i + 1; j < n; j++)
+        cin >> mons_c[i].ff;
+    }
+    for (ll i = 0; i < m; i++)
+    {
+        cin >> mons_c[i].ss;
+    }
+
+    sort(all(mons_c));
+
+    ll highest_power = *max_element(power.begin(), power.end());
+
+    for (ll i = 0; i < m; i++)
+    {
+        if (mons_c[i].ss > highest_power && mons_c[i].ff <= highest_power)
         {
-            if ((a[j] % a[i]) % 2 == 0)
-            {
-                cout << a[i] << sp << a[j] << nline;
-                return;
-            }
+            highest_power = mons_c[i].ss;
         }
     }
 
-    cout << -1 << nline;
+    ll count = 0;
+
+    priority_queue<ll> rem;
+
+    for (ll i = 0; i < m; i++)
+    {
+        if (mons_c[i].ss != 0 && mons_c[i].ff <= highest_power)
+        {
+            count++;
+        }
+        else if (mons_c[i].ss == 0 && mons_c[i].ff <= highest_power)
+        {
+            rem.push(mons_c[i].ff);
+        }
+    }
+    priority_queue<ll> power_pq;
+    for (ll i = 0; i < n; i++)
+    {
+        power_pq.push(power[i]);
+    }
+    power_pq.pop();
+    power_pq.push(highest_power);
+
+    while (!rem.empty() && !power_pq.empty())
+    {
+        ll curr_monster = rem.top();
+        ll curr_power = power_pq.top();
+
+        if (curr_power >= curr_monster)
+        {
+            count++;
+            rem.pop();
+            power_pq.pop();
+        }
+        else
+        {
+            rem.pop();
+        }
+    }
+
+    out(count);
 }
 
 int main()
