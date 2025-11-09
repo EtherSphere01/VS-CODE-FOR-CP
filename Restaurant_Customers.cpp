@@ -149,81 +149,30 @@ void _print(map<T, V> v)
     cerr << "]";
 }
 
-bool comp(pair<ll, ll> &a, pair<ll, ll> &b)
-{
-    if (a.ff > b.ff)
-    {
-        return true;
-    }
-    else if (a.ff == b.ff)
-    {
-        if (a.ss > b.ss)
-        {
-            return true;
-        }
-        else
-            return false;
-    }
-    return false;
-}
-
 void solve()
 {
-
-    ll n, m;
-    cin >> n >> m;
-    multiset<ll> power;
+    ll n;
+    cin >> n;
+    map<ll, ll> m;
     for (ll i = 0; i < n; i++)
     {
-        ll x;
-        cin >> x;
-        power.insert(x);
+        ll x, y;
+        cin >> x >> y;
+
+        m[x]++;
+        m[y]--;
     }
 
-    vpair mons_c(m);
-
-    for (ll i = 0; i < m; i++)
+    ll ans = 0;
+    ll maxi = 0;
+    for (auto i : m)
     {
-        cin >> mons_c[i].ff;
-    }
-    for (ll i = 0; i < m; i++)
-    {
-        cin >> mons_c[i].ss;
+        ans += i.ss;
+
+        maxi = max(ans, maxi);
     }
 
-    sort(all(mons_c));
-    ll count = 0;
-    for (ll i = 0; i < m; i++)
-    {
-        if (mons_c[i].ss == 0)
-            continue;
-
-        auto it = power.lower_bound(mons_c[i].ff);
-        if (it == power.end())
-        {
-            break;
-        }
-        ll x = *it;
-        power.erase(it);
-        count++;
-        power.insert(max(x, mons_c[i].ss));
-    }
-
-    for (ll i = 0; i < m; i++)
-    {
-        if (mons_c[i].ss)
-            continue;
-
-        auto it = power.lower_bound(mons_c[i].ff);
-        if (it == power.end())
-        {
-            break;
-        }
-        power.erase(it);
-        count++;
-    }
-
-    out(count);
+    out(maxi);
 }
 
 int main()
@@ -234,10 +183,7 @@ int main()
     freopen("Error.txt", "w", stderr);
 #endif
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+    solve();
 
 #ifndef ONLINE_JUDGE
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";

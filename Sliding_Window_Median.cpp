@@ -5,8 +5,7 @@ using namespace std;
 #define fastio()                      \
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);                    \
-    cout.tie(NULL);                   \
-    cout.precision(numeric_limits<double>::max_digits10);
+    cout.tie(NULL)
 #define MOD 1000000007
 #define MOD1 998244353
 #define INF 1e18
@@ -149,81 +148,36 @@ void _print(map<T, V> v)
     cerr << "]";
 }
 
-bool comp(pair<ll, ll> &a, pair<ll, ll> &b)
-{
-    if (a.ff > b.ff)
-    {
-        return true;
-    }
-    else if (a.ff == b.ff)
-    {
-        if (a.ss > b.ss)
-        {
-            return true;
-        }
-        else
-            return false;
-    }
-    return false;
-}
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+// typedef tree<pair<int, int>, null_type, less<pair<int, int>>, rb_tree_tag, tree_order_statistics_node_update > pbds; // find_by_order, order_of_key
+template <class T>
+using oset = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 void solve()
 {
 
-    ll n, m;
-    cin >> n >> m;
-    multiset<ll> power;
-    for (ll i = 0; i < n; i++)
-    {
-        ll x;
-        cin >> x;
-        power.insert(x);
-    }
+    int n, k;
+    cin >> n >> k;
+    vector<int> v(n);
+    in(v);
+    oset<pair<int, int>> os;
 
-    vpair mons_c(m);
-
-    for (ll i = 0; i < m; i++)
+    int j = 0, i = 0;
+    for (j = 0; j < n; ++j)
     {
-        cin >> mons_c[i].ff;
-    }
-    for (ll i = 0; i < m; i++)
-    {
-        cin >> mons_c[i].ss;
-    }
-
-    sort(all(mons_c));
-    ll count = 0;
-    for (ll i = 0; i < m; i++)
-    {
-        if (mons_c[i].ss == 0)
-            continue;
-
-        auto it = power.lower_bound(mons_c[i].ff);
-        if (it == power.end())
+        os.insert({v[j], j});
+        if (j - i + 1 == k)
         {
-            break;
+            auto it = os.find_by_order((k - 1) / 2);
+            cout << it->first << sp;
+            os.erase({v[i], i});
+            ++i;
         }
-        ll x = *it;
-        power.erase(it);
-        count++;
-        power.insert(max(x, mons_c[i].ss));
     }
 
-    for (ll i = 0; i < m; i++)
-    {
-        if (mons_c[i].ss)
-            continue;
-
-        auto it = power.lower_bound(mons_c[i].ff);
-        if (it == power.end())
-        {
-            break;
-        }
-        power.erase(it);
-        count++;
-    }
-
-    out(count);
+    cout << nline;
 }
 
 int main()
@@ -234,10 +188,7 @@ int main()
     freopen("Error.txt", "w", stderr);
 #endif
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+    solve();
 
 #ifndef ONLINE_JUDGE
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
