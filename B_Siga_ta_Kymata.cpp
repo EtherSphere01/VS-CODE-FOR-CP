@@ -158,198 +158,56 @@ void solve()
     in(a);
     string s;
     cin >> s;
-
-    string x = "";
-    for (ll i = 0; i < n; i++)
-    {
-        x += '0';
-    }
-
     if (s[0] == '1' || s[n - 1] == '1')
     {
         out(-1);
         return;
     }
 
-    for (ll i = 0; i < n; i++)
-    {
-        if (a[i] == n || a[i] == 1)
-        {
-            if (s[i] == '1')
-            {
-                out(-1);
-                return;
-            }
-        }
-    }
-
-    vpair b;
+    bool f = true;
     for (ll i = 0; i < n; i++)
     {
         if (s[i] == '1')
         {
-            b.push_back({a[i], i});
+            f = false;
+            break;
         }
     }
 
-    if (b.empty())
+    if (f)
     {
         out(0);
         return;
     }
 
-    sort(all(b));
-
-    auto small = b[0];
-    auto large = b[b.size() - 1];
-
-    vpair ans;
-
-    ll small_indx = -1, large_indx = -1;
-    for (ll i = small.ss; i >= 0; i--)
-    {
-        if (a[i] < small.ff)
-        {
-            small_indx = i;
-        }
-    }
-
-    for (ll i = small.ss + 1; i < n; i++)
-    {
-        if (a[i] > small.ff)
-        {
-            large_indx = i;
-        }
-    }
-
-    if (small_indx != -1 && large_indx != -1 && small_indx < large_indx)
-    {
-        ll low = min(a[small_indx], a[large_indx]);
-        ll high = max(a[small_indx], a[large_indx]);
-        for (ll i = small_indx + 1; i <= large_indx - 1; i++)
-        {
-            if (low < a[i] && a[i] < high)
-                x[i] = '1';
-        }
-        ans.push_back({small_indx, large_indx});
-    }
-
-    small_indx = -1, large_indx = -1;
-    for (ll i = small.ss; i >= 0; i--)
-    {
-        if (a[i] > small.ff)
-        {
-            large_indx = i;
-        }
-    }
-
-    for (ll i = small.ss + 1; i < n; i++)
-    {
-        if (a[i] < small.ff)
-        {
-            small_indx = i;
-        }
-    }
-
-    if (small_indx != -1 && large_indx != -1 && large_indx < small_indx)
-    {
-        ll low = min(a[small_indx], a[large_indx]);
-        ll high = max(a[small_indx], a[large_indx]);
-        for (ll i = large_indx + 1; i <= small_indx - 1; i++)
-        {
-            if (low < a[i] && a[i] < high)
-                x[i] = '1';
-        }
-        ans.push_back({large_indx, small_indx});
-    }
-
-    //
-
-    small_indx = -1, large_indx = -1;
-    for (ll i = large.ss; i >= 0; i--)
-    {
-        if (a[i] < large.ff)
-        {
-            small_indx = i;
-        }
-    }
-
-    for (ll i = large.ss + 1; i < n; i++)
-    {
-        if (a[i] > large.ff)
-        {
-            large_indx = i;
-        }
-    }
-
-    if (small_indx != -1 && large_indx != -1 && small_indx < large_indx)
-    {
-        ll low = min(a[small_indx], a[large_indx]);
-        ll high = max(a[small_indx], a[large_indx]);
-        for (ll i = small_indx + 1; i <= large_indx - 1; i++)
-        {
-            if (low < a[i] && a[i] < high)
-                x[i] = '1';
-        }
-        ans.push_back({small_indx, large_indx});
-    }
-
-    small_indx = -1, large_indx = -1;
-    for (ll i = large.ss; i >= 0; i--)
-    {
-        if (a[i] > large.ff)
-        {
-            large_indx = i;
-        }
-    }
-
-    for (ll i = large.ss + 1; i < n; i++)
-    {
-        if (a[i] < large.ff)
-        {
-            small_indx = i;
-        }
-    }
-
-    if (small_indx != -1 && large_indx != -1 && large_indx < small_indx)
-    {
-        ll low = min(a[small_indx], a[large_indx]);
-        ll high = max(a[small_indx], a[large_indx]);
-        for (ll i = large_indx + 1; i <= small_indx - 1; i++)
-        {
-            if (low < a[i] && a[i] < high)
-                x[i] = '1';
-        }
-        ans.push_back({large_indx, small_indx});
-    }
+    ll largest_index = -1, smallest_index = -1;
+    ll largest_value = -INF, smallest_value = INF;
 
     for (ll i = 0; i < n; i++)
     {
-        if (s[i] == '1')
+        if (a[i] > largest_value)
         {
-            if (x[i] == '1')
-            {
-                continue;
-            }
-            else
-            {
-                out(-1);
-                return;
-            }
+            largest_value = a[i];
+            largest_index = i;
+        }
+        if (a[i] < smallest_value)
+        {
+            smallest_value = a[i];
+            smallest_index = i;
         }
     }
 
-    if (ans.size() == 0)
+    if (s[largest_index] == '1' || s[smallest_index] == '1')
     {
-        cout << 1 << nline << 1 << sp << n << nline;
+        out(-1);
         return;
     }
-
-    out(ans.size());
-    for (auto i : ans)
-    {
-        cout << i.ff + 1 << sp << i.ss + 1 << nline;
-    }
+    out(5);
+    cout << 1 << sp << smallest_index + 1 << nline;
+    cout << 1 << sp << largest_index + 1 << nline;
+    cout << smallest_index + 1 << sp << n << nline;
+    cout << largest_index + 1 << sp << n << nline;
+    cout << min(smallest_index + 1, largest_index + 1) << sp << max(smallest_index + 1, largest_index + 1) << nline;
 }
 
 int main()
