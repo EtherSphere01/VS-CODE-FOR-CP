@@ -1,51 +1,94 @@
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "Compile and run",
-      "type": "shell",
-      "command": "",
-      "args": [
-        "copy",
-        "\"${file}\"",
-        "${workspaceFolder}\\jspwTest.cpp",
-        "&&",
-        "g++",
-        "jspwTest.cpp",
-        "-o",
-        "jspwTest",
-        "&&",
-        "jspwTest",
-        "<",
-        "input.txt",
-        ">",
-        "output.txt",
-        "&&",
-        "del",
-        "jspwTest.exe",
-        "&&",
-        "del",
-        "jspwTest.cpp"
-      ],
-      "presentation": {
-        "reveal": "never"
-      },
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "problemMatcher": {
-        "owner": "cpp",
-        "fileLocation": ["relative", "${workspaceRoot}"],
-        "pattern": {
-          "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
-          "file": 1,
-          "line": 2,
-          "column": 3,
-          "severity": 4,
-          "message": 5
+    "version": "2.0.0",
+
+    // ------------------------- WINDOWS CONFIGURATION -------------------------
+    "windows": {
+        "tasks": [
+            {
+                "label": "Compile & Run (Windows)",
+                "type": "shell",
+                // Assumes g++ from MinGW is in your system's PATH environment variable
+                "command": "g++",
+                "args": [
+                    "-g",
+                    "${file}",
+                    "-o",
+                    "${fileDirname}\\a.exe",
+                    "&&",
+                    "${fileDirname}\\a.exe",
+                    "<",
+                    "input.txt",
+                    ">",
+                    "output.txt"
+                ],
+                "options": {
+                    "cwd": "${fileDirname}"
+                },
+                "group": {
+                    "kind": "build",
+                    "isDefault": true
+                },
+                "problemMatcher": ["$gcc"],
+                "detail": "Compiles and runs on Windows using MinGW g++."
+            }
+        ]
+    },
+
+    // ------------------------- MACOS CONFIGURATION -------------------------
+    "osx": {
+        "tasks": [
+            {
+                "label": "Compile & Run (macOS)",
+                "type": "shell",
+                // IMPORTANT: Make sure this path and version (g++-15) are correct for your Mac
+                "command": "/opt/homebrew/bin/g++-15",
+                "args": [
+                    "-g",
+                    "${file}",
+                    "-o",
+                    "${fileDirname}/a.out",
+                    "&&",
+                    "${fileDirname}/a.out",
+                    "<",
+                    "input.txt",
+                    ">",
+                    "output.txt"
+                ],
+                "options": {
+                    "cwd": "${fileDirname}"
+                },
+                "group": {
+                    "kind": "build",
+                    "isDefault": true
+                },
+                "problemMatcher": ["$gcc"],
+                "detail": "Compiles and runs on macOS using Homebrew g++."
+            }
+        ]
+    },
+    "tasks": [
+        {
+            "label": "Compile & Run (macOS)",
+            "type": "shell",
+            "command": "/opt/homebrew/bin/g++-15",
+            "args": [
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/a.out",
+                "&&",
+                "${fileDirname}/a.out",
+                "<",
+                "input.txt",
+                ">",
+                "output.txt"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "group": "build",
+            "problemMatcher": ["$gcc"],
+            "detail": "Compiles and runs on macOS using Homebrew g++."
         }
-      }
-    }
-  ]
+    ]
 }
