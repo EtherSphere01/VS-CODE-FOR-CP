@@ -5,8 +5,7 @@ using namespace std;
 #define fastio()                      \
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);                    \
-    cout.tie(NULL);                   \
-    cout.precision(numeric_limits<double>::max_digits10);
+    cout.tie(NULL)
 #define MOD 1000000007
 #define MOD1 998244353
 #define INF 1e18
@@ -152,104 +151,27 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll n;
-    cin >> n;
-    vl a(n);
-    in(a);
-    vl b(n);
-    in(b);
+    ll n, t;
+    cin >> n >> t;
+    vl books(n);
+    in(books);
 
-    if (a == b)
-    {
-        out(-1);
-        return;
-    }
-    map<pair<ll, ll>, ll> pos;
-    ll count = 0;
-    for (ll i = 0; i < n; i++)
-    {
-        pos[{a[i], b[i]}] = i;
-        if (a[i] == b[i])
-            count++;
-    }
+    ll ans = 0;
 
-    if (count > 1)
+    ll low = 0, high = 0;
+    ll maxi = 0;
+    while (high < n)
     {
-        out(-1);
-        return;
-    }
-
-    if (n % 2 == 0 && count >= 1)
-    {
-        out(-1);
-        return;
-    }
-
-    for (auto &p : pos)
-    {
-        if (pos.find({p.first.second, p.first.first}) == pos.end())
+        ans += books[high];
+        while (ans > t)
         {
-            out(-1);
-            return;
+            ans -= books[low];
+            low++;
         }
+        maxi = max(maxi, high - low + 1);
+        high++;
     }
-
-    vpair res;
-    ll j = n - 1;
-    ll equal;
-    if (n % 2 == 1)
-    {
-        for (ll i = 0; i < n; i++)
-        {
-            if (a[i] == b[i])
-            {
-                equal = a[i];
-                break;
-            }
-        }
-
-        ll equal_pos = pos[{equal, equal}];
-        if (equal_pos != n / 2)
-        {
-            ll pos_a = a[n / 2];
-            ll pos_b = b[n / 2];
-            ll pos_equal_n = pos[{pos_b, pos_a}];
-            pos[{equal, equal}] = n / 2;
-            pos[{pos_a, pos_b}] = equal_pos;
-            swap(a[equal_pos], a[n / 2]);
-            swap(b[equal_pos], b[n / 2]);
-            res.pb({equal_pos + 1, n / 2 + 1});
-        }
-    }
-
-       for (ll i = 0; i < n / 2; i++)
-    {
-        if (a[i] == b[i])
-            continue;
-
-        ll value_at_j_a = a[j];
-        ll value_at_j_b = b[j];
-
-        if (a[i] != b[j])
-        {
-            ll pos_ba = pos[{b[i], a[i]}];
-            pos[{value_at_j_a, value_at_j_b}] = pos_ba;
-            pos[{b[i], a[i]}] = j;
-            swap(a[pos_ba], a[j]);
-            swap(b[pos_ba], b[j]);
-            res.pb({pos_ba + 1, j + 1});
-        }
-        j--;
-    }
-
-    debug(a);
-    debug(b);
-
-    out(res.size());
-    for (auto p : res)
-    {
-        cout << p.first << sp << p.second << nline;
-    }
+    out(maxi);
 }
 
 int main()
@@ -260,10 +182,7 @@ int main()
     freopen("Error.txt", "w", stderr);
 #endif
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+    solve();
 
 #ifndef ONLINE_JUDGE
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
