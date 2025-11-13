@@ -155,19 +155,24 @@ void solve()
     ll n;
     cin >> n;
     vl a(n);
-    map<ll, ll> freq;
-    for (ll i = 0; i < n; i++)
+    in(a);
+    ll ans = 0;
+    unordered_set<ll> s;
+    for (ll i = n - 1; i >= 0; i--)
     {
-        cin >> a[i];
-        freq[a[i]]++;
-    }
-    ll ans = INT_MIN;
-    for (auto it : freq)
-    {
-        ans = max(ans, it.ss);
+        if (s.find(a[i]) == s.end())
+        {
+            s.insert(a[i]);
+        }
+        else
+        {
+            ans++;
+            s.clear();
+            s.insert(a[i]);
+        }
     }
 
-    out(ans - 1);
+    out(ans);
 }
 
 int main()

@@ -171,92 +171,14 @@ void solve()
         }
     }
 
-    if (count11 >= count00)
+    if (count11 - count00 >= 0)
     {
         out(0);
         return;
     }
-
-    if (count00 == n - 1)
-    {
-        out(n / 2);
-        return;
-    }
-
-    ll count = 0;
-    for (ll i = 0; i < n; i++)
-    {
-        if (s[i] == '0')
-        {
-            count++;
-        }
-        else
-        {
-            if (count > 1)
-            {
-                number.pb(count);
-            }
-            count = 0;
-        }
-    }
-
-    if (count > 1)
-    {
-        number.pb(count);
-    }
-
-    sort(all(number));
-
-    count = 0;
-    ll indx = 0;
-    while (count11 < count00 and indx < number.size())
-    {
-        ll x = number[indx++];
-        if (x % 2 == 0)
-        {
-            ll diff = count00 - count11;
-            ll can_reduce = x - 1;
-            if (can_reduce <= diff)
-            {
-                count11++;
-                count00 -= (x - 1);
-                count += x / 2;
-            }
-            else
-            {
-                count += diff / 2;
-                break;
-            }
-        }
-    }
-
-    if (count11 >= count00)
-    {
-        out(count);
-        return;
-    }
-    indx = 0;
-    while (count11 < count00 and indx < number.size())
-    {
-        ll x = number[indx++];
-        if (x % 2 == 1)
-        {
-            ll diff = count00 - count11;
-            ll can_reduce = x - 1;
-            if (can_reduce <= diff)
-            {
-                count00 -= (x - 1);
-                count += x / 2;
-            }
-            else
-            {
-                count += diff / 2;
-                break;
-            }
-        }
-    }
-
-    out(count);
+    ll ans = count00 - count11;
+    ans = ceil((double)ans / 2.0);
+    out(ans);
 }
 
 int main()
