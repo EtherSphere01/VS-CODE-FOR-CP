@@ -2,18 +2,17 @@
 triple:          'arm64-apple-darwin'
 binary-path:     '/Users/naimur/Documents/GitHub/VS-CODE-FOR-CP/a.out'
 relocations:
-  - { offset: 0x16073, size: 0x8, addend: 0x0, symName: __ZStL8__ioinit, symObjAddr: 0x62761, symBinAddr: 0x100008000, symSize: 0x0 }
-  - { offset: 0x162B2, size: 0x8, addend: 0x0, symName: __GLOBAL__sub_I_A_Two_Elevators.cpp, symObjAddr: 0x420, symBinAddr: 0x100000AE4, symSize: 0x14 }
-  - { offset: 0x162C9, size: 0x8, addend: 0x0, symName: __Z41__static_initialization_and_destruction_0v, symObjAddr: 0x3E4, symBinAddr: 0x100000AA8, symSize: 0x3C }
-  - { offset: 0x162E7, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x288, symBinAddr: 0x100000978, symSize: 0x130 }
-  - { offset: 0x16315, size: 0x8, addend: 0x0, symName: __Z5solvev, symObjAddr: 0x168, symBinAddr: 0x100000858, symSize: 0x120 }
-  - { offset: 0x16361, size: 0x8, addend: 0x0, symName: __Z6_printy, symObjAddr: 0x140, symBinAddr: 0x100000830, symSize: 0x28 }
-  - { offset: 0x1638F, size: 0x8, addend: 0x0, symName: __Z6_printd, symObjAddr: 0x118, symBinAddr: 0x100000808, symSize: 0x28 }
-  - { offset: 0x163BD, size: 0x8, addend: 0x0, symName: __Z6_printe, symObjAddr: 0xF0, symBinAddr: 0x1000007E0, symSize: 0x28 }
-  - { offset: 0x163EB, size: 0x8, addend: 0x0, symName: __Z6_printc, symObjAddr: 0xC4, symBinAddr: 0x1000007B4, symSize: 0x2C }
-  - { offset: 0x16419, size: 0x8, addend: 0x0, symName: __Z6_printNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE, symObjAddr: 0x9C, symBinAddr: 0x10000078C, symSize: 0x28 }
-  - { offset: 0x16448, size: 0x8, addend: 0x0, symName: __Z6_printi, symObjAddr: 0x74, symBinAddr: 0x100000764, symSize: 0x28 }
-  - { offset: 0x16476, size: 0x8, addend: 0x0, symName: __Z6_printx, symObjAddr: 0x4C, symBinAddr: 0x10000073C, symSize: 0x28 }
-  - { offset: 0x164AC, size: 0x8, addend: 0x0, symName: __ZNSt8ios_base9precisionEl, symObjAddr: 0x1C, symBinAddr: 0x10000070C, symSize: 0x30 }
-  - { offset: 0x164F0, size: 0x8, addend: 0x0, symName: __ZSt3absx, symObjAddr: 0x0, symBinAddr: 0x1000006F0, symSize: 0x1C }
+  - { offset: 0x16073, size: 0x8, addend: 0x0, symName: __ZStL8__ioinit, symObjAddr: 0x62400, symBinAddr: 0x100008000, symSize: 0x0 }
+  - { offset: 0x162B2, size: 0x8, addend: 0x0, symName: __GLOBAL__sub_I_ICPC_A.cpp, symObjAddr: 0x2E8, symBinAddr: 0x1000009B0, symSize: 0x14 }
+  - { offset: 0x162C9, size: 0x8, addend: 0x0, symName: __Z41__static_initialization_and_destruction_0v, symObjAddr: 0x2AC, symBinAddr: 0x100000974, symSize: 0x3C }
+  - { offset: 0x162E7, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x154, symBinAddr: 0x100000844, symSize: 0x130 }
+  - { offset: 0x16315, size: 0x8, addend: 0x0, symName: __Z5solvev, symObjAddr: 0x14C, symBinAddr: 0x10000083C, symSize: 0x8 }
+  - { offset: 0x16333, size: 0x8, addend: 0x0, symName: __Z6_printy, symObjAddr: 0x124, symBinAddr: 0x100000814, symSize: 0x28 }
+  - { offset: 0x16361, size: 0x8, addend: 0x0, symName: __Z6_printd, symObjAddr: 0xFC, symBinAddr: 0x1000007EC, symSize: 0x28 }
+  - { offset: 0x1638F, size: 0x8, addend: 0x0, symName: __Z6_printe, symObjAddr: 0xD4, symBinAddr: 0x1000007C4, symSize: 0x28 }
+  - { offset: 0x163BD, size: 0x8, addend: 0x0, symName: __Z6_printc, symObjAddr: 0xA8, symBinAddr: 0x100000798, symSize: 0x2C }
+  - { offset: 0x163EB, size: 0x8, addend: 0x0, symName: __Z6_printNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE, symObjAddr: 0x80, symBinAddr: 0x100000770, symSize: 0x28 }
+  - { offset: 0x1641A, size: 0x8, addend: 0x0, symName: __Z6_printi, symObjAddr: 0x58, symBinAddr: 0x100000748, symSize: 0x28 }
+  - { offset: 0x16448, size: 0x8, addend: 0x0, symName: __Z6_printx, symObjAddr: 0x30, symBinAddr: 0x100000720, symSize: 0x28 }
+  - { offset: 0x1647E, size: 0x8, addend: 0x0, symName: __ZNSt8ios_base9precisionEl, symObjAddr: 0x0, symBinAddr: 0x1000006F0, symSize: 0x30 }
 ...
