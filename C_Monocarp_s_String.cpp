@@ -152,21 +152,63 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    int n, k;
+    ll n;
+    cin >> n;
     string s;
-    cin >> n >> k >> s;
-    int a = count(s.begin(), s.end(), '0');
-    int b = count(s.begin(), s.end(), '1');
-    int c = count(s.begin(), s.end(), '2');
-    string ans(n, '+');
-    for (int i = 0; i < n; ++i)
+    cin >> s;
+    ll count_a = 0, count_b = 0;
+    count_a = count(s.begin(), s.end(), 'a');
+    count_b = n - count_a;
+
+    if (count_a == count_b)
     {
-        if (i < a + c || i >= n - b - c)
-            ans[i] = '?';
-        if (i < a || i >= n - b || k == n)
-            ans[i] = '-';
+        out(0);
+        return;
     }
-    cout << ans << '\n';
+    if (count_a == n orr count_b == n)
+    {
+        out(-1);
+        return;
+    }
+
+    vl a(n);
+    for (ll i = 0; i < n; i++)
+    {
+        if (s[i] == 'a')
+            a[i] = 1;
+        else
+            a[i] = -1;
+    }
+
+    ll extra = 0;
+    for (ll i = 0; i < n; i++)
+    {
+        extra += a[i];
+    }
+    ll minLen = INF;
+    ll sum = 0;
+    map<ll, ll> presum;
+    for (ll i = 0; i < n; i++)
+    {
+        sum += a[i];
+        if (sum == extra)
+        {
+            minLen = min(minLen, i + 1);
+        }
+        ll rem = sum - extra;
+        if (presum.find(rem) != presum.end())
+        {
+            minLen = min(minLen, i - presum[rem]);
+        }
+        presum[sum] = i;
+    }
+
+    if (minLen == INF orr minLen == n)
+    {
+        out(-1);
+        return;
+    }
+    out(minLen);
 }
 
 int main()
