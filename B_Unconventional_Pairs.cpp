@@ -156,24 +156,14 @@ void solve()
     cin >> n;
     vl a(n);
     in(a);
-
-    ll zero = 0, neg = 0;
-    for (ll i = 0; i < n; i++)
+    sort(all(a));
+    ll diff = -1;
+    for (ll i = 0; i < n - 1; i += 2)
     {
-        if (a[i] == 0)
-            zero++;
-        else if (a[i] < 0)
-            neg++;
+        ll curr_diff = a[i + 1] - a[i];
+        diff = max(diff, curr_diff);
     }
-
-    if (neg % 2 == 0)
-    {
-        out(zero);
-    }
-    else
-    {
-        out(zero + 2);
-    }
+    out(diff);
 }
 
 int main()

@@ -152,28 +152,54 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll n;
-    cin >> n;
+    ll n, k;
+    cin >> n >> k;
     vl a(n);
     in(a);
-
-    ll zero = 0, neg = 0;
+    unordered_map<ll, ll> freq;
     for (ll i = 0; i < n; i++)
     {
-        if (a[i] == 0)
-            zero++;
-        else if (a[i] < 0)
-            neg++;
+        freq[a[i]]++;
+    }
+    ll ans = 0;
+    sort(all(a));
+    ll mex = 0;
+
+    for (ll i = 0; i <= n; i++)
+    {
+        if (freq.find(i) == freq.end())
+        {
+            mex = i;
+            break;
+        }
     }
 
-    if (neg % 2 == 0)
+    if (mex == k)
     {
-        out(zero);
+        out(0);
+        return;
     }
-    else
+    if (mex > k)
     {
-        out(zero + 2);
+        out(freq[k]);
+        return;
     }
+
+    for (ll i = mex; i < k; i++)
+    {
+        if (freq.find(i) == freq.end())
+        {
+            ans++;
+        }
+    }
+
+    ll temp = freq[k];
+    if (temp >= ans)
+    {
+        out(temp);
+        return;
+    }
+    out(ans);
 }
 
 int main()
