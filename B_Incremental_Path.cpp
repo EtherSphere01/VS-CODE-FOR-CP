@@ -165,21 +165,37 @@ void solve()
         black.pb(x);
         hash[x]++;
     }
-    ll next_white = black[0];
-    while (hash.find(next_white) != hash.end())
-    {
-        next_white++;
-    }
+    ll next_white = 1;
+    // while (hash.find(next_white) != hash.end())
+    // {
+    //     next_white++;
+    // }
     for (ll i = 0; i < n; i++)
     {
         if (s[i] == 'B')
         {
+            if (next_white == 1)
+                next_white++;
+            while (hash.find(next_white) != hash.end())
+            {
+                next_white++;
+            }
             black.pb(next_white);
+            hash[next_white]++;
+            while (hash.find(next_white) != hash.end())
+            {
+                next_white++;
+            }
             hash[next_white]++;
         }
         else
         {
-            next_white += 1;
+            next_white++;
+            if (hash.find(next_white) == hash.end())
+            {
+                hash[next_white]++;
+                black.pb(next_white);
+            }
         }
     }
 
