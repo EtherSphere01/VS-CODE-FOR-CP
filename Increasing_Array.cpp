@@ -123,9 +123,6 @@ Node *deleteAnyPos(Node *head, int pos)
     return head;
 }
 
-
-
-
 int main()
 {
 
