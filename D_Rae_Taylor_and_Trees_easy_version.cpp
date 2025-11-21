@@ -164,10 +164,10 @@ void solve()
     for (int i = 2; i <= n; i++)
         if (pre[i - 1] > suf[i])
         {
-            cout << "No" << '\n';
+            cout << "No" << nline;
             return;
         }
-    cout << "Yes" << '\n';
+    cout << "Yes" << nline;
 }
 
 int main()
