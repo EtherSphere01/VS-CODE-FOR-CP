@@ -182,12 +182,7 @@ void solve()
         }
     }
 
-    if (n < 3)
-    {
-        no;
-        return;
-    }
-    if (s.size() < m)
+       if (s.size() < m)
     {
         no;
         return;
@@ -201,7 +196,7 @@ void solve()
         }
     }
 
-    if (count >= 2 && count2 >= 2)
+    if (count >= 1 && count2 >= 2)
     {
         yes;
     }

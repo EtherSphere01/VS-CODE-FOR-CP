@@ -173,10 +173,7 @@ void solve()
         {
             if (start != -1)
             {
-                for (ll j = start; j < i - 1; j++)
-                {
-                    swap(a[j], a[j + 1]);
-                }
+                reverse(a.begin() + start, a.begin() + i);
             }
             start = -1;
         }
@@ -191,15 +188,19 @@ void solve()
                 no;
                 return;
             }
+            count = 0;
         }
+    }
+
+    if (count == 1)
+    {
+        no;
+        return;
     }
 
     if (start != -1)
     {
-        for (ll j = start; j < n - 1; j++)
-        {
-            swap(a[j], a[j + 1]);
-        }
+        reverse(a.begin() + start, a.end());
     }
 
     yes;
