@@ -154,8 +154,41 @@ void solve()
 
     ll n, value, q;
     cin >> n >> value >> q;
-    vector<pair<pair<ll, ll>, ll>> v;
-    map<pair<ll, ll>, ll> hash;
+    vpair a, b;
+    for (ll i = 0; i < q; i++)
+    {
+        ll c, x, y;
+        cin >> c >> x >> y;
+        if (c == 1)
+        {
+            a.pb({x - 1, y - 1});
+        }
+        else
+        {
+            b.pb({x - 1, y - 1});
+        }
+    }
+
+    vl ans(n, 0);
+    for (auto [l, r] : a)
+    {
+        for (ll i = l; i <= r; i++)
+        {
+            ans[i] = value;
+        }
+    }
+    for (auto [l, r] : b)
+    {
+        for (ll i = l; i <= r; i++)
+        {
+            if (ans[i] == value)
+                ans[i] = value + 1;
+            else
+                ans[i] = i % value;
+        }
+    }
+    show(ans);
+    cout << nline;
 }
 
 int main()
