@@ -181,7 +181,7 @@ void solve()
     {
         for (ll i = l; i <= r; i++)
         {
-            if (ans[i] == value)
+            if (ans[i] == value || ans[i] == value + 1)
                 ans[i] = value + 1;
             else
                 ans[i] = i % value;
