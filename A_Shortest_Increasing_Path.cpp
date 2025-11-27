@@ -137,17 +137,6 @@ void _print(multiset<T> v)
     }
     cerr << "]";
 }
-template <class T, class V>
-void _print(map<T, V> v)
-{
-    cerr << "[ ";
-    for (auto i : v)
-    {
-        _print(i);
-        cerr << " ";
-    }
-    cerr << "]";
-}
 
 void solve()
 {
