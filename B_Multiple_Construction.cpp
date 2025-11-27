@@ -168,7 +168,6 @@ void solve()
     }
     show(a);
     cout << nline;
-    //
 }
 
 int main()
