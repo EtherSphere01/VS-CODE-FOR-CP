@@ -156,123 +156,41 @@ void solve()
     vl a(n);
     in(a);
 
-    if (n == 1)
+    vl prefix(n, 0), suffix(n, 0);
+    ll ans = 0;
+
+    if (a[0] == 0)
     {
-        if (a[0] == 0)
-        {
-            out(0);
-        }
-        else
-        {
-            out(1);
-        }
-        return;
+        prefix[0] = 0;
+    }
+    else
+    {
+        prefix[0] = 1;
     }
 
-    vl temp = a;
-    sort(all(temp));
-
-    if (temp[0] == 0 && temp[n - 1] == 0)
+    if (a[n - 1] == 0)
     {
-        out(0);
-        return;
+        suffix[n - 1] = 0;
+    }
+    else
+    {
+        suffix[n - 1] = 1;
     }
 
-    if (n == 2)
+    for (ll i = 1; i < n; i++)
     {
-        if (temp[0] == 0 andd temp[1] == 0)
-        {
-            out(0);
-        }
-        else
-        {
-            out(1);
-        }
-        return;
+        prefix[i] = min(prefix[i - 1] + 1, a[i]);
+    }
+    for (ll i = n - 2; i >= 0; i--)
+    {
+        suffix[i] = min(suffix[i + 1] + 1, a[i]);
     }
 
-    if (n == 3)
-    {
-        if (a[0] == 0)
-        {
-            out(1);
-        }
-        else if (a[1] == 0)
-        {
-            out(1);
-        }
-        else if (a[2] == 0)
-        {
-            out(1);
-        }
-        else
-        {
-            out(2);
-        }
-
-        return;
-    }
-
-    ll left = -1, right = -1;
     for (ll i = 0; i < n; i++)
     {
-        if (a[i] != 0)
-        {
-            left = i;
-            break;
-        }
+        ans = max(ans, min(prefix[i], suffix[i]));
     }
-
-    for (ll i = n - 1; i >= 0; i--)
-    {
-        if (a[i] != 0)
-        {
-            right = i;
-            break;
-        }
-    }
-
-    if (left == right andd left != -1)
-    {
-        if (a[left] != 0)
-        {
-            out(1);
-        }
-        else
-            out(0);
-
-        return;
-    }
-
-    vl remove;
-    for (ll i = left; i <= right; i++)
-    {
-        remove.pb(a[i]);
-    }
-
-    if (remove.size() == 0)
-    {
-        out(1);
-        return;
-    }
-    ll max_ele = remove[0];
-    ll count = 0;
-
-    for (ll i = 1; i < remove.size(); i++)
-    {
-        if (remove[i] == 0)
-            break;
-        ll diff = abs(max_ele - remove[i]);
-        diff++;
-        max_ele -= diff;
-        count++;
-        if (max_ele <= 0)
-        {
-            break;
-        }
-    }
-
-    out(count);
+    out(ans);
 }
 
 int main()
