@@ -148,20 +148,30 @@ void _print(map<T, V> v)
     cerr << "]";
 }
 
+const ll N = 60;
+vector<ll> all_nums(N + 1);
 void solve()
 {
 
-    ll h, m;
-    cin >> h >> m;
+    ll n;
+    cin >> n;
 
-    ll ans = (h * 12) % 360;
-    if (ans == m)
+    ll left = 0, right = N;
+
+    for (ll i = 1; i <= N; i++)
     {
-        out("yes");
-    }
-    else
-    {
-        out("no");
+        for (ll j = i; j <= N; j++)
+        {
+            for (ll k = j; k <= N; k++)
+            {
+                if (all_nums[i] + all_nums[j] + all_nums[k] == n)
+                {
+                    out(3);
+                    cout << i - 31 << sp << j - 31 << sp << k - 31 << nline;
+                    return;
+                }
+            }
+        }
     }
 }
 
@@ -173,6 +183,13 @@ int main()
     freopen("Error.txt", "w", stderr);
 #endif
 
+    ll start = -30;
+    for (ll i = 1; i <= N; i++)
+    {
+        all_nums[i] = start * start * start;
+        start++;
+    }
+    debug(all_nums);
     solve();
 
 #ifndef ONLINE_JUDGE
