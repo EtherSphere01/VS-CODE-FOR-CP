@@ -5,7 +5,8 @@ using namespace std;
 #define fastio()                      \
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);                    \
-    cout.tie(NULL)
+    cout.tie(NULL);                   \
+    cout.precision(numeric_limits<double>::max_digits10);
 #define MOD 1000000007
 #define MOD1 998244353
 #define INF 1e18
@@ -148,31 +149,36 @@ void _print(map<T, V> v)
     cerr << "]";
 }
 
-const ll N = 60;
-vector<ll> all_nums(N + 1);
 void solve()
 {
 
     ll n;
     cin >> n;
-
-    ll left = 0, right = N;
-
-    for (ll i = 1; i <= N; i++)
+    string s;
+    s = to_string(n);
+    ll len = s.length();
+    vl ans;
+    for (ll i = 1; i <= len; i++)
     {
-        for (ll j = i; j <= N; j++)
+        reverse(s.begin(), s.end());
+        reverse(s.begin(), s.begin() + 1);
+        reverse(s.begin() + 1, s.end());
+
+        ll val = stoll(s);
+        if (val > n)
         {
-            for (ll k = j; k <= N; k++)
+            ll diff = val - n;
+
+            if (diff % len == i % len)
             {
-                if (all_nums[i] + all_nums[j] + all_nums[k] == n)
-                {
-                    out(3);
-                    cout << i - 31 << sp << j - 31 << sp << k - 31 << nline;
-                    return;
-                }
+                ans.pb(diff);
             }
         }
     }
+    sort(all(ans));
+    out(sz(ans));
+    show(ans);
+    cout << nline;
 }
 
 int main()
@@ -183,14 +189,10 @@ int main()
     freopen("Error.txt", "w", stderr);
 #endif
 
-    ll start = -30;
-    for (ll i = 1; i <= N; i++)
-    {
-        all_nums[i] = start * start * start;
-        start++;
-    }
-    debug(all_nums);
-    solve();
+    int t;
+    cin >> t;
+    while (t--)
+        solve();
 
 #ifndef ONLINE_JUDGE
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
