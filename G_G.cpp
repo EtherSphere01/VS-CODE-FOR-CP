@@ -5,7 +5,8 @@ using namespace std;
 #define fastio()                      \
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);                    \
-    cout.tie(NULL)
+    cout.tie(NULL);                   \
+    cout.precision(numeric_limits<double>::max_digits10);
 #define MOD 1000000007
 #define MOD1 998244353
 #define INF 1e18
@@ -41,9 +42,15 @@ using namespace std;
 #define out(x) cout << x << nline
 #define rep(i, a, b) for (ll i = a; i < b; i++)
 #define rev(i, a, b) for (ll i = a; i >= b; i--)
-#define show(v, s, n)          \
+#define in(a)         \
+    for (auto &x : a) \
+        cin >> x;
+#define showr(v, s, n)         \
     for (ll i = s; i < n; i++) \
         cout << v[i] << sp;
+#define show(v)      \
+    for (auto i : v) \
+        cout << i << sp;
 #define show_rev(v, s, n)       \
     for (ll i = s; i >= n; i--) \
         cout << v[i] << sp;
@@ -144,54 +151,49 @@ void _print(map<T, V> v)
 
 void solve()
 {
+    string s;
+    cin >> s;
+    ll n = s.length();
+    ll ans = 1;
 
-    ll n;
-    cin >> n;
-    vl v(n);
-    rep(i, 0, n) cin >> v[i];
-
-    ll boro = 0;
-    if (n == 1)
+    for (ll i = 'a'; i <= 'z'; i++)
     {
-        out("Sprague");
-        return;
+        vl pos;
+        for (ll j = 0; j < n; j++)
+        {
+            if (s[j] == i)
+            {
+                pos.pb(j);
+            }
+        }
+
+        if (pos.size() > 0)
+        {
+            ll p = sz(pos);
+
+            ll temp = p * (p + 1) / 2;
+
+            ll curr = 1;
+            for (ll j = 1; j < p; j++)
+            {
+                if (pos[j] == pos[j - 1] + 1)
+                {
+                    curr++;
+                }
+                else
+                {
+
+                    temp -= curr * (curr - 1) / 2;
+                    curr = 1;
+                }
+            }
+            temp -= curr * (curr - 1) / 2;
+
+            ans += max(0LL, temp);
+        }
     }
 
-    rep(i, 0, n)
-    {
-        if (v[i] > 1)
-        {
-            boro++;
-        }
-    }
-
-    if (boro == 0)
-    {
-        if (n % 3 == 1)
-        {
-            out("Sprague");
-        }
-        else
-        {
-            out("Grundy");
-        }
-        return;
-    }
-
-    if (boro == 1)
-    {
-        if (n % 3 == 2)
-        {
-            out("Grundy");
-        }
-        else
-        {
-            out("Sprague");
-        }
-        return;
-    }
-
-    out("Grundy");
+    out(ans);
 }
 
 int main()
