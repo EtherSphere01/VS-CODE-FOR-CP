@@ -149,35 +149,62 @@ void _print(map<T, V> v)
 }
 
 int n, m;
-
 vector<vector<char>> grid;
+vector<vector<pair<int, int>>> parent;
+vector<vector<int>> visited;
+
 bool is_valid(int x, int y)
 {
-    return (x >= 0 and x < n and y >= 0 and y < m and grid[x][y] == '.');
+    return (x >= 0 and x < n and y >= 0 and y < m and grid[x][y] != '#' and visited[x][y] == 0);
 }
-int moves[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
-void dfs(int x, int y)
+int dx[4] = {1, -1, 0, 0};
+int dy[4] = {0, 0, 1, -1};
+
+bool bfs(int start_x, int start_y, int end_x, int end_y)
 {
-    grid[x][y] = '#';
-    for (auto move : moves)
+    queue<pair<int, int>> q;
+    q.push({start_x, start_y});
+    visited[start_x][start_y] = 1;
+    parent[start_x][start_y] = {-1, -1};
+
+    while (!q.empty())
     {
-        int new_x = x + move[0];
-        int new_y = y + move[1];
-        if (is_valid(new_x, new_y))
+        auto ele = q.front();
+        q.pop();
+        int x = ele.ff;
+        int y = ele.ss;
+
+        if (x == end_x and y == end_y)
         {
-            dfs(new_x, new_y);
+            return true;
+        }
+
+        for (int i = 0; i < 4; i++)
+        {
+            int new_x = x + dx[i];
+            int new_y = y + dy[i];
+            if (is_valid(new_x, new_y))
+            {
+                q.push({new_x, new_y});
+                visited[new_x][new_y] = 1;
+                parent[new_x][new_y] = {x, y};
+            }
         }
     }
+
+    return false;
 }
 
 void solve()
 {
-
     cin >> n >> m;
-
     grid.resize(n, vector<char>(m));
+    parent.resize(n, vector<pair<int, int>>(m, {-1, -1}));
+    visited.resize(n, vector<int>(m, 0));
 
+    int start_x = -1, start_y = -1;
+    int end_x = -1, end_y = -1;
     for (int i = 0; i < n; i++)
     {
         string s;
@@ -185,22 +212,62 @@ void solve()
         for (int j = 0; j < m; j++)
         {
             grid[i][j] = s[j];
-        }
-    }
-
-    int ans = 0;
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < m; j++)
-        {
-            if (grid[i][j] == '.')
+            if (s[j] == 'A')
             {
-                ans++;
-                dfs(i, j);
+                start_x = i;
+                start_y = j;
+            }
+            else if (s[j] == 'B')
+            {
+                end_x = i;
+                end_y = j;
             }
         }
     }
-    out(ans);
+
+    if (bfs(start_x, start_y, end_x, end_y))
+    {
+        yes;
+        vector<char> path;
+        int x = end_x;
+        int y = end_y;
+        while (x != start_x or y != start_y)
+        {
+            auto p = parent[x][y];
+            int px = p.ff;
+            int py = p.ss;
+            if (px == x - 1 and py == y)
+            {
+                path.pb('D');
+            }
+            else if (px == x + 1 and py == y)
+            {
+                path.pb('U');
+            }
+            else if (px == x and py == y - 1)
+            {
+                path.pb('R');
+            }
+            else if (px == x and py == y + 1)
+            {
+                path.pb('L');
+            }
+            x = px;
+            y = py;
+        }
+
+        reverse(all(path));
+        out(sz(path));
+        for (auto c : path)
+        {
+            cout << c;
+        }
+        cout << nline;
+    }
+    else
+    {
+        no;
+    }
 }
 
 int main()
