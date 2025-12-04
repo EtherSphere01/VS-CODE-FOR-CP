@@ -148,26 +148,17 @@ void _print(map<T, V> v)
     cerr << "]";
 }
 
-const ll N = 2e5 + 4;
 ll n, m;
+const ll N = 2e5 + 5;
 vector<ll> adj[N];
-vector<ll> team(N + 1, -1);
 vector<ll> visited(N + 1, 0);
 vector<ll> parent(N + 1, -1);
+ll cycle_start = -1, cycle_end = -1;
 
 bool dfs(ll src, ll par = -1)
 {
     visited[src] = 1;
     parent[src] = par;
-
-    if (par == -1)
-    {
-        team[src] = 1;
-    }
-    else
-    {
-        team[src] = 3 - team[par]; // Alternate between 1 and 2
-    }
 
     for (auto child : adj[src])
     {
@@ -176,22 +167,22 @@ bool dfs(ll src, ll par = -1)
 
         if (visited[child])
         {
-            // Check if child has same team as current node (odd cycle detected)
-            if (team[child] == team[src])
-                return false;
+            cycle_start = child;
+            cycle_end = src;
+            return true;
         }
-        else
-        {
-            if (!dfs(child, src))
-                return false;
-        }
+
+        if (dfs(child, src))
+            return true;
     }
-    return true;
+    return false;
 }
+
 void solve()
 {
     cin >> n >> m;
-    for (int i = 0; i < m; i++)
+
+    for (ll i = 0; i < m; i++)
     {
         ll u, v;
         cin >> u >> v;
@@ -199,23 +190,37 @@ void solve()
         adj[v].pb(u);
     }
 
-    for (int i = 1; i <= n; i++)
+    bool found = false;
+    for (ll i = 1; i <= n; i++)
     {
         if (!visited[i])
         {
-            bool check = dfs(i);
-
-            if (check == false)
+            if (dfs(i))
             {
-                out("IMPOSSIBLE");
-                return;
+                found = true;
+                break;
             }
         }
     }
-    for (int i = 1; i <= n; i++)
+
+    if (!found)
     {
-        cout << team[i] << sp;
+        out("IMPOSSIBLE");
+        return;
     }
+
+    vector<ll> ans;
+    ll x = cycle_end;
+    while (x != cycle_start)
+    {
+        ans.pb(x);
+        x = parent[x];
+    }
+    ans.pb(cycle_start);
+    ans.pb(cycle_end);
+
+    out(sz(ans));
+    show(ans);
     cout << nline;
 }
 
