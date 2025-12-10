@@ -152,48 +152,46 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll n, t;
-    cin >> n >> t;
-    vpair arr;
-    arr.pb({0, 0});
-    for (ll i = 0; i < n; i++)
+    ll n;
+    cin >> n;
+    vl odd, even;
+    rep(i, 0, n)
     {
-        ll x, y;
-        cin >> x >> y;
-        arr.pb({x, y});
+        ll x;
+        cin >> x;
+        if (x & 1)
+            odd.pb(x);
+        else
+            even.pb(x);
+    }
+
+    if (odd.size() == 0)
+    {
+        out(0);
+        return;
     }
 
     ll ans = 0;
-    for (ll i = 1; i <= n; i++)
+    for (auto x : even)
     {
-        ll abs_diff = abs(arr[i].ff - arr[i - 1].ff);
-        if (arr[i].ss == arr[i - 1].ss)
-        {
-            if (abs_diff & 1)
-            {
-                ans += abs_diff - 1;
-            }
-            else
-            {
-                ans += abs_diff;
-            }
-        }
-        else
-        {
-            if (abs_diff & 1)
-            {
-                ans += abs_diff;
-            }
-            else
-            {
-                ans += abs_diff - 1;
-            }
-        }
+        ans += x;
     }
 
-    if (arr.back().ff != t)
+    sort(allr(odd));
+    ll size = odd.size();
+    if (size & 1)
     {
-        ans += abs(arr.back().ff - t);
+        size = size / 2;
+        size++;
+    }
+    else
+    {
+        size = size / 2;
+    }
+
+    for (ll i = 0; i < size; i++)
+    {
+        ans += odd[i];
     }
     out(ans);
 }
