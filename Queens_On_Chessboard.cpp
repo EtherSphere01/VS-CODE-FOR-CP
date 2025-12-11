@@ -67,8 +67,62 @@ typedef long long ll;
 typedef unsigned long long ull;
 typedef long double lld;
 
+int queen[20];
+char grid[8][8];
+bool check(int row, int col)
+{
+    for (int i = 0; i < row; i++)
+    {
+        int prow = i;
+        int pcol = queen[i];
+
+        if (pcol == col || abs(prow - row) == abs(pcol - col))
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int rec(int level)
+{
+    if (level == 8)
+    {
+        return 1;
+    }
+
+    int ans = 0;
+    for (int col = 0; col < 8; col++)
+    {
+        if (grid[level][col] != '*' && check(level, col))
+        {
+            queen[level] = col;
+            ans += rec(level + 1);
+            queen[level] = -1;
+        }
+    }
+
+    return ans;
+}
 void solve()
 {
+
+    for (int i = 0; i < 8; i++)
+    {
+        string s;
+        cin >> s;
+        for (int j = 0; j < 8; j++)
+        {
+            grid[i][j] = s[j];
+        }
+    }
+    for (int i = 0; i < 20; i++)
+    {
+        queen[i] = -1;
+    }
+
+    int ans = rec(0);
+    out(ans);
 }
 
 int main()
@@ -79,10 +133,7 @@ int main()
     freopen("Error.txt", "w", stderr);
 #endif
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+    solve();
 
 #ifndef ONLINE_JUDGE
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
