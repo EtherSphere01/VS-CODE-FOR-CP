@@ -182,11 +182,7 @@ void solve()
 
     ll x;
     cin >> x;
-    ll y = -1;
-
-    ll start = x;
-    ll end = x * 2;
-    y = find_y(x, start, end);
+    ll y = 2 * x;
     out(y);
 }
 
