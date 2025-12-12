@@ -127,7 +127,7 @@ void solve()
 
         if (rec(1, t) == 1)
         {
-            cout << 1 << nline;
+            cout << 1 << nline; 
         }
         else
         {
