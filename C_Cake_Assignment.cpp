@@ -87,7 +87,7 @@ int rec(int level, int left)
         }
         else
         {
-            return -1;
+            return 0;
         }
     }
 
@@ -97,7 +97,7 @@ int rec(int level, int left)
         return dp[level][left];
     }
     // transition
-    int ans = -1;
+    int ans = 0;
     if (rec(level + 1, left) == 1)
     {
         ans = 1;
@@ -114,7 +114,7 @@ void solve()
 {
     int q;
     cin >> n >> q;
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i <= n; i++)
     {
         cin >> x[i];
     }
@@ -125,7 +125,14 @@ void solve()
         int t;
         cin >> t;
 
-        cout << rec(1, t) << nline;
+        if (rec(1, t) == 1)
+        {
+            cout << 1 << nline;
+        }
+        else
+        {
+            cout << -1 << nline;
+        }
     }
 }
 
