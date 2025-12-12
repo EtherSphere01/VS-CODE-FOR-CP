@@ -66,119 +66,67 @@ using namespace std;
 typedef long long ll;
 typedef unsigned long long ull;
 typedef long double lld;
-// typedef tree<pair<int, int>, null_type, less<pair<int, int>>, rb_tree_tag, tree_order_statistics_node_update > pbds; // find_by_order, order_of_key
 
-#ifndef ONLINE_JUDGE
-#define debug(x)       \
-    cerr << #x << " "; \
-    _print(x);         \
-    cerr << endl;
-#else
-#define debug(x)
-#endif
+int n;
+int x[105];
+int dp[105][100100];
 
-void _print(ll t) { cerr << t; }
-void _print(int t) { cerr << t; }
-void _print(string t) { cerr << t; }
-void _print(char t) { cerr << t; }
-void _print(lld t) { cerr << t; }
-void _print(double t) { cerr << t; }
-void _print(ull t) { cerr << t; }
+int rec(int level, int left)
+{
+    // pruning
+    if (left < 0)
+    {
+        return 0;
+    }
+    // basecase
+    if (level == n + 1)
+    {
+        if (left == 0)
+        {
+            return 1;
+        }
+        else
+        {
+            return -1;
+        }
+    }
 
-template <class T, class V>
-void _print(pair<T, V> p);
-template <class T>
-void _print(vector<T> v);
-template <class T>
-void _print(set<T> v);
-template <class T, class V>
-void _print(map<T, V> v);
-template <class T>
-void _print(multiset<T> v);
-template <class T, class V>
-void _print(pair<T, V> p)
-{
-    cerr << "{";
-    _print(p.ff);
-    cerr << ",";
-    _print(p.ss);
-    cerr << "}";
-}
-template <class T>
-void _print(vector<T> v)
-{
-    cerr << "[ ";
-    for (T i : v)
+    // caching check
+    if (dp[level][left] != -1)
     {
-        _print(i);
-        cerr << " ";
+        return dp[level][left];
     }
-    cerr << "]";
-}
-template <class T>
-void _print(set<T> v)
-{
-    cerr << "[ ";
-    for (T i : v)
+    // transition
+    int ans = -1;
+    if (rec(level + 1, left) == 1)
     {
-        _print(i);
-        cerr << " ";
+        ans = 1;
     }
-    cerr << "]";
-}
-template <class T>
-void _print(multiset<T> v)
-{
-    cerr << "[ ";
-    for (T i : v)
+    else if (rec(level + 1, left - x[level]) == 1)
     {
-        _print(i);
-        cerr << " ";
+        ans = 1;
     }
-    cerr << "]";
-}
-template <class T, class V>
-void _print(map<T, V> v)
-{
-    cerr << "[ ";
-    for (auto i : v)
-    {
-        _print(i);
-        cerr << " ";
-    }
-    cerr << "]";
+
+    return dp[level][left] = ans;
 }
 
 void solve()
 {
-
-    ll k, x;
-    cin >> k >> x;
-    ll a = x;
-    ll b = (1LL << (k + 1)) - x;
-    ll target = (1LL << k);
-
-    vector<ll> res;
-    while (a != b)
+    int q;
+    cin >> n >> q;
+    for (int i = 0; i < n; i++)
     {
-        if (a < target)
-        {
-            b -= a;
-            a *= 2;
-            res.pb(1);
-        }
-        else if (b < target)
-        {
-            a -= b;
-            b *= 2;
-            res.pb(2);
-        }
+        cin >> x[i];
     }
 
-    reverse(all(res));
-    out(sz(res));
-    show(res);
-    cout << nline;
+    memset(dp, -1, sizeof(dp));
+    while (q--)
+    {
+        int t;
+        cin >> t;
+
+        cout << rec(1, t) << nline;
+    }
 }
 
 int main()
@@ -189,10 +137,7 @@ int main()
     freopen("Error.txt", "w", stderr);
 #endif
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+    solve();
 
 #ifndef ONLINE_JUDGE
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";
