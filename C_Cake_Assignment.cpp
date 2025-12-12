@@ -110,6 +110,24 @@ int rec(int level, int left)
     return dp[level][left] = ans;
 }
 
+void print_set(int level, int left)
+{
+    if (level == n + 1)
+    {
+        return;
+    }
+
+    if (rec(level + 1, left) == 1)
+    {
+        print_set(level + 1, left);
+    }
+    else if (rec(level + 1, left - x[level]) == 1)
+    {
+        cout << x[level] << sp;
+        print_set(level + 1, left - x[level]);
+    }
+}
+
 void solve()
 {
     int q;
@@ -127,7 +145,8 @@ void solve()
 
         if (rec(1, t) == 1)
         {
-            cout << 1 << nline; 
+            print_set(1, t);
+            cout << nline;
         }
         else
         {
