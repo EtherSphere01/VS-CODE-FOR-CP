@@ -5,8 +5,7 @@ using namespace std;
 #define fastio()                      \
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);                    \
-    cout.tie(NULL);                   \
-    cout.precision(numeric_limits<double>::max_digits10);
+    cout.tie(NULL)
 #define MOD 1000000007
 #define MOD1 998244353
 #define INF 1e18
@@ -149,62 +148,14 @@ void _print(map<T, V> v)
     cerr << "]";
 }
 
-void topoSort(ll node, vl adj[], vl &visited, stack<ll> &st)
-{
-    visited[node] = 1;
-    for (auto it : adj[node])
-    {
-        if (!visited[it])
-        {
-            topoSort(it, adj, visited, st);
-        }
-    }
-    st.push(node);
-}
-
 void solve()
 {
 
-    ll n;
-    cin >> n;
-    vl adj[n + 1];
-    vl visited(n + 1, 0);
-    for (ll i = 1; i < n; i++)
-    {
-        ll u, v, x, y;
-        cin >> u >> v >> x >> y;
-        if (x >= y)
-        {
-            adj[u].pb(v);
-        }
-        else
-        {
-            adj[v].pb(u);
-        }
-    }
+    int n, m;
+    cin >> n >> m;
 
-    stack<ll> st;
-    for (int i = 1; i <= n; i++)
-    {
-        if (!visited[i])
-        {
-            topoSort(i, adj, visited, st);
-        }
-    }
-    ll k = n;
-    vl ans(n + 1, 0);
-    while (!st.empty())
-    {
-        ll node = st.top();
-        st.pop();
-        ans[node] = k;
-        k--;
-    }
-    for (ll i = 1; i <= n; i++)
-    {
-        cout << ans[i] << sp;
-    }
-    cout << nline;
+    int ans = n - m;
+    cout << max(ans, 0) << nline;
 }
 
 int main()
@@ -215,10 +166,7 @@ int main()
     freopen("Error.txt", "w", stderr);
 #endif
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+    solve();
 
 #ifndef ONLINE_JUDGE
     cerr << "Time : " << (1000 * ((double)clock()) / (double)CLOCKS_PER_SEC) * 0.001 << "s\n";

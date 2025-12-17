@@ -149,62 +149,22 @@ void _print(map<T, V> v)
     cerr << "]";
 }
 
-void topoSort(ll node, vl adj[], vl &visited, stack<ll> &st)
-{
-    visited[node] = 1;
-    for (auto it : adj[node])
-    {
-        if (!visited[it])
-        {
-            topoSort(it, adj, visited, st);
-        }
-    }
-    st.push(node);
-}
-
 void solve()
 {
 
-    ll n;
-    cin >> n;
-    vl adj[n + 1];
-    vl visited(n + 1, 0);
-    for (ll i = 1; i < n; i++)
-    {
-        ll u, v, x, y;
-        cin >> u >> v >> x >> y;
-        if (x >= y)
-        {
-            adj[u].pb(v);
-        }
-        else
-        {
-            adj[v].pb(u);
-        }
-    }
+    ll n, m;
+    cin >> n >> m;
 
-    stack<ll> st;
-    for (int i = 1; i <= n; i++)
+    ll x = ((3 * n) - m) / 2;
+    ll y = (m - n) / 2;
+
+    ll ans = x + (3 * y);
+    if (ans == m && x + y == n && x >= 0 && y >= 0)
     {
-        if (!visited[i])
-        {
-            topoSort(i, adj, visited, st);
-        }
+        yes;
+        return;
     }
-    ll k = n;
-    vl ans(n + 1, 0);
-    while (!st.empty())
-    {
-        ll node = st.top();
-        st.pop();
-        ans[node] = k;
-        k--;
-    }
-    for (ll i = 1; i <= n; i++)
-    {
-        cout << ans[i] << sp;
-    }
-    cout << nline;
+    no;
 }
 
 int main()
