@@ -151,105 +151,51 @@ void _print(map<T, V> v)
 
 void solve()
 {
-    int n, m;
+
+    ll n, m;
     cin >> n >> m;
-    vector<string> gr(n);
-    for (int i = 0; i < n; ++i)
+    vector<vector<char>> grid(n, vector<char>(m));
+    for (ll i = 0; i < n; i++)
     {
-        cin >> gr[i];
-    }
-
-    bool possible = false;
-
-    // Check if top-left and bottom-right are the same
-    if (gr[0][0] == gr[n - 1][m - 1])
-    {
-        possible = true;
-    }
-
-    // Check for a path from top-left to top-right or bottom-left
-    char start_color = gr[0][0];
-    bool path1_found = false;
-    for (int j = 0; j < m - 1; ++j)
-    {
-        if (gr[0][j] == start_color && gr[0][j + 1] == start_color)
+        string s;
+        cin >> s;
+        for (ll j = 0; j < m; j++)
         {
-            path1_found = true;
-            break;
-        }
-    }
-    if (path1_found)
-    {
-        char end_color_at_top_right = gr[0][m - 1];
-        if (end_color_at_top_right == gr[n - 1][m - 1])
-        {
-            possible = true;
+            grid[i][j] = s[j];
         }
     }
 
-    bool path2_found = false;
-    for (int i = 0; i < n - 1; ++i)
-    {
-        if (gr[i][0] == start_color && gr[i + 1][0] == start_color)
-        {
-            path2_found = true;
-            break;
-        }
-    }
-    if (path2_found)
-    {
-        char end_color_at_bottom_left = gr[n - 1][0];
-        if (end_color_at_bottom_left == gr[n - 1][m - 1])
-        {
-            possible = true;
-        }
-    }
+    string ans = "YES";
+    bool impossible = true;
 
-    // Check for a path from bottom-right to top-right or bottom-left
-    char end_color = gr[n - 1][m - 1];
-    bool path3_found = false;
-    for (int j = 0; j < m - 1; ++j)
+    if (grid[0][0] != grid[n - 1][m - 1])
     {
-        if (gr[n - 1][j] == end_color && gr[n - 1][j + 1] == end_color)
+        for (ll j = 0; j < m - 1; j++)
         {
-            path3_found = true;
-            break;
+            if (grid[0][j] != grid[0][j + 1] or grid[n - 1][j] != grid[n - 1][j + 1])
+            {
+                impossible = false;
+            }
         }
-    }
+        if (impossible)
+        {
+            ans = "NO";
+        }
 
-    if (path3_found)
-    {
-        if (gr[0][0] == gr[0][m - 1])
+        impossible = true;
+        for (ll i = 0; i < n - 1; i++)
         {
-            possible = true;
+            if (grid[i][0] != grid[i + 1][0] or grid[i][m - 1] != grid[i + 1][m - 1])
+            {
+                impossible = false;
+            }
+        }
+        if (impossible)
+        {
+            ans = "NO";
         }
     }
-
-    bool path4_found = false;
-    for (int i = 0; i < n - 1; ++i)
-    {
-        if (gr[i][m - 1] == end_color && gr[i + 1][m - 1] == end_color)
-        {
-            path4_found = true;
-            break;
-        }
-    }
-    if (path4_found)
-    {
-        if (gr[0][0] == gr[n - 1][0])
-        {
-            possible = true;
-        }
-    }
-
-    if (possible)
-    {
-        cout << "YES" << endl;
-    }
-    else
-    {
-        cout << "NO" << endl;
-    }
+    out(ans);
 }
 
 int main()
