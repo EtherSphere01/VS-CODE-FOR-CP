@@ -151,11 +151,11 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    int n, m;
-    cin >> n >> m;
-
-    int ans = n - m;
-    cout << max(ans, 0) << nline;
+    ll a, b;
+    cin >> a >> b;
+    for (ll i = 0; i < a; i++){
+        
+    }
 }
 
 int main()
