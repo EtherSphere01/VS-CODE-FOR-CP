@@ -154,7 +154,8 @@ void solve()
     ll a, b;
     cin >> a >> b;
     for (ll i = 0; i < a; i++){
-        
+        int x = i % 2;
+        cout << string(b, (x == 0 ? '#' : '.')) << nline;
     }
 }
 
