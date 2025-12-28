@@ -149,38 +149,29 @@ void _print(map<T, V> v)
     cerr << "]";
 }
 
-const ll N = 2e5 + 5;
-ll dp[N][2];
-vector<ll> arr;
-ll n;
-
-ll rec(ll level, ll sum, ll state)
-{
-    if (level == n)
-    {
-        return sum;
-    }
-    if (dp[level][state] != -1)
-    {
-        return dp[level][state];
-    }
-    ll ans = 0;
-    ll first = rec(level + 1, sum + arr[level], 0);
-    ll second = rec(level + 1, sum - arr[level], 1);
-    ans = max(first, second);
-    return dp[level][state] = ans;
-}
-
 void solve()
 {
 
+    ll n;
     cin >> n;
-    arr.resize(n);
-    in(arr);
-    mem1(dp);
-    ll ans = rec(0, 0, 0);
-    ll ans2 = rec(0, 0, 1);
-    out(max(ans, ans2));
+    vl a(n);
+    in(a);
+
+    ll post[n + 1];
+    post[n] = 0;
+    post[n - 1] = a[n - 1];
+    rev(i, n - 2, 0)
+    {
+        post[i] = post[i + 1] + a[i];
+    }
+    ll ans = -post[1];
+    ll sum = a[0];
+    rep(i, 1, n)
+    {
+        ans = max(ans, sum - post[i + 1]);
+        sum += abs(a[i]);
+    }
+    out(ans);
 }
 
 int main()
