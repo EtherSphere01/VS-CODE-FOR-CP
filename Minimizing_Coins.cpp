@@ -5,7 +5,8 @@ using namespace std;
 #define fastio()                      \
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);                    \
-    cout.tie(NULL)
+    cout.tie(NULL);                   \
+    cout.precision(numeric_limits<double>::max_digits10);
 #define MOD 1000000007
 #define MOD1 998244353
 #define INF 1e18
@@ -41,9 +42,15 @@ using namespace std;
 #define out(x) cout << x << nline
 #define rep(i, a, b) for (ll i = a; i < b; i++)
 #define rev(i, a, b) for (ll i = a; i >= b; i--)
-#define show(v, s, n)          \
+#define in(a)         \
+    for (auto &x : a) \
+        cin >> x;
+#define showr(v, s, n)         \
     for (ll i = s; i < n; i++) \
         cout << v[i] << sp;
+#define show(v)      \
+    for (auto i : v) \
+        cout << i << sp;
 #define show_rev(v, s, n)       \
     for (ll i = s; i >= n; i--) \
         cout << v[i] << sp;
@@ -147,31 +154,25 @@ void solve()
 
     ll n, x;
     cin >> n >> x;
-    vl a(n);
-    for (ll i = 0; i < n; i++)
-    {
-        cin >> a[i];
-    }
+    vl coins(n);
     vl dp(x + 1, INT_MAX);
+    in(coins);
     dp[0] = 0;
     for (ll i = 1; i <= x; i++)
     {
         for (ll j = 0; j < n; j++)
         {
-            if (i - a[j] >= 0)
+            if (coins[j] <= i)
             {
-                dp[i] = min(dp[i], dp[i - a[j]] + 1);
+                dp[i] = min(dp[i], dp[i - coins[j]] + 1);
             }
         }
     }
+
     if (dp[x] == INT_MAX)
-    {
-        cout << -1 << nline;
-    }
+        out(-1);
     else
-    {
-        cout << dp[x] << nline;
-    }
+        out(dp[x]);
 }
 
 int main()

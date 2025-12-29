@@ -147,21 +147,26 @@ void solve()
 
     ll n;
     cin >> n;
-    vl dp(n + 1, 0);
-    dp[0] = 1;
-    for (ll i = 1; i <= n; i++)
+    vector<ll> dp(n + 1, 0);
+    for (ll i = 0; i <= n; i++)
     {
-        for (ll j = 1; j <= 6; j++)
+        if (i == 0)
         {
-            if (j <= i)
+            dp[i] = 1;
+        }
+        else
+        {
+            dp[i] = 0;
+            for (ll j = 1; j <= 6; j++)
             {
-                dp[i] = (dp[i] + dp[i - j]) % MOD;
-                // cout << dp[i] << sp;
+                if (j <= i)
+                {
+                    dp[i] = (dp[i] + dp[i - j]) % MOD;
+                }
             }
         }
-        // cout << nline;
     }
-    cout << dp[n] << nline;
+    out(dp[n] % MOD);
 }
 
 int main()
