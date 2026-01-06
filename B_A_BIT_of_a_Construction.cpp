@@ -155,21 +155,31 @@ void solve()
     ll n, k;
     cin >> n >> k;
     vl a(n, 0);
-    ll sum = 1;
-    a[n - 1] = k;
-    for (ll i = 0; i < n - 1; i++)
+    ll sum = 0;
+
+    ll curr = 1;
+    ll indx = 0;
+    if (n == 1)
     {
-        if (sum <= a[n-1])
+        cout << k << nline;
+        return;
+    }
+    while (k > 0)
+    {
+        if ((sum + curr) <= k)
         {
-            a[n - 1] = a[n-1] - sum;
-            a[i] = sum;
-            sum *= 2;
+            sum += curr;
+            curr *= 2;
         }
         else
         {
+            a[indx] = sum;
+            indx++;
+            k -= sum;
             break;
         }
     }
+    a[indx] = k;
     show(a);
     cout << nline;
 }
