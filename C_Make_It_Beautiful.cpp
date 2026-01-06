@@ -77,7 +77,19 @@ void solve()
 
     cout << ans << nline;
 }
-
+ll powermod(ll a,ll b) {
+    ll ans = 1;
+    while(b > 0) {
+        if((b & 1) == 1) {
+            ans *= a;
+            ans %= MOD;
+        }
+        a *= a;
+        a %= MOD;
+        b = b >> 1;
+    }
+    return ans;
+}
 int main()
 {
 #ifdef PRADY
