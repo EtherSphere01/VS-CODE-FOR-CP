@@ -151,32 +151,33 @@ void _print(map<T, V> v)
 void solve()
 {
 
-    ll n, m;
-    cin >> n >> m;
-    ll dp[505][505];
-    for (ll i = 1; i <= 500; i++)
+    ll n;
+    cin >> n;
+    vl a(n);
+    in(a);
+    ll sum = accumulate(all(a), 0LL);
+    vector<bool> dp(sum + 1, false);
+    dp[0] = true;
+    for (ll i = 0; i < n; i++)
     {
-        for (ll j = 1; j <= 500; j++)
+        rev(j, sum, a[i])
         {
-            if (i == j)
+            if (dp[j - a[i]] == true)
             {
-                dp[i][j] = 0;
-            }
-            else
-            {
-                dp[i][j] = INF;
-                for (ll a = 1; a <= i - 1; a++)
-                {
-                    dp[i][j] = min(dp[i][j], 1 + dp[a][j] + dp[i - a][j]);
-                }
-                for (ll b = 1; b <= j - 1; b++)
-                {
-                    dp[i][j] = min(dp[i][j], 1 + dp[i][b] + dp[i][j - b]);
-                }
+                dp[j] = true;
             }
         }
     }
-    out(dp[n][m]);
+    vl res;
+    for (ll i = 1; i <= sum; i++)
+    {
+        if (dp[i])
+        {
+            res.pb(i);
+        }
+    }
+    out(sz(res));
+    show(res);
 }
 
 int main()
