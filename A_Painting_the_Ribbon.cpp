@@ -156,6 +156,7 @@ void solve()
     cin >> n >> a >> b;
 
     ll part = ceil((double)n / a);
+    part = n - part;
     if (b >= part)
     {
         no;
