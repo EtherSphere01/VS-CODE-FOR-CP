@@ -5,7 +5,8 @@ using namespace std;
 #define fastio()                      \
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);                    \
-    cout.tie(NULL)
+    cout.tie(NULL);                   \
+    cout.precision(numeric_limits<double>::max_digits10);
 #define MOD 1000000007
 #define MOD1 998244353
 #define INF 1e18
@@ -41,9 +42,15 @@ using namespace std;
 #define out(x) cout << x << nline
 #define rep(i, a, b) for (ll i = a; i < b; i++)
 #define rev(i, a, b) for (ll i = a; i >= b; i--)
-#define show(v, s, n)          \
+#define in(a)         \
+    for (auto &x : a) \
+        cin >> x;
+#define showr(v, s, n)         \
     for (ll i = s; i < n; i++) \
         cout << v[i] << sp;
+#define show(v)      \
+    for (auto i : v) \
+        cout << i << sp;
 #define show_rev(v, s, n)       \
     for (ll i = s; i >= n; i--) \
         cout << v[i] << sp;
@@ -144,66 +151,55 @@ void _print(map<T, V> v)
 
 void solve()
 {
-
+    ll n;
+    cin >> n;
     string s;
-    ll k;
-    cin >> s >> k;
-    ll n = s.size();
-    set<char> alphabet;
+    cin >> s;
 
-    for (char c = 'a'; c <= 'z'; c++)
-    {
-        alphabet.insert(c);
-    }
+    ll alice = 0, bob = 0;
 
-    for (auto c : s)
+    for (ll i = 0; i < n; i++)
     {
-        alphabet.erase(c);
-    }
+        ll left_a = 0, right_a = 0, left_b = 0, right_b = 0;
 
-    if (k == n)
-    {
-        out(s);
-        return;
-    }
-
-    if (k == 0)
-    {
-        if (alphabet.size() < n)
+        if (s[i] == '.')
         {
-            out("NOPE");
-        }
-        else
-        {
-            string result;
-            auto it = alphabet.begin();
-            for (ll i = 0; i < n; i++)
+            if (i > 0 andd s[i - 1] == 'a')
             {
-                result += *it;
-                it++;
+                left_a = 1;
             }
-            out(result);
-        }
-        return;
-    }
-
-    string temp = s;
-    ll opp = 0;
-
-    for (ll i = 0; i < n && opp < (n - k); i++)
-    {
-        for (char c = 'a'; c <= 'z'; c++)
-        {
-            if (c != s[i])
+            if (i < n - 1 andd s[i + 1] == 'a')
             {
-                temp[i] = c;
-                opp++;
-                break;
+                right_a = 1;
+            }
+            if (i > 0 andd s[i - 1] == 'b')
+            {
+                left_b = 1;
+            }
+            if (i < n - 1 andd s[i + 1] == 'b')
+            {
+                right_b = 1;
+            }
+
+            if (left_a == 0 && right_a == 0)
+            {
+                alice++;
+            }
+            if (left_b == 0 && right_b == 0)
+            {
+                bob++;
             }
         }
     }
 
-    out(temp);
+    if (alice > bob)
+    {
+        out("alice");
+    }
+    else
+    {
+        out("bob");
+    }
 }
 
 int main()
