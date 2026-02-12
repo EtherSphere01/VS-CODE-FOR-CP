@@ -156,35 +156,49 @@ void solve()
     vl p(n);
     vl a(n);
     in(p);
-    vl noteq;
-
-    for (ll i = 0; i < n; ++i)
+    in(a);
+    vl temp = p;
+    bool f = true;
+    for (ll i = n - 1; i >= 0; i--)
     {
-        cin >> a[i];
-        if (i == 0 || a[i] != a[i - 1])
+        if (a[i] == p[i])
+            continue;
+
+        if (i == 0)
         {
-            noteq.pb(a[i]);
+            if (p[i + 1] == a[i] || temp[i + 1] == a[i])
+                p[i] = a[i];
+            else
+            {
+                f = false;
+                break;
+            }
+        }
+
+        if (i == n - 1)
+        {
+            if (p[i - 1] == a[i] || temp[i - 1] == a[i])
+                p[i] = a[i];
+            else
+            {
+                f = false;
+                break;
+            }
+        }
+        if (p[i - 1] == a[i] || temp[i - 1] == a[i])
+            p[i] = a[i];
+        else if (p[i + 1] == a[i] || temp[i + 1] == a[i])
+            p[i] = a[i];
+        else
+        {
+            f = false;
+            break;
         }
     }
 
-    ll pval = 0, aval = 0;
-    while (pval < n && aval < noteq.size())
-    {
-        if (p[pval] == noteq[aval])
-        {
-            aval++;
-        }
-        pval++;
-    }
+    debug(p);
 
-    if (aval == noteq.size())
-    {
-        yes;
-    }
-    else
-    {
-        no;
-    }
+    yesno(f);
 }
 int main()
 {
