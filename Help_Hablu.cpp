@@ -48,18 +48,18 @@ void solve()
     string s, t;
     cin >> s >> t;
 
-    ll sizes = s.size();
-    ll sizet = t.size();
+    ll szs = s.size();
+    ll szt = 3;
 
-    vector<vector<ll>> dp(sizes + 1, vector<ll>(sizet + 1, 0));
-    for (ll i = 0; i <= sizes; i++)
+    vector<vector<ll>> dp(szs + 1, vector<ll>(szt + 1, 0));
+    for (ll i = 0; i <= szs; i++)
     {
         dp[i][0] = 1;
     }
 
-    for (ll i = 1; i <= sizes; i++)
+    for (ll i = 1; i <= szs; i++)
     {
-        for (ll j = 1; j <= sizet; j++)
+        for (ll j = 1; j <= szt; j++)
         {
             if (s[i - 1] == t[j - 1])
             {
@@ -72,16 +72,7 @@ void solve()
         }
     }
 
-    // for(auto i:dp)
-    // {
-    //     for(auto j:i)
-    //     {
-    //         cout<<j<<" ";
-    //     }
-    //     cout<<nline;
-    // }
-
-    out(dp[sizes][sizet]);
+    out(dp[szs][szt]);
 }
 
 int main()
