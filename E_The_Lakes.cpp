@@ -164,13 +164,21 @@ bool is_valid(ll x, ll y)
     return true;
 }
 
-void dfs(ll x, ll y, ll val = 0)
+ll dfs(ll x, ll y, ll val)
 {
     isVisited[x][y] = 1;
-    for (ll i = 0; i < 4; i++){
+    for (ll i = 0; i < 4; i++)
+    {
         ll new_x = x + dx[i];
         ll new_y = y + dy[i];
+
+        if (is_valid(new_x, new_y))
+        {
+            val += grid[new_x][new_y];
+            val = dfs(new_x, new_y, val);
+        }
     }
+    return val;
 }
 
 void solve()
@@ -182,8 +190,22 @@ void solve()
         for (ll j = 0; j < m; j++)
         {
             cin >> grid[i][j];
+            isVisited[i][j] = 0;
         }
     }
+
+    ll ans = 0;
+    for (ll i = 0; i < n; i++)
+    {
+        for (ll j = 0; j < m; j++)
+        {
+            if (grid[i][j] != 0 and isVisited[i][j] == 0)
+            {
+                ans = max(ans, dfs(i, j, grid[i][j]));
+            }
+        }
+    }
+    out(ans);
 }
 
 int main()
