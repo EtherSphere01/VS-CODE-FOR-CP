@@ -7,9 +7,6 @@ using namespace std;
     cin.tie(NULL);                    \
     cout.tie(NULL);                   \
     cout.precision(numeric_limits<double>::max_digits10);
-#define MOD 1000000007
-#define MOD1 998244353
-#define INF 1e18
 #define nline "\n"
 #define sp " "
 #define pb push_back
